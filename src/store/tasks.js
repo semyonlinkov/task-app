@@ -24,21 +24,45 @@ export const $taskStatus = combine(
 		if (isLoading) {
 			return []
 		} else {
-			console.log(data)
 			if (toogle === 'gettedTasks') {
-				return data.filter(task => task.customerID == user.ID)
+				return data.filter(task => task.customerID == user.ID);
 			}
 			if (toogle === 'takenTasks') {
 				let customers = [];
 				const newData = data.filter(task => task.creatorID == user.ID);
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
-						customers.push(el.customer)
+						customers.push(el.customer);
 					}
 				})
-
-				return newData
+				console.log(newData, customers);
+				return newData;
 			}
 		}
 	}
 )
+
+export const $customersStatus = combine(
+	$tasks, getTasks.pending, $toogleValue, $user,
+	(data, isLoading, toogle, user) => {
+		if (isLoading) {
+			return []
+		} else {
+			if (toogle === 'gettedTasks') {
+				return data.filter(task => task.customerID == user.ID);
+			}
+			if (toogle === 'takenTasks') {
+				let customers = [];
+				const newData = data.filter(task => task.creatorID == user.ID);
+				newData.forEach(el => {
+					if (customers.indexOf(el.customer) === -1) {
+						customers.push(el.customer);
+					}
+				})
+				console.log(newData, customers);
+				return customers;
+			}
+		}
+	}
+)
+

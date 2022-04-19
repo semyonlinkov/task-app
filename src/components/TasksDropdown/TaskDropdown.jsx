@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './TaskDropdown.module.scss';
 
-const TaskDropdown = ({ name = 'abame', count = 0, children }) => {
+const TaskDropdown = ({ customer, amountOfTasks, children }) => {
 	return (
 		<div className={styles.wrapper} >
-			{name} - {count}
+			{customer} - {amountOfTasks}
 			{children}
 		</div>
 	);

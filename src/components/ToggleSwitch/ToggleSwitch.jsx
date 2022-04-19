@@ -9,6 +9,7 @@ const ToggleSwitch = () => {
 	return (
 		<div className={styles['toggle-switch']}>
 			<input
+				onChange={() => {}}
 				type="checkbox"
 				className={styles['toggle-switch-checkbox']}
 				checked={toogleValue === 'takenTasks'}
