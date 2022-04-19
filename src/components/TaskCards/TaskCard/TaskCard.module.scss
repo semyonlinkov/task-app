@@ -1,0 +1,35 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	margin: 5px 10px;
+	font-size: 12px;
+
+	.title_wrapper {
+		display: flex;
+		align-items: center;
+		margin: 10px 0px;
+	}
+
+	.indication_mark {
+		height: 25px;
+		min-width: 25px;
+		border-radius: 100px;
+		margin: 0 10px;
+	}
+
+	.done {
+		background-color: green;
+	}
+
+	.in_progress {
+		background-color: red;
+	}
+
+	.new {
+		background-color: orange;
+	}
+
+	hr {
+		margin-top: 10px;
+	}
+}
