@@ -9,7 +9,6 @@ import TaskBlock from './components/Task/Task';
 import { getTasks } from './services-api/getTasks';
 
 function App() {
-console.log('test')
 
 	useEffect(() => {
 		if (window.bx24) {
