@@ -10,6 +10,7 @@ import { useStore } from 'effector-react';
 import { $getWorkers } from './store/workers';
 
 function App() {
+
 	const workers = useStore($getWorkers);
 
 	useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
 		}
 
 	}, []);
+
 
 	return (
 		<div className="app">

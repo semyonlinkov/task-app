@@ -16,19 +16,28 @@ export const TaskCard = ({ task }) => {
 		}
 	}
 
+	const getNormalName = (name) => {
+		const nameArray = name.split(' ');
+		if (nameArray.length < 3) {
+			return `${nameArray[0]} ${nameArray[1]}`
+		} else {
+			return `${nameArray[0]} ${nameArray[1][0]}.${nameArray[2][0]}`
+		}
+	}
+
+
 	return (
 		<div onClick={() => navigate(`/tasks/${task.id}`)} className={`${styles.wrapper} p-2`}>
 			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
 			<div className={styles.task_data}>
-				{task.status && <p><b>Статус задачи</b>: {task.status}</p>}
-				{task.client && <p><b>Клиент</b>: {task.client}</p>}
-				{task.client_phone && <p><b>Номер телефона</b>: {task.client_phone}</p>}
-				{task.creator_name && <p><b>Постановщик</b>: {task.creator_name}</p>}
-				{task.departament && <p><b>Отдел</b>: {task.departament}</p>}
-				{task.customer && <p><b>Выполняющий</b>: {task.customer}</p>}
-				{task.so_customer && <p><b>Совыполняющий</b>: {task.so_customer}</p>}
-				{task.desc && <p><b>Описание задачи</b>: {task.desc}</p>}
-				{task.date_create && <p className={styles.date}><b>Дата</b>: {moment(task.date_create).format('MM DD YYYY')}</p>}
+				{task.object_name && <p style={{fontSize: 14}}>{task.object_name}</p>}
+				{task.object_address && <p style={{fontSize: 14}}>{task.object_address}</p>}
+				{task.desc && <p className={styles.desc}>{task.desc}</p>}
+				{task.creatorName && <p>Постановщик: <span>{getNormalName(task.creatorName)}</span></p>}
+				{task.client_phone || task.clinet_name ? <p>Данные клиента: <span>{task.client_phone} - {task.clinet_name}</span></p> : null}
+				{task.date_deadline !== '0000-00-00 00:00:00' ? <p>Выполнить до: <span>{moment(task.date_deadline).format('DD.MM.YYYY')}</span></p> : null}
+
+				{task.date_create && <p className={styles.date}>{moment(task.date_create).format('DD.MM.YYYY')}</p>}
 			</div>
 		</div >
 	)

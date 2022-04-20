@@ -21,6 +21,7 @@ const TaskCardsBlock = () => {
 		}
 	}, [user])
 
+
 	return (
 		<div className={styles.wrapper}>
 			{toogleValue === 'gettedTasks'

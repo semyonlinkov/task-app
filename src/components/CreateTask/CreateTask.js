@@ -20,13 +20,15 @@ const employes = [
 
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();
-	const { register, handleSubmit, watch, formState } = useForm();
+	const { register, handleSubmit, watch, formState, setValue} = useForm();
 	const [department, setDepartment] = useState('');
 	const [files, setFiles] = useState(0);
 	const user = useStore($user)
-	const onSubmit = data => createTast(data, user, () => navigate('/tasks'));
+	// const onSubmit = data => createTast(data, user, () => navigate('/'));
+
+	const onSubmit = data => console.log(data);
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
-	const departments = ['Бухгалтерия', 'Кадры', 'Склад'];
+	const departments = ['', 'Бухгалтерия', 'Кадры', 'Склад'];
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
@@ -54,21 +56,23 @@ const CreateTaskBlock = () => {
 			</label>
 			<label>
 				<p>Отдел</p>
-				<select {...register('department')} onChange={(e) => setDepartment(e.target.value)} value={departments[0]}>
+				<select {...register('department')} onChange={(e) => {
+					setDepartment(e.target.value)
+					setValue('executor', employes.filter(el => el.department === e.target.value)[0].title)
+					setValue('coexecutor', employes.filter(el => el.department === e.target.value)[0].title)
+				}} >
 					{departments.map(department => <option value={department}>{department}</option>)}
 				</select >
 			</label>
 			<label>
 				<p>Исполнитель</p>
 				<select {...register('executor')}>
-					<option value="" disabled defaultValue hidden>Please Choose...</option>
 					{employes.filter(el => el.department === department).map(el => <option value={`${user.ID}:${el.title}`}>{el.title}</option>)}
 				</select>
 			</label>
 			<label>
 				<p>Соисполнитель</p>
 				<select {...register('coexecutor')}>
-					<option value="" disabled defaultValue hidden>Please Choose...</option>
 					{employes.filter(el => el.department === department).map(el => <option value={el.title}>{el.title}</option>)}
 				</select>
 			</label>
