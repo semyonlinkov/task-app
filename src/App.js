@@ -6,9 +6,12 @@ import { setUser } from "./store/user";
 import CreateTaskBlock from "./components/CreateTask/CreateTask";
 import TaskCardsBlock from './components/TaskCards/TaskCards';
 import TaskBlock from './components/Task/Task';
-import { getTasks } from './services-api/getTasks';
+import { useStore } from 'effector-react';
+import { $getWorkers } from './store/workers';
 
 function App() {
+	const workers = useStore($getWorkers);
+
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -26,7 +29,7 @@ function App() {
 	return (
 		<div className="app">
 			<BrowserRouter  >
-				<Header /><p>asdfasdfasdfasd</p>
+				<Header />
 				<Routes>
 					<Route path="/" element={<TaskCardsBlock />} />
 					<Route path="/create_task" element={<CreateTaskBlock />} />
