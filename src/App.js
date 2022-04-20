@@ -26,7 +26,7 @@ function App() {
 	return (
 		<div className="app">
 			<BrowserRouter  >
-				<Header />
+				<Header /><p>asdfasdfasdfasd</p>
 				<Routes>
 					<Route path="/" element={<TaskCardsBlock />} />
 					<Route path="/create_task" element={<CreateTaskBlock />} />
