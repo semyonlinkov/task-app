@@ -6,13 +6,10 @@ import { setUser } from "./store/user";
 import CreateTaskBlock from "./components/CreateTask/CreateTask";
 import TaskCardsBlock from './components/TaskCards/TaskCards';
 import TaskBlock from './components/Task/Task';
-import { useStore } from 'effector-react';
-import { $getWorkers } from './store/workers';
+import { getWorkers } from './store/workers';
+
 
 function App() {
-
-	const workers = useStore($getWorkers);
-
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -25,6 +22,8 @@ function App() {
 			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
 		}
 
+
+		getWorkers();
 	}, []);
 
 

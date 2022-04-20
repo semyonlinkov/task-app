@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
+import { $workerStatus } from '../../store/workers';
 
 const employes = [
 	{ title: 'Иванов Иван Иванович1', department: 'Бухгалтерия', id: 1 },
@@ -20,15 +21,17 @@ const employes = [
 
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();
-	const { register, handleSubmit, watch, formState, setValue} = useForm();
+	const { register, handleSubmit, watch, formState, setValue } = useForm();
 	const [department, setDepartment] = useState('');
 	const [files, setFiles] = useState(0);
-	const user = useStore($user)
-	// const onSubmit = data => createTast(data, user, () => navigate('/'));
+	const user = useStore($user);
+	const onSubmit = data => createTast(data, user, () => navigate('/'));
+	const workers = useStore($workerStatus);
 
-	const onSubmit = data => console.log(data);
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 	const departments = ['', 'Бухгалтерия', 'Кадры', 'Склад'];
+
+	console.log(watch())
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
@@ -58,22 +61,24 @@ const CreateTaskBlock = () => {
 				<p>Отдел</p>
 				<select {...register('department')} onChange={(e) => {
 					setDepartment(e.target.value)
-					setValue('executor', employes.filter(el => el.department === e.target.value)[0].title)
-					setValue('coexecutor', employes.filter(el => el.department === e.target.value)[0].title)
+					const pohui = Object.values(workers[department])[0];
+					setValue('executor', `${pohui.ID}:${pohui.NAME}`);
 				}} >
-					{departments.map(department => <option value={department}>{department}</option>)}
+					{/* {workers.map(department => <option value={department}>{department}</option>)} */}
+					{Object.keys(workers).map(department => <option value={department}>{department}</option>)}
 				</select >
 			</label>
 			<label>
 				<p>Исполнитель</p>
 				<select {...register('executor')}>
-					{employes.filter(el => el.department === department).map(el => <option value={`${user.ID}:${el.title}`}>{el.title}</option>)}
+					{/* {employes.filter(el => el.department === department).map(el => <option value={`${user.ID}:${el.title}`}>{el.title}</option>)} */}
+					{department && Object.values(workers[department]).map(el => <option value={`${el.ID}:${el.NAME}`}>{el.NAME}</option>)}
 				</select>
 			</label>
 			<label>
 				<p>Соисполнитель</p>
 				<select {...register('coexecutor')}>
-					{employes.filter(el => el.department === department).map(el => <option value={el.title}>{el.title}</option>)}
+					{/* {employes.filter(el => el.department === department).map(el => <option value={el.title}>{el.title}</option>)} */}
 				</select>
 			</label>
 			<label>

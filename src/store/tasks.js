@@ -10,7 +10,7 @@ export const getTasks = createEffect(async (id) => {
 	const base = 'https://volga24bot.com/tasks';
 	const req = await fetch(`${base}/${url}`);
 
-	return req.json()
+	return req.json();
 })
 
 
