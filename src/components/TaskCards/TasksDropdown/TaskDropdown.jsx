@@ -29,7 +29,7 @@ const TaskDropdown = ({ name, amountOfTasks = 10 }) => {
 					src={chevron}
 				/>
 			</div>
-			{isOpen ? tasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
+			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
 		</div>
 	);
 };
