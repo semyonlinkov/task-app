@@ -9,9 +9,6 @@ import TaskBlock from './components/Task/Task';
 import { getTasks } from './services-api/getTasks';
 
 function App() {
-
-
-
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -25,7 +22,6 @@ function App() {
 		}
 
 	}, []);
-
 
 	return (
 		<div className="app">

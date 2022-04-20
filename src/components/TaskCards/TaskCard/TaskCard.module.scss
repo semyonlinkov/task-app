@@ -1,24 +1,28 @@
 .wrapper {
 	display: flex;
-	flex-direction: column;
-	margin: 5px 10px;
+	width: 100%;
+	padding: 5px 10px 0 0;
 	font-size: 12px;
+	border-bottom: 1px solid black;
 
-	.title_wrapper {
-		display: flex;
-		align-items: center;
-		margin: 10px 0px;
+	p {
+		padding: 3px;
 	}
 
 	.indication_mark {
 		height: 25px;
 		min-width: 25px;
 		border-radius: 100px;
-		margin: 0 10px;
+		margin: 10px;
 	}
 
-	.date {
-		align-self: flex-end;
+	.task_data {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		.date {
+			align-self: end;
+		}
 	}
 
 	.done {
@@ -26,11 +30,11 @@
 	}
 
 	.in_progress {
-		background-color: red;
+		background-color: blue;
 	}
 
 	.new {
-		background-color: orange;
+		background-color: red;
 	}
 
 	hr {
