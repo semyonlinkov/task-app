@@ -80,11 +80,11 @@ const CreateTaskBlock = () => {
 				<p>Комментарий</p>
 				<textarea placeholder="Комментарий" {...register('comment')} />
 			</label>
-			<label className={styles.btn_sub} >
+			<label className={styles.btn_file} >
 				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />
 				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
 			</label>
-			<input className={styles.btn_file} type="submit" value="Создать заявку" onClick={() => console.log(watch("files"))} />
+			<input className={styles.btn_sub} type="submit" value="Создать заявку" onClick={() => console.log(watch("files"))} />
 		</form >
 	);
 }

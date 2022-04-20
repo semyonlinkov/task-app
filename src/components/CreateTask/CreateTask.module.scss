@@ -33,6 +33,7 @@
 	}
 
 	.btn_file {
+		position: relative;
 		height: 40px;
 		border: none;
 		color: white;
@@ -40,6 +41,14 @@
 		text-decoration: none;
 		display: inline-block;
 		background-color: #4caf50;
+		z-index: -10;
+		margin: 10px 0; 
+		p {
+			font-weight: 400;
+			position: relative;
+			top: 10px;
+			z-index: 0;
+		}
 	}
 
 	input[type='file'] {
@@ -48,19 +57,11 @@
 
 	.btn_sub {
 		display: inline-block;
-		position: relative;
 		height: 40px;
 		border: none;
 		color: white;
 		text-align: center;
 		text-decoration: none;
 		background-color: #4caf50;
-		margin: 10px 0;
-		z-index: -10;
-		p {
-			position: relative;
-			top: 10px;
-			z-index: 0;
-		}
 	}
 }

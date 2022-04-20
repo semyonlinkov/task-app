@@ -21,7 +21,6 @@ const TaskCardsBlock = () => {
 		}
 	}, [user])
 
-
 	return (
 		<div className={styles.wrapper}>
 			{toogleValue === 'gettedTasks'
@@ -31,7 +30,7 @@ const TaskCardsBlock = () => {
 				))
 				:
 				customers.map(name => (
-					<TaskDropdown name={name} />
+					<TaskDropdown name={name} key={name} />
 				))
 			}
 		</div>

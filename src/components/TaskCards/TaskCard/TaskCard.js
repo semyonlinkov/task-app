@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './TaskCard.module.scss';
@@ -21,15 +22,15 @@ export const TaskCard = ({ task }) => {
 				<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
 				<h3>{task.status}</h3>
 			</div >
-			<p><b>Клиент</b>: {task.client}</p>
-			<p><b>Номер телефона</b>: {task.client_phone}</p>
-			<p><b>Постановщик</b>: {task.creator_name}</p>
-			<p><b>Отдел</b>: {task.departament}</p>
-			<p><b>Выполняющий</b>: {task.customer}</p>
-			<p><b>Совыполняющий</b>: {task.so_customer}</p>
-			<p><b>Описание задачи</b>: {task.desc}</p>
-			<p className={styles.date}><b>Дата</b>: {task.date}</p>
-			<hr />
+			{task.client && <p><b>Клиент</b>: {task.client}</p>}
+			{task.client_phone && <p><b>Номер телефона</b>: {task.client_phone}</p>}
+			{task.creator_name && <p><b>Постановщик</b>: {task.creator_name}</p>}
+			{task.departament && <p><b>Отдел</b>: {task.departament}</p>}
+			{task.customer && <p><b>Выполняющий</b>: {task.customer}</p>}
+			{task.so_customer && <p><b>Совыполняющий</b>: {task.so_customer}</p>}
+			{task.desc && <p><b>Описание задачи</b>: {task.desc}</p>}
+			{task.date_create && <p className={styles.date}><b>Дата</b>: {moment(task.date_create).format('MMMM Do YYYY')}</p>}
+			< hr />
 		</div >
 	)
 }

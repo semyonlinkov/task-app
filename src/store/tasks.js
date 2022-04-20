@@ -35,7 +35,6 @@ export const $taskStatus = combine(
 						customers.push(el.customer);
 					}
 				})
-				console.log(newData, customers);
 				return newData;
 			}
 		}
@@ -59,7 +58,6 @@ export const $customersStatus = combine(
 						customers.push(el.customer);
 					}
 				})
-				console.log(data)
 				return customers;
 			}
 		}
