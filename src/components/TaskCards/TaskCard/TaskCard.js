@@ -28,7 +28,7 @@ export const TaskCard = ({ task }) => {
 				{task.customer && <p><b>Выполняющий</b>: {task.customer}</p>}
 				{task.so_customer && <p><b>Совыполняющий</b>: {task.so_customer}</p>}
 				{task.desc && <p><b>Описание задачи</b>: {task.desc}</p>}
-				{task.date_create && <p className={styles.date}><b>Дата</b>: {moment(task.date_create).format('MMMM Do YYYY')}</p>}
+				{task.date_create && <p className={styles.date}><b>Дата</b>: {moment(task.date_create).format('MM DD YYYY')}</p>}
 			</div>
 		</div >
 	)
