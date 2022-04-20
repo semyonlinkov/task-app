@@ -59,7 +59,7 @@ export const $customersStatus = combine(
 						customers.push(el.customer);
 					}
 				})
-				console.log(newData, customers);
+				console.log(data)
 				return customers;
 			}
 		}

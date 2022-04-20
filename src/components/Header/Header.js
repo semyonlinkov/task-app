@@ -13,7 +13,7 @@ const Header = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			{pathname === '/tasks'
+			{pathname === '/'
 				? <div className={styles.toggle_switch}>
 					<ToggleSwitch />
 					{toggleValue === 'gettedTasks' ? <p>Поставленные мне</p> : <p>Поставленные мной</p>}

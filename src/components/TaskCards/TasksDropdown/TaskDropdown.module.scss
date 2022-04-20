@@ -1,0 +1,24 @@
+.wrapper {
+	.dropdown {
+		display: flex;
+		box-sizing: border-box;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px 10px;
+		border-bottom: 1px solid black;
+		p {
+			flex: 1;
+		}
+		hr {
+			width: 100%;
+			margin: 0 25px;
+		}
+		.chevron {
+			height: 15px;
+			width: 15px;
+		}
+		.open {
+			transform: rotate(180deg);
+		}
+	}
+}

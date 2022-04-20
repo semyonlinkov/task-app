@@ -30,7 +30,7 @@ function App() {
 			<BrowserRouter  >
 				<Header />
 				<Routes>
-					<Route path="/tasks" element={<TaskCardsBlock />} />
+					<Route path="/" element={<TaskCardsBlock />} />
 					<Route path="/create_task" element={<CreateTaskBlock />} />
 					<Route path="/tasks/:id" element={<TaskBlock />} />
 					<Route path="*" element={<h1>404</h1>} />

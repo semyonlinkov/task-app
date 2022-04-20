@@ -13,7 +13,7 @@ const BurgerMenu = () => {
 			<Menu
 				isOpen={menuToogle}
 				onStateChange={(state) => changeMenuToogle(state.isOpen)}>
-				<Link to="/tasks" style={nav === 'my' ? { textDecoration: 'underline' } : null} onClick={() => {
+				<Link to="/" style={nav === 'my' ? { textDecoration: 'underline' } : null} onClick={() => {
 					setNav('my')
 					changeMenuToogle(false)
 				}}>Мои задачи</Link>

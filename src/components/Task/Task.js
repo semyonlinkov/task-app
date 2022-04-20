@@ -20,7 +20,7 @@ const Task = () => {
 
 	return (
 		<div>
-			<input className={styles['arrow-back']} type="image" src={arrow} onClick={() => navigate('/tasks')} />
+			<input className={styles['arrow-back']} type="image" src={arrow} onClick={() => navigate('/')} />
 			<pre>
 				{JSON.stringify(tasks.find(task => task.id == id), null, 2)}
 			</pre >
