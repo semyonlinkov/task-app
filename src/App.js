@@ -12,6 +12,7 @@ function App() {
 
 
 	console.log(test)
+	console.log(mytest)
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
