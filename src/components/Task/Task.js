@@ -1,42 +1,77 @@
-import React, { useLayoutEffect } from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { tasks } from '../../fakeData/data';
 import { setShowBurger } from '../../store/showBurgerState';
 
 import styles from './Task.module.scss';
-import arrow from '../../img/arrow.png';
+import {setSingleTask} from "../../store/selectedTask";
+import {$showSingleTask} from "../../store/tasks";
+import {useStore} from "effector-react";
+import Back from '../../img/left-arrow.png'
+import Info from '../../img/icons8-info-50.png'
+import Files from '../../img/icons8-cloud-file-40.png'
+import History from '../../img/icons8-time-machine-40.png'
+import Chat from '../../img/icons8-chat-40.png'
+import MainData from "./MainData";
+
+
 
 const Task = () => {
 	const navigate = useNavigate();
 	const { id } = useParams();
+	const task = useStore($showSingleTask);
+
+
+	const [nav, setNav] = useState('info')
 
 	useLayoutEffect(() => {
 		setShowBurger(false);
+		setSingleTask(id)
 		return () => {
 			setShowBurger(true);
+			setSingleTask(0)
 		}
 	}, []);
 
+
 	return (
-		<div>
-			<input className={styles['arrow-back']} type="image" src={arrow} onClick={() => navigate('/')} />
-			<pre>
-				{JSON.stringify(tasks.find(task => task.id == id), null, 2)}
-			</pre >
-			<p>Статус</p>
-			<p>Новая</p>
-			<p>Ответственный</p>
-			<p>Киселёв К.В</p>
-			<p>Исполнитель</p>
-			<p>Киселёв К.В</p>
-			<p>Название объекта</p>
-			<p>Адрес объекта</p>
-			<p>Описание</p>
-			<p>Упал провод ПС с потолка.СРОЧНО! с.Солянка, ул.Луговая, д.12а</p >
-			<p>Клиент</p>
-			<p>89275600039 - ИП Сафиулаева Гадиля Искандеровна</p>
-			<p>Время на работу</p>
+		<div style={{position: 'relative'}}>
+			<div className={styles.top_blocks}>
+				<header className={styles.header}>
+					<img src={Back} alt="" className={styles.arrow_back} onClick={() => navigate('/')}/>
+				</header>
+				<ul className={styles.nav}>
+					<li onClick={() => setNav('info')} className={nav === 'info' ? styles.active : null}>
+						<img src={Info} alt=""/>
+					</li>
+					<li onClick={() => setNav('files')} className={nav === 'files' ? styles.active : null}>
+						<img src={Files} alt=""/>
+					</li>
+					<li onClick={() => setNav('history')} className={nav === 'history' ? styles.active : null}>
+						<img src={History} alt=""/>
+					</li>
+					<li onClick={() => setNav('chat')} className={nav === 'chat' ? styles.active : null}>
+						<img src={Chat} alt=""/>
+					</li>
+				</ul>
+			</div>
+			<div className={styles.body}>
+				{nav === 'info' ? <MainData task={task}/> : null}
+			</div>
+			<div>
+				<ul className={styles.bottom_menu}>
+					<li onClick={() => setNav('info')} className={nav === 'info' ? styles.active : null}>
+						<img src={Info} alt=""/>
+					</li>
+					<li onClick={() => setNav('files')} className={nav === 'files' ? styles.active : null}>
+						<img src={Files} alt=""/>
+					</li>
+					<li onClick={() => setNav('history')} className={nav === 'history' ? styles.active : null}>
+						<img src={History} alt=""/>
+					</li>
+
+				</ul>
+			</div>
 		</div >
 	)
 }

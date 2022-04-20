@@ -1,6 +1,7 @@
 import { createStore, createEffect, combine } from 'effector'
 import { $toogleValue } from './taskToogleState';
 import { $user } from './user';
+import {$singleTask} from "./selectedTask";
 
 
 export const getTasks = createEffect(async (id) => {
@@ -64,3 +65,16 @@ export const $customersStatus = combine(
 	}
 )
 
+
+export const $showSingleTask = combine(
+	$tasks, getTasks.pending, $singleTask,
+	(data, isLoading, id) => {
+		if (isLoading) {
+			return []
+		} else {
+
+			return data.filter(el => el.id === id)[0]
+		}
+
+	}
+)
