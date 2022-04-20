@@ -1,24 +1,32 @@
 .wrapper {
 	display: flex;
-	flex-direction: column;
-	margin: 5px 10px;
-	font-size: 12px;
+	width: 100%;
 
-	.title_wrapper {
-		display: flex;
-		align-items: center;
-		margin: 10px 0px;
+
+	font-size: 13px;
+	font-weight: 400;
+	border-bottom: 1px solid black;
+
+	p {
+		padding: 2px;
 	}
 
 	.indication_mark {
-		height: 25px;
-		min-width: 25px;
+		height: 16px;
+		min-width: 16px;
 		border-radius: 100px;
-		margin: 0 10px;
+		margin: 10px;
 	}
 
-	.date {
-		align-self: flex-end;
+	.task_data {
+		padding: 6px 20px 0 0;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		.date {
+			align-self: end;
+			padding: 5px 0;
+		}
 	}
 
 	.done {
@@ -26,14 +34,27 @@
 	}
 
 	.in_progress {
-		background-color: red;
+		background-color: blue;
 	}
 
 	.new {
-		background-color: orange;
+		background-color: red;
 	}
 
 	hr {
 		margin-top: 10px;
 	}
+
+	span {
+		font-weight: 500;
+	}
+}
+
+
+.desc {
+	background: #e3e3e3;
+	padding: 5px !important;
+	font-size: 14px;
+	margin: 8px 0;
+	border-radius: 3px;
 }

@@ -53,9 +53,12 @@ export const $customersStatus = combine(
 			}
 			if (toogle === 'takenTasks') {
 				let customers = [];
+
 				const newData = data.filter(task => task.creatorID == user.ID);
+				console.log(newData)
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
+						console.log(customers, el.customer)
 						customers.push(el.customer);
 					}
 				})
