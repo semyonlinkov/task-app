@@ -55,6 +55,10 @@
 		display: none;
 	}
 
+	.btn_file:focus {
+		background-color: #165218;
+	}
+
 	.btn_sub {
 		display: inline-block;
 		height: 40px;

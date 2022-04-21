@@ -6,8 +6,7 @@ import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
-import { $isLoading, setIsLoading } from '../../store/loadingState';
-import { $menuToogle } from '../../store/navState';
+import { setIsLoading } from '../../store/loadingState';
 
 const employes = [
 	{ title: 'Иванов Иван Иванович1', department: 'Бухгалтерия', id: 1 },
@@ -30,9 +29,6 @@ const CreateTaskBlock = () => {
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
 	const onSubmit = data => createTast(data, user, () => navigate('/'));
-	const menuToogle = useStore($menuToogle);
-
-	console.log(menuToogle)
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
@@ -112,7 +108,7 @@ const CreateTaskBlock = () => {
 				<p>Комментарий</p>
 				<textarea placeholder="Комментарий" {...register('comment')} />
 			</label>
-			<label className={styles.btn_file} style={{ zIndex: menuToogle ? -10 : 10 }}>
+			<label className={styles.btn_file}>
 				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />
 				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
 			</label>

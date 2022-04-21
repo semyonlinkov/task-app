@@ -1,18 +1,24 @@
 import styles from './Header.module.scss'
-import BurgerMenu from "../BurgerMenu/BurgerMenu";
-import { $showBurger } from '../../store/showBurgerState';
 import { useStore } from 'effector-react';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import { $toogleValue } from '../../store/taskToogleState';
-import { useLocation } from 'react-router-dom';
+import { $toggleValue } from '../../store/taskToggleState';
+import { useLocation, useNavigate } from 'react-router-dom';
+import create from '../../img/create-task-3.png';
+import cross from '../../img/cross-2.png';
 
 const Header = () => {
-	const showBurger = useStore($showBurger);
-	const toggleValue = useStore($toogleValue);
+	const toggleValue = useStore($toggleValue);
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 
 	return (
 		<div className={styles.wrapper}>
+			<input
+				className={styles.task_img}
+				type="image"
+				src={pathname === '/' ? create : cross}
+				onClick={() => pathname === '/' ? navigate('/create_task') : navigate('/')}
+			/>
 			{pathname === '/'
 				? <div className={styles.toggle_switch}>
 					<ToggleSwitch />
@@ -20,7 +26,6 @@ const Header = () => {
 				</div>
 				: null
 			}
-			{showBurger && <BurgerMenu />}
 		</div>
 	)
 }

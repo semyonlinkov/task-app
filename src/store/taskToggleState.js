@@ -1,8 +1,8 @@
 import { createEvent, createStore } from 'effector'
 
-export const setToogle = createEvent();
+export const setToggle = createEvent();
 
-export const $toogleValue = createStore('gettedTasks').on(
-	setToogle,
+export const $toggleValue = createStore('gettedTasks').on(
+	setToggle,
 	(prev) => prev === 'gettedTasks' ? 'takenTasks' : 'gettedTasks'
 );

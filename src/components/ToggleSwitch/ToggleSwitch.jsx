@@ -1,10 +1,10 @@
-import { useStore } from 'effector-react';
 import React from 'react';
-import { $toogleValue, setToogle } from '../../store/taskToogleState';
+import { useStore } from 'effector-react';
+import { $toggleValue, setToggle } from '../../store/taskToggleState';
 import styles from './ToggleSwitch.module.scss';
 
 const ToggleSwitch = () => {
-	const toogleValue = useStore($toogleValue);
+	const toggleValue = useStore($toggleValue);
 
 	return (
 		<div className={styles['toggle-switch']}>
@@ -12,12 +12,12 @@ const ToggleSwitch = () => {
 				onChange={() => {}}
 				type="checkbox"
 				className={styles['toggle-switch-checkbox']}
-				checked={toogleValue === 'takenTasks'}
+				checked={toggleValue === 'takenTasks'}
 			/>
 			<label
 				className={styles['toggle-switch-label']}
 				onClick={() => {
-					setToogle();
+					setToggle();
 				}}>
 				<span className={styles['toggle-switch-inner']} />
 				<span className={styles['toggle-switch-switch']} />

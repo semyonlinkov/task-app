@@ -1,18 +1,15 @@
 import './App.css';
 import Header from "./components/Header/Header";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { setUser } from "./store/user";
 import CreateTaskBlock from "./components/CreateTask/CreateTask";
 import TaskCardsBlock from './components/TaskCards/TaskCards';
 import TaskBlock from './components/Task/Task';
-import { $workerStatus, getWorkers } from './store/workers';
-import { useStore } from 'effector-react';
+import { getWorkers } from './store/workers';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
-import { $isLoading } from './store/loadingState';
 
 function App() {
-
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;

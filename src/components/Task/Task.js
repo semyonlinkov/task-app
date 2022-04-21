@@ -1,12 +1,10 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { setShowBurger } from '../../store/showBurgerState';
-
 import styles from './Task.module.scss';
-import {setSingleTask} from "../../store/selectedTask";
-import {$showSingleTask} from "../../store/tasks";
-import {useStore} from "effector-react";
+import { setSingleTask } from "../../store/selectedTask";
+import { $showSingleTask } from "../../store/tasks";
+import { useStore } from "effector-react";
 import Back from '../../img/left-arrow.png'
 import Info from '../../img/icons8-info-50.png'
 import Files from '../../img/icons8-cloud-file-40.png'
@@ -22,52 +20,50 @@ const Task = () => {
 	const task = useStore($showSingleTask);
 
 
-	const [nav, setNav] = useState('info')
+	const [nav, setNav] = useState('info');
 
 	useLayoutEffect(() => {
-		setShowBurger(false);
 		setSingleTask(id)
 		return () => {
-			setShowBurger(true);
 			setSingleTask(0)
 		}
 	}, []);
 
 
 	return (
-		<div style={{position: 'relative'}}>
+		<div style={{ position: 'relative' }}>
 			<div className={styles.top_blocks}>
 				<header className={styles.header}>
-					<img src={Back} alt="" className={styles.arrow_back} onClick={() => navigate('/')}/>
+					<img src={Back} alt="" className={styles.arrow_back} onClick={() => navigate('/')} />
 				</header>
 				<ul className={styles.nav}>
 					<li onClick={() => setNav('info')} className={nav === 'info' ? styles.active : null}>
-						<img src={Info} alt=""/>
+						<img src={Info} alt="" />
 					</li>
 					<li onClick={() => setNav('files')} className={nav === 'files' ? styles.active : null}>
-						<img src={Files} alt=""/>
+						<img src={Files} alt="" />
 					</li>
 					<li onClick={() => setNav('history')} className={nav === 'history' ? styles.active : null}>
-						<img src={History} alt=""/>
+						<img src={History} alt="" />
 					</li>
 					<li onClick={() => setNav('chat')} className={nav === 'chat' ? styles.active : null}>
-						<img src={Chat} alt=""/>
+						<img src={Chat} alt="" />
 					</li>
 				</ul>
 			</div>
 			<div className={styles.body}>
-				{nav === 'info' ? <MainData task={task}/> : null}
+				{nav === 'info' ? <MainData task={task} /> : null}
 			</div>
 			<div>
 				<ul className={styles.bottom_menu}>
 					<li onClick={() => setNav('info')} className={nav === 'info' ? styles.active : null}>
-						<img src={Info} alt=""/>
+						<img src={Info} alt="" />
 					</li>
 					<li onClick={() => setNav('files')} className={nav === 'files' ? styles.active : null}>
-						<img src={Files} alt=""/>
+						<img src={Files} alt="" />
 					</li>
 					<li onClick={() => setNav('history')} className={nav === 'history' ? styles.active : null}>
-						<img src={History} alt=""/>
+						<img src={History} alt="" />
 					</li>
 
 				</ul>

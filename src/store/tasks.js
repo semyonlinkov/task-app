@@ -1,5 +1,5 @@
 import { createStore, createEffect, combine } from 'effector'
-import { $toogleValue } from './taskToogleState';
+import { $toggleValue } from './taskToggleState';
 import { $user } from './user';
 import {$singleTask} from "./selectedTask";
 
@@ -20,15 +20,15 @@ const $tasks = createStore([]).on(
 )
 
 export const $taskStatus = combine(
-	$tasks, getTasks.pending, $toogleValue, $user,
-	(data, isLoading, toogle, user) => {
+	$tasks, getTasks.pending, $toggleValue, $user,
+	(data, isLoading, toggle, user) => {
 		if (isLoading) {
 			return []
 		} else {
-			if (toogle === 'gettedTasks') {
+			if (toggle === 'gettedTasks') {
 				return data.filter(task => task.customerID == user.ID);
 			}
-			if (toogle === 'takenTasks') {
+			if (toggle === 'takenTasks') {
 				let customers = [];
 				const newData = data.filter(task => task.creatorID == user.ID);
 				newData.forEach(el => {
@@ -43,15 +43,15 @@ export const $taskStatus = combine(
 )
 
 export const $customersStatus = combine(
-	$tasks, getTasks.pending, $toogleValue, $user,
-	(data, isLoading, toogle, user) => {
+	$tasks, getTasks.pending, $toggleValue, $user,
+	(data, isLoading, toggle, user) => {
 		if (isLoading) {
 			return []
 		} else {
-			if (toogle === 'gettedTasks') {
+			if (toggle === 'gettedTasks') {
 				return data.filter(task => task.customerID == user.ID);
 			}
-			if (toogle === 'takenTasks') {
+			if (toggle === 'takenTasks') {
 				let customers = [];
 
 				const newData = data.filter(task => task.creatorID == user.ID);
