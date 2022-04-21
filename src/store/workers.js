@@ -17,7 +17,6 @@ export const $workerStatus = combine(
 		if (isLoading) {
 			return 'loading'
 		} else {
-			console.log(data)
 			return { '': [], ...data };
 		}
 	}

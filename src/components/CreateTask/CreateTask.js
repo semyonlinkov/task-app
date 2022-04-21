@@ -112,7 +112,9 @@ const CreateTaskBlock = () => {
 				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />
 				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
 			</label>
-			<input className={styles.btn_sub} type="submit" value="Создать заявку" onClick={() => console.log(watch("files"))} />
+			<label>
+				<input className={styles.btn_sub} type="submit" value="Создать заявку" onClick={() => console.log(watch("files"))} />
+			</label>
 		</form >
 	);
 }
