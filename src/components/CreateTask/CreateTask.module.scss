@@ -3,6 +3,7 @@
 	flex-direction: column;
 	padding: 3px 7px 0 10px;
 	font-size: 12px;
+	z-index: -10;
 
 	p {
 		font-weight: 500;
@@ -41,13 +42,12 @@
 		text-decoration: none;
 		display: inline-block;
 		background-color: #4caf50;
-		z-index: -5;
 		margin: 10px 0;
+		z-index: 1;
 		p {
 			font-weight: 400;
 			position: relative;
 			top: 10px;
-			z-index: 0;
 		}
 	}
 

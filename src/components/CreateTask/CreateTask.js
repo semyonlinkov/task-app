@@ -1,11 +1,13 @@
 import styles from './CreateTask.module.scss'
 import { useForm } from "react-hook-form";
 import { createTast } from '../../services-api/createTask';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
+import { $isLoading, setIsLoading } from '../../store/loadingState';
+import { $menuToogle } from '../../store/navState';
 
 const employes = [
 	{ title: 'Иванов Иван Иванович1', department: 'Бухгалтерия', id: 1 },
@@ -19,26 +21,35 @@ const employes = [
 	{ title: 'Иванов Иван Иванович9', department: 'Склад', id: 9 },
 ]
 
+
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, formState, setValue } = useForm();
 	const [department, setDepartment] = useState('');
 	const [files, setFiles] = useState(0);
 	const user = useStore($user);
-	const onSubmit = data => createTast(data, user, () => navigate('/'));
 	const workers = useStore($workerStatus);
+	const onSubmit = data => createTast(data, user, () => navigate('/'));
+	const menuToogle = useStore($menuToogle);
+
+	console.log(menuToogle)
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
-	const departments = ['', 'Бухгалтерия', 'Кадры', 'Склад'];
 
-	console.log(watch())
+	useEffect(() => {
+		if (workers === 'loading') {
+			setIsLoading(true)
+		} else {
+			setIsLoading(false)
+		}
+	}, [workers])
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
 			<label>
 				<p>Вид заявки</p>
 				<select {...register('type')}>
-					{typeTask.map(el => <option value={el}>{el}</option>)}
+					{typeTask.map(el => <option key={el} value={el}>{el}</option>)}
 				</select>
 			</label>
 			<label>
@@ -47,11 +58,11 @@ const CreateTaskBlock = () => {
 			</label>
 			<label>
 				<p>Адресс объекта</p>
-				<input  {...register('objectAdress')} />
+				<input {...register('objectAdress')} />
 			</label>
 			<label>
 				<p>Телефон клиента</p>
-				<input  {...register('clientPhoneNumber')} />
+				<input {...register('clientPhoneNumber')} />
 			</label>
 			<label>
 				<p>ФИО клиента</p>
@@ -60,25 +71,37 @@ const CreateTaskBlock = () => {
 			<label>
 				<p>Отдел</p>
 				<select {...register('department')} onChange={(e) => {
-					setDepartment(e.target.value)
-					const pohui = Object.values(workers[department])[0];
-					setValue('executor', `${pohui.ID}:${pohui.NAME}`);
+					setDepartment(e.target.value);
+					if (workers === 'loading') {
+						const person = Object.values(workers[department])[0];
+						setValue('executor', `${person.ID}:${person.NAME}`);
+					}
 				}} >
-					{/* {workers.map(department => <option value={department}>{department}</option>)} */}
-					{Object.keys(workers).map(department => <option value={department}>{department}</option>)}
+					{workers !== 'loading'
+						?
+						Object.keys(workers).map(department => <option key={department} value={department}>{department}</option>)
+						:
+						null}
 				</select >
 			</label>
 			<label>
 				<p>Исполнитель</p>
 				<select {...register('executor')}>
-					{/* {employes.filter(el => el.department === department).map(el => <option value={`${user.ID}:${el.title}`}>{el.title}</option>)} */}
-					{department && Object.values(workers[department]).map(el => <option value={`${el.ID}:${el.NAME}`}>{el.NAME}</option>)}
+					{department
+						?
+						Object.values(workers[department]).map(person => <option key={person.ID} value={`${person.ID}:${person.NAME}`}>{person.NAME}</option>)
+						:
+						null}
 				</select>
 			</label>
 			<label>
 				<p>Соисполнитель</p>
 				<select {...register('coexecutor')}>
-					{/* {employes.filter(el => el.department === department).map(el => <option value={el.title}>{el.title}</option>)} */}
+					{department
+						?
+						Object.values(workers[department]).map(person => <option key={person.ID} value={`${person.ID}:${person.NAME}`}>{person.NAME}</option>)
+						:
+						null}
 				</select>
 			</label>
 			<label>
@@ -89,7 +112,7 @@ const CreateTaskBlock = () => {
 				<p>Комментарий</p>
 				<textarea placeholder="Комментарий" {...register('comment')} />
 			</label>
-			<label className={styles.btn_file} >
+			<label className={styles.btn_file} style={{ zIndex: menuToogle ? -10 : 10 }}>
 				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />
 				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
 			</label>

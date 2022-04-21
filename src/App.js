@@ -6,10 +6,13 @@ import { setUser } from "./store/user";
 import CreateTaskBlock from "./components/CreateTask/CreateTask";
 import TaskCardsBlock from './components/TaskCards/TaskCards';
 import TaskBlock from './components/Task/Task';
-import { getWorkers } from './store/workers';
-
+import { $workerStatus, getWorkers } from './store/workers';
+import { useStore } from 'effector-react';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import { $isLoading } from './store/loadingState';
 
 function App() {
+
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -22,14 +25,14 @@ function App() {
 			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
 		}
 
-
 		getWorkers();
 	}, []);
 
 
 	return (
 		<div className="app">
-			<BrowserRouter  >
+			<BrowserRouter >
+				<LoadingSpinner />
 				<Header />
 				<Routes>
 					<Route path="/" element={<TaskCardsBlock />} />

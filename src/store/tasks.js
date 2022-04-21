@@ -55,10 +55,9 @@ export const $customersStatus = combine(
 				let customers = [];
 
 				const newData = data.filter(task => task.creatorID == user.ID);
-				console.log(newData)
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
-						console.log(customers, el.customer)
+						// console.log(customers, el.customer)
 						customers.push(el.customer);
 					}
 				})
@@ -75,9 +74,7 @@ export const $showSingleTask = combine(
 		if (isLoading) {
 			return []
 		} else {
-
 			return data.filter(el => el.id === id)[0]
 		}
-
 	}
 )
