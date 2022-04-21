@@ -22,7 +22,7 @@ const Header = () => {
 			{pathname === '/'
 				? <div className={styles.toggle_switch}>
 					<ToggleSwitch />
-					<p className={styles.switch_title}>{toggleValue === 'gettedTasks' ? 'Поставленные мне' : 'Поставленные мной'}</p>
+					<p className={styles.switch_title}>{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}</p>
 				</div>
 				: null
 			}

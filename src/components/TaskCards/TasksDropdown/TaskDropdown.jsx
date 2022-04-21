@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { $taskStatus } from '../../../store/tasks';
 import { TaskCard } from '../TaskCard/TaskCard';
 import styles from './TaskDropdown.module.scss';
@@ -19,17 +19,24 @@ const TaskDropdown = ({ name }) => {
 		setIsOpen((prev) => !prev);
 	};
 
+	const shortName = useMemo(() => {
+		const arrName = name.split(' ');
+		return arrName.length < 3
+			? `${arrName[0]} ${arrName[1]}`
+			: `${arrName[0]} ${arrName[1][0]}.${arrName[2][0]}`;
+	}, [name]);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.dropdown} onClick={tasksHandler}>
-				<p className={styles.title}>
-					{name} - {filteredTasks.length} Задач
-				</p>
 				<input
 					className={`${styles.chevron} ${isOpen ? styles.open : ''}`}
 					type="image"
 					src={chevron}
 				/>
+				<p className={styles.title}>
+					{shortName} - {filteredTasks.length} Задач
+				</p>
 			</div>
 			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
 		</div>
