@@ -106,7 +106,7 @@ const CreateTaskBlock = () => {
 			</label>
 			<label>
 				<p>Комментарий</p>
-				<textarea placeholder="Комментарий" {...register('comment')} />
+				<textarea placeholder="Введите свой комментарий" {...register('comment')} />
 			</label>
 			<label className={styles.btn_file}>
 				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />

@@ -22,7 +22,7 @@ const TaskDropdown = ({ name }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.dropdown} onClick={tasksHandler}>
-				<p>
+				<p className={styles.title}>
 					{name} - {filteredTasks.length} Задач
 				</p>
 				<input

@@ -1,7 +1,6 @@
 .arrow_back {
 	width: 20px;
 	height: 20px;
-
 }
 
 .header {
@@ -11,17 +10,13 @@
 	align-items: center;
 }
 
-
 .top_blocks {
 	position: fixed;
 	width: 100%;
 	background: white;
 }
 
-
 .nav {
-
-	
 	img {
 		width: 35px;
 	}
@@ -112,7 +107,6 @@
 	}
 }
 
-
 .start_btn {
 	border: none;
 	outline: none;
@@ -139,7 +133,7 @@
 		padding: 6px;
 		border-right: 1px solid #aaaaaa;
 		border-top: 1px solid #aaaaaa;
-		width:33.3%;
+		width: 33.3%;
 		display: flex;
 		justify-content: center;
 	}
@@ -147,5 +141,4 @@
 	:last-child {
 		border-right: none;
 	}
-
 }

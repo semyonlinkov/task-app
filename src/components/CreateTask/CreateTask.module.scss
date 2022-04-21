@@ -2,12 +2,11 @@
 	display: flex;
 	flex-direction: column;
 	padding: 3px 7px 0 10px;
-	font-size: 12px;
-	z-index: -10;
+	font-size: 14px;
 
 	p {
 		font-weight: 500;
-		padding: 3px 0 2px 0;
+		padding: 4px 0 2px 0;
 	}
 
 	label {
@@ -43,11 +42,16 @@
 		display: inline-block;
 		background-color: #4caf50;
 		margin: 10px 0;
-		z-index: 1;
 		p {
-			font-weight: 400;
 			position: relative;
-			top: 10px;
+			top: 7px;
+		}
+
+		&:hover {
+			background-color: #1fac22;
+		}
+		&:active {
+			background-color: #22a124;
 		}
 	}
 
@@ -55,17 +59,22 @@
 		display: none;
 	}
 
-	.btn_file:focus {
-		background-color: #165218;
-	}
-
 	.btn_sub {
 		display: inline-block;
+		font-weight: 600;
 		height: 40px;
 		border: none;
 		color: white;
 		text-align: center;
 		text-decoration: none;
 		background-color: #4caf50;
+		font-weight: 600;
+
+		&:hover {
+			background-color: #1fac22;
+		}
+		&:active {
+			background-color: #22a124;
+		}
 	}
 }

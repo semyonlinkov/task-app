@@ -57,7 +57,6 @@ export const $customersStatus = combine(
 				const newData = data.filter(task => task.creatorID == user.ID);
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
-						// console.log(customers, el.customer)
 						customers.push(el.customer);
 					}
 				})
@@ -66,7 +65,6 @@ export const $customersStatus = combine(
 		}
 	}
 )
-
 
 export const $showSingleTask = combine(
 	$tasks, getTasks.pending, $singleTask,
