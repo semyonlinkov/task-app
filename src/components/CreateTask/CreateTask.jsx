@@ -1,5 +1,5 @@
-import styles from './CreateTask.module.scss'
-import { useForm } from "react-hook-form";
+import styles from './CreateTask.module.scss';
+import { useForm } from 'react-hook-form';
 import { createTast } from '../../services-api/createTask';
 import { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
@@ -8,15 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
 import { setIsLoading } from '../../store/loadingState';
 
-
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, formState, setValue } = useForm();
-	const [department, setDepartment] = useState('');
+
 	const [files, setFiles] = useState(0);
+	const [choosenWorker, setChoosenWorker] = useState('');
+
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
-	const onSubmit = data => createTast(data, user, () => navigate('/'));
+
+	const onSubmit = (data) => createTast(data, user, () => navigate('/'));
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
@@ -26,16 +28,21 @@ const CreateTaskBlock = () => {
 		} else {
 			setIsLoading(false);
 		}
-	}, [workers])
+	}, [workers]);
 
+	console.log(watch());
+	console.log(workers);
 
-	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
 			<label>
 				<p>Вид заявки</p>
 				<select {...register('type')}>
-					{typeTask.map(el => <option key={el} value={el}>{el}</option>)}
+					{typeTask.map((el) => (
+						<option key={el} value={el}>
+							{el}
+						</option>
+					))}
 				</select>
 			</label>
 			<label>
@@ -52,47 +59,51 @@ const CreateTaskBlock = () => {
 			</label>
 			<label>
 				<p>ФИО клиента</p>
-				<input  {...register('fullname')} />
+				<input {...register('fullname')} />
 			</label>
 			<label>
 				<p>Отдел</p>
-				<select {...register('department')} onChange={(e) => {
-					setDepartment(e.target.value);
-					if (workers === 'loading') {
-						const person = Object.values(workers[department])[0];
-						setValue('executor', `${person.ID}:${person.NAME}`);
-					}
-				}} >
+				<select
+					{...register('department')}
+					onChange={(e) => {
+						setValue('department', e.target.value);
+					}}>
 					{workers !== 'loading'
-						?
-						Object.keys(workers).map(department => <option key={department} value={department}>{department}</option>)
-						:
-						null}
-				</select >
+						? Object.keys(workers).map((department) => (
+								<option key={department} value={department}>
+									{department}
+								</option>
+						  ))
+						: null}
+				</select>
 			</label>
 			<label>
 				<p>Исполнитель</p>
-				<select {...register('executor')}>
-					{department
-						?
-						Object.values(workers[department]).map(person => <option key={person.ID} value={`${person.ID}:${person.NAME}`}>{person.NAME}</option>)
-						:
-						null}
+				<select {...register('executor')} onClick={(e) => setChoosenWorker(e.target.value)}>
+					{watch().department
+						? Object.values(workers[watch().department]).map((person) => (
+								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+									{person.NAME}
+								</option>
+						  ))
+						: null}
 				</select>
 			</label>
 			<label>
 				<p>Соисполнитель</p>
 				<select {...register('coexecutor')}>
-					{department
-						?
-						Object.values(workers[department]).map(person => <option key={person.ID} value={`${person.ID}:${person.NAME}`}>{person.NAME}</option>)
-						:
-						null}
+					{watch().department
+						? Object.values(workers[watch().department]).map((person) => (
+								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+									{person.NAME}
+								</option>
+						  ))
+						: null}
 				</select>
 			</label>
 			<label>
 				<p>Выбрать дату</p>
-				<input className='datepicker' type="datetime-local" {...register('dateDeadline')} />
+				<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
 			</label>
 			<label>
 				<p>Комментарий</p>
@@ -103,10 +114,15 @@ const CreateTaskBlock = () => {
 				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
 			</label>
 			<label>
-				<input className={styles.btn_sub} type="submit" value="Создать заявку" onClick={() => console.log(watch("files"))} />
+				<input
+					className={styles.btn_sub}
+					type="submit"
+					value="Создать заявку"
+					onClick={() => console.log(watch('files'))}
+				/>
 			</label>
-		</form >
+		</form>
 	);
-}
+};
 
-export default CreateTaskBlock
+export default CreateTaskBlock;
