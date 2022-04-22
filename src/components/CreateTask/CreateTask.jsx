@@ -8,18 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
 import { setIsLoading } from '../../store/loadingState';
 
-const employes = [
-	{ title: 'Иванов Иван Иванович1', department: 'Бухгалтерия', id: 1 },
-	{ title: 'Иванов Иван Иванович2', department: 'Бухгалтерия', id: 2 },
-	{ title: 'Иванов Иван Иванович3', department: 'Бухгалтерия', id: 3 },
-	{ title: 'Иванов Иван Иванович4', department: 'Кадры', id: 4 },
-	{ title: 'Иванов Иван Иванович5', department: 'Кадры', id: 5 },
-	{ title: 'Иванов Иван Иванович6', department: 'Кадры', id: 6 },
-	{ title: 'Иванов Иван Иванович7', department: 'Склад', id: 8 },
-	{ title: 'Иванов Иван Иванович8', department: 'Склад', id: 7 },
-	{ title: 'Иванов Иван Иванович9', department: 'Склад', id: 9 },
-]
-
 
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();

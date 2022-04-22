@@ -30,7 +30,7 @@ const TaskDropdown = ({ name }) => {
 		<div className={styles.wrapper}>
 			<div className={styles.dropdown} onClick={tasksHandler}>
 				<input
-					className={`${styles.chevron} ${isOpen ? styles.open : ''}`}
+					className={`${styles.chevron} ${isOpen ? styles.open : null}`}
 					type="image"
 					src={chevron}
 				/>
