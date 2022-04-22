@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { setUser } from "./store/user";
 import CreateTaskBlock from "./components/CreateTask/CreateTask";
 import TaskCardsBlock from './components/TaskCards/TaskCards';
-import TaskBlock from './components/Task/Task';
+import TaskBlock from './components/TaskPage/TaskPage';
 import { getWorkers } from './store/workers';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 

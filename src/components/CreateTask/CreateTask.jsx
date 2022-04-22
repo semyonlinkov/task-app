@@ -11,12 +11,9 @@ import { setIsLoading } from '../../store/loadingState';
 const CreateTaskBlock = () => {
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, formState, setValue } = useForm();
-
-	const [files, setFiles] = useState(0);
-	const [choosenWorker, setChoosenWorker] = useState('');
-
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
+	const [files, setFiles] = useState(0);
 
 	const onSubmit = (data) => createTast(data, user, () => navigate('/'));
 
@@ -29,9 +26,6 @@ const CreateTaskBlock = () => {
 			setIsLoading(false);
 		}
 	}, [workers]);
-
-	console.log(watch());
-	console.log(workers);
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
@@ -79,7 +73,7 @@ const CreateTaskBlock = () => {
 			</label>
 			<label>
 				<p>Исполнитель</p>
-				<select {...register('executor')} onClick={(e) => setChoosenWorker(e.target.value)}>
+				<select {...register('executor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
 								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>

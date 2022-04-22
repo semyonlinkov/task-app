@@ -1,0 +1,22 @@
+.wrapper {
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	width: 100%;
+	img {
+		width: 35px;
+	}
+
+	li {
+		padding: 6px;
+		border-right: 1px solid #aaaaaa;
+		border-top: 1px solid #aaaaaa;
+		width: 33.3%;
+		display: flex;
+		justify-content: center;
+	}
+
+	:last-child {
+		border-right: none;
+	}
+}

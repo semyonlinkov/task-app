@@ -1,0 +1,27 @@
+ul {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	list-style-type: none;
+
+	li {
+		padding: 6px;
+		border-right: 1px solid #aaaaaa;
+		border-bottom: 1px solid #aaaaaa;
+		width: 25%;
+		display: flex;
+		justify-content: center;
+	}
+
+	img {
+		width: 35px;
+	}
+
+	.active {
+		border-bottom: none;
+	}
+
+	:last-child {
+		border-right: none;
+	}
+}
