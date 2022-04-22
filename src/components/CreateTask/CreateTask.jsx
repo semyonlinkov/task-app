@@ -22,12 +22,14 @@ const CreateTaskBlock = () => {
 
 	useEffect(() => {
 		if (workers === 'loading') {
-			setIsLoading(true)
+			setIsLoading(true);
 		} else {
-			setIsLoading(false)
+			setIsLoading(false);
 		}
 	}, [workers])
 
+
+	
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
 			<label>

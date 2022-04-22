@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { $taskStatus } from '../../../store/tasks';
 import { TaskCard } from '../TaskCard/TaskCard';
 import styles from './TaskDropdown.module.scss';
@@ -26,6 +26,18 @@ const TaskDropdown = ({ name }) => {
 			: `${arrName[0]} ${arrName[1][0]}.${arrName[2][0]}`;
 	}, [name]);
 
+	const numWord = useCallback(
+		(value, words) => {
+			value = Math.abs(value) % 100;
+			const num = value % 10;
+			if (value > 10 && value < 20) return words[2];
+			if (num > 1 && num < 5) return words[1];
+			if (num == 1) return words[0];
+			return words[2];
+		},
+		[name],
+	);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.dropdown} onClick={tasksHandler}>
@@ -35,7 +47,8 @@ const TaskDropdown = ({ name }) => {
 					src={chevron}
 				/>
 				<p className={styles.title}>
-					{shortName} - {filteredTasks.length} Задач
+					{shortName} - {filteredTasks.length}{' '}
+					{numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
 				</p>
 			</div>
 			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
