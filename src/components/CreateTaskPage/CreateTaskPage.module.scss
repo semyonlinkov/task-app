@@ -1,4 +1,4 @@
-.form_wrapper {
+.wrapper {
 	display: flex;
 	flex-direction: column;
 	padding: 3px 10px;
@@ -10,7 +10,7 @@
 	}
 
 	input {
-		width: 100% - 1;
+		width: 100%;
 		height: 27px;
 		border: 2px solid #aaaaaa;
 		border-radius: 4px;

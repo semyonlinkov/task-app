@@ -1,6 +1,5 @@
 .wrapper {
 	display: flex;
-	width: 100%;
 	font-size: 13px;
 	font-weight: 400;
 	border-bottom: 1px solid black;
@@ -17,10 +16,10 @@
 	}
 
 	.task_data {
-		padding: 6px 20px 0 0;
 		display: flex;
-		flex: 1;
 		flex-direction: column;
+		flex: 1;
+		padding: 6px 20px 0 0;
 		.date {
 			align-self: end;
 			padding: 5px 0;
@@ -46,13 +45,12 @@
 	span {
 		font-weight: 500;
 	}
-}
 
-
-.desc {
-	background: #e3e3e3;
-	padding: 5px !important;
-	font-size: 14px;
-	margin: 8px 0;
-	border-radius: 3px;
+	.desc {
+		background: #e3e3e3;
+		padding: 5px !important;
+		font-size: 14px;
+		margin: 8px 0;
+		border-radius: 3px;
+	}
 }

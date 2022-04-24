@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { $taskStatus } from '../../../store/tasks';
 import { TaskCard } from '../TaskCard/TaskCard';
 import styles from './TaskDropdown.module.scss';
@@ -10,7 +10,7 @@ const TaskDropdown = ({ name }) => {
 	const [filteredTasks, setFilteredTasks] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		setFilteredTasks(tasks.filter((task) => task.customer === name));
 	}, []);
 
@@ -19,40 +19,30 @@ const TaskDropdown = ({ name }) => {
 		setIsOpen((prev) => !prev);
 	};
 
-	const shortName = useMemo(() => {
+	const shortName = () => {
 		const arrName = name.split(' ');
-		return arrName.length < 3
-			? `${arrName[0]} ${arrName[1]}`
-			: `${arrName[0]} ${arrName[1][0]}.${arrName[2][0]}`;
-	}, [name]);
+		return arrName.length < 3 ? `${arrName[0]} ${arrName[1]}` : `${arrName[0]} ${arrName[1][0]}.${arrName[2][0]}`;
+	};
 
-	const numWord = useCallback(
-		(value, words) => {
-			value = Math.abs(value) % 100;
-			const num = value % 10;
-			if (value > 10 && value < 20) return words[2];
-			if (num > 1 && num < 5) return words[1];
-			if (num == 1) return words[0];
-			return words[2];
-		},
-		[name],
-	);
+	const numWord = (value, words) => {
+		value = Math.abs(value) % 100;
+		const num = value % 10;
+		if (value > 10 && value < 20) return words[2];
+		if (num > 1 && num < 5) return words[1];
+		if (num == 1) return words[0];
+		return words[2];
+	};
 
 	return (
-		<div className={styles.wrapper}>
+		<>
 			<div className={styles.dropdown} onClick={tasksHandler}>
-				<input
-					className={`${styles.chevron} ${isOpen ? styles.open : null}`}
-					type="image"
-					src={chevron}
-				/>
+				<input className={`${styles.chevron} ${isOpen ? styles.open : null}`} type="image" src={chevron} />
 				<p className={styles.title}>
-					{shortName} - {filteredTasks.length}{' '}
-					{numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
+					{shortName()} - {filteredTasks.length} {numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
 				</p>
 			</div>
 			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
-		</div>
+		</>
 	);
 };
 

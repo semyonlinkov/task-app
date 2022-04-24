@@ -1,6 +1,6 @@
-import styles from './CreateTask.module.scss';
+import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
-import { createTast } from '../../services-api/createTask';
+import { createTask } from '../../services-api/createTask';
 import { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
@@ -8,14 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
 import { setIsLoading } from '../../store/loadingState';
 
-const CreateTaskBlock = () => {
+const CreateTaskPage = () => {
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, formState, setValue } = useForm();
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
 	const [files, setFiles] = useState(0);
 
-	const onSubmit = (data) => createTast(data, user, () => navigate('/'));
+	const onSubmit = (data) => createTask(data, user, () => navigate('/'));
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
@@ -28,7 +28,7 @@ const CreateTaskBlock = () => {
 	}, [workers]);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={styles.form_wrapper}>
+		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
 				<p>Вид заявки</p>
 				<select {...register('type')}>
@@ -119,4 +119,4 @@ const CreateTaskBlock = () => {
 	);
 };
 
-export default CreateTaskBlock;
+export default CreateTaskPage;

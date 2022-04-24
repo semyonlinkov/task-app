@@ -1,13 +1,13 @@
 import './App.css';
 import Header from "./components/Header/Header";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { setUser } from "./store/user";
-import CreateTaskBlock from "./components/CreateTask/CreateTask";
-import TaskCardsBlock from './components/TaskCards/TaskCards';
-import TaskBlock from './components/TaskPage/TaskPage';
 import { getWorkers } from './store/workers';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import CreateTaskPage from './components/CreateTaskPage/CreateTaskPage';
+import TaskCardsPage from './components/TaskCardsPage/TaskCardsPage';
+import TaskPage from './components/TaskPage/TaskPage';
 
 function App() {
 	useEffect(() => {
@@ -30,13 +30,17 @@ function App() {
 		<div className="app">
 			<BrowserRouter >
 				<LoadingSpinner />
-				<Header />
-				<Routes>
-					<Route path="/" element={<TaskCardsBlock />} />
-					<Route path="/create_task" element={<CreateTaskBlock />} />
-					<Route path="/tasks/:id" element={<TaskBlock />} />
-					<Route path="*" element={<h1>404</h1>} />
-				</Routes>
+				<div className='app-header'>
+					<Header />
+				</div>
+				<div className='app-content'>
+					<Routes>
+						<Route path="/" element={<TaskCardsPage />} />
+						<Route path="/create_task" element={<CreateTaskPage />} />
+						<Route path="/tasks/:id" element={<TaskPage />} />
+						<Route path="*" element={<h1>404</h1>} />
+					</Routes>
+				</div>
 			</BrowserRouter>
 		</div>
 	);

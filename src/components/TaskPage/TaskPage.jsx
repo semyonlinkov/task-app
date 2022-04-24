@@ -13,7 +13,7 @@ import Files from './Files/Files';
 import History from './History/History';
 import Chat from './Chat/Chat';
 
-const Task = () => {
+const TaskPage = () => {
 	const { id } = useParams();
 
 	const taskPageNav = useStore($taskPageNav);
@@ -26,15 +26,19 @@ const Task = () => {
 	}, []);
 
 	return (
-		<div styles={styles.wrapper}>
-			<TaskPageHeader />
-			{taskPageNav === 'info' && <Info />}
-			{taskPageNav === 'files' && <Files />}
-			{taskPageNav === 'history' && <History />}
-			{taskPageNav === 'chat' && <Chat />}
-			{taskPageNav !== 'chat' && <TaskPageFooter />}
+		<div className={styles.wrapper}>
+			<div className={styles.header}>
+				<TaskPageHeader />
+			</div>
+			<div className={styles.content}>
+				{taskPageNav === 'info' && <Info />}
+				{taskPageNav === 'files' && <Files />}
+				{taskPageNav === 'history' && <History />}
+				{taskPageNav === 'chat' && <Chat />}
+			</div>
+			<div className={styles.footer}>{taskPageNav !== 'chat' && <TaskPageFooter />}</div>
 		</div>
 	);
 };
 
-export default Task;
+export default TaskPage;

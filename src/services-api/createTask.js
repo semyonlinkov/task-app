@@ -1,10 +1,8 @@
-export const createTast = (form, user, changeHisory) => {
+export const createTask = (form, user, changeHisory) => {
 	let formData = new FormData();
 
 	formData.append('creatorID', user.ID);
 	formData.append('creatorName', `${user.NAME} ${user.LAST_NAME} ${user.SECOND_NAME}`);
-
-	console.log(form);
 
 	for (let key in form) {
 		if (key !== 'files') {
@@ -28,5 +26,5 @@ export const createTast = (form, user, changeHisory) => {
 			}
 			console.log(res);
 		})
-		.catch(err => console.log('ОПЯТЬ ХУЙНЮ ОТПРАВИЛ((((', err));
+		.catch(err => console.log(err));
 }
