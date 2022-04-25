@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './Info.module.scss';
 
 import Info from '../../../img/icons8-info-50.png';
@@ -9,10 +9,12 @@ import {$user} from "../../../store/user";
 import {setReaded} from "../../../services-api/setReaded";
 import {startTask} from "../../../services-api/startTask";
 import {$singleTask} from "../../../store/selectedTask";
+import TaskRaportForm from "../TaskRaportForm/TaskRaportForm";
 
 const MainData = () => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
+	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
 		if (task.id && task.readed === '0000-00-00 00:00:00') {
@@ -65,8 +67,9 @@ const MainData = () => {
 			</div>
 
 			{user.ID === task.customerID && task.status === 'Новая' ? <button className={`${styles.start_btn} ${styles.btn}`} onClick={() => startTask(task.id)}>Взять в работу</button> : null}
-			{user.ID === task.customerID && task.status === 'В работе' ? <button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => startTask(task.id)}>Завершить работу</button> : null}
+			{user.ID === task.customerID && task.status === 'В работе' ? <button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>Завершить работу</button> : null}
 
+			{showForm && <TaskRaportForm close={() => setShowForm(false)} id={task.id} timeStart={task.timeStart}/>}
 		</div>
 	);
 };
