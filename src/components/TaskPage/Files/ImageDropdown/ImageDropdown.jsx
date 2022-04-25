@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ImageDropdown.module.scss';
+import ImageFile from './ImageFile/ImageFile';
+import VideoFile from './VideoFile/VideoFile';
+import OtherFile from './OtherFile/OtherFile';
 
-const ImageDropdown = ({ src, alt }) => {
+const ImageDropdown = ({ src }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [fileExt, setFileExt] = useState('');
+
+	useEffect(() => {
+		setFileExt(src.split('.').at(-1));
+	}, []);
 
 	const openToggle = () => {
 		setIsOpen((prev) => !prev);
@@ -13,12 +21,9 @@ const ImageDropdown = ({ src, alt }) => {
 			<div className={styles.dropdown} onClick={openToggle}>
 				Open/Close
 			</div>
-			{isOpen && (
-				<>
-					<img src={src} alt={alt} />
-					<button>Удалить файл</button>
-				</>
-			)}
+			{isOpen && (fileExt === 'png' || fileExt === 'jpeg') ? <ImageFile src={src} /> : null}
+			{isOpen && fileExt === 'mp4' ? <VideoFile src={src} /> : null}
+			{isOpen && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'mp4' ? <OtherFile src={src} /> : null}
 		</div>
 	);
 };

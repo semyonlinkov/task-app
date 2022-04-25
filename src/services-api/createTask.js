@@ -1,6 +1,8 @@
 export const createTask = (form, user, changeHisory) => {
 	let formData = new FormData();
 
+	console.log(form);
+
 	formData.append('creatorID', user.ID);
 	formData.append('creatorName', `${user.NAME} ${user.LAST_NAME} ${user.SECOND_NAME}`);
 

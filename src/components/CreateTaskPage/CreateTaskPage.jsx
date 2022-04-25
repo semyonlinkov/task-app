@@ -10,14 +10,17 @@ import { setIsLoading } from '../../store/loadingState';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
-	const { register, handleSubmit, watch, formState, setValue } = useForm();
+
+	const { register, handleSubmit, watch, setValue, getValues } = useForm();
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
-	const [files, setFiles] = useState(0);
 
 	const onSubmit = (data) => createTask(data, user, () => navigate('/'));
-
+	const files = getValues('files');
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
+	
+		// console.log(files);
+		// console.log(watch());
 
 	useEffect(() => {
 		if (workers === 'loading') {
@@ -104,8 +107,8 @@ const CreateTaskPage = () => {
 				<textarea placeholder="Введите свой комментарий" {...register('comment')} />
 			</label>
 			<label className={styles.btn_file}>
-				<input type="file" multiple {...register('files')} onChange={(e) => setFiles(e.target.files.length)} />
-				<p>{files ? `Добавлено файлов ${files}` : 'Добавить файлы'}</p>
+				<input type="file" multiple {...register('files')} />
+				<p>{files ? `Добавлено файлов ${files.length}` : 'Добавить файлы'}</p>
 			</label>
 			<label>
 				<input

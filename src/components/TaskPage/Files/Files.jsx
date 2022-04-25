@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { $showSingleTask } from '../../../store/tasks';
 
 import { catPhotos } from '../../../fakeData/data';
@@ -9,11 +9,18 @@ import styles from './Files.module.scss';
 
 const Files = () => {
 	const task = useStore($showSingleTask);
+	const [files, setFiles] = useState([]);
+
+	useEffect(() => {
+		setFiles(task.files.split(';'));
+	}, []);
+
+	// console.log(task);
 
 	return (
 		<div className={styles.wrapper}>
-			{catPhotos.map((src, i) => (
-				<ImageDropdown key={src} src={src} alt={`file-${i + 1}`} />
+			{files.map((file) => (
+				<ImageDropdown key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} alt={file} />
 			))}
 			<div className={styles.file_input}>
 				<input type="file" id="file" className={styles.file} />
