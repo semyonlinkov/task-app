@@ -4,14 +4,15 @@ import React, { useEffect, useState } from 'react';
 import ImageDropdown from './ImageDropdown/ImageDropdown';
 
 import styles from './Files.module.scss';
-import { $singleTask } from "../../../store/selectedTask";
+import { $singleTask } from '../../../store/selectedTask';
 
 const Files = () => {
 	const task = useStore($singleTask);
 	const [files, setFiles] = useState([]);
 
 	useEffect(() => {
-		setFiles(task.files.split(';'));
+		const newTask = { ...task };
+		setFiles(newTask.files.split(';'));
 	}, []);
 
 	// console.log(task);

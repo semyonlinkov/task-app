@@ -4,6 +4,8 @@ import ImageFile from './ImageFile/ImageFile';
 import VideoFile from './VideoFile/VideoFile';
 import OtherFile from './OtherFile/OtherFile';
 import chevron from '../../../../img/chevron-down.png';
+import eye from '../../../../img/eye.png';
+import trash from '../../../../img/trash.png';
 
 const ImageDropdown = ({ src }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +25,7 @@ const ImageDropdown = ({ src }) => {
 			return <VideoFile src={src} />;
 		} else if (fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'mp4') {
 			setFileType(src.split('/').at(-1));
-			return <OtherFile src={src} />;
+			// return <OtherFile src={src} />;
 		}
 	}, [fileExt]);
 
@@ -35,10 +37,22 @@ const ImageDropdown = ({ src }) => {
 
 	return (
 		<div className={styles.wrapper}>
-			<div className={styles.dropdown} onClick={openToggle}>
-				<input className={`${styles.chevron} ${isOpen ? styles.open : null}`} type="image" src={chevron} />
-				<p className={styles.title}>{fileType}</p>
+			<div className={styles.dropdown}>
+				<p className={styles.title}>
+					{fileType !== 'Фото' || fileType !== 'Видео' ? (
+						<a target="_blank" download={src} href={src}>
+							{fileType}
+						</a>
+					) : (
+						fileType
+					)}
+				</p>
+				<div className={styles.btns}>
+					<input type="image" src={eye} onClick={openToggle} />
+					<input type="image" src={trash} />
+				</div>
 			</div>
+
 			{isOpen && fileComponentHandler}
 		</div>
 	);

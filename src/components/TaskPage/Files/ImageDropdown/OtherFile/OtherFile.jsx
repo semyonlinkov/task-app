@@ -8,7 +8,6 @@ const OtherFile = ({ src }) => {
 			<a target="_blank" download={src} href={src}>
 				Скачать
 			</a>
-			<button>Удалить файл</button>
 		</>
 	);
 };

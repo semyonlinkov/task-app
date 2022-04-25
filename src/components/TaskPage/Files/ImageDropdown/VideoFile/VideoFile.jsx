@@ -7,7 +7,6 @@ const VideoFile = ({ src }) => {
 			<video controls muted className={styles.video}>
 				<source src={src} type="video/mp4" />
 			</video>
-			<button>Удалить файл</button>
 		</div>
 	);
 };

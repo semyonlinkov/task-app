@@ -11,13 +11,13 @@
 		display: block;
 		position: relative;
 		width: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		height: 50px;
 		border-radius: 25px;
 		background: linear-gradient(40deg, #ff6ec4, #7873f5);
 		box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		color: #fff;
 		font-weight: bold;
 		cursor: pointer;
