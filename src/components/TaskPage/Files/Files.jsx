@@ -23,7 +23,7 @@ const Files = () => {
 			))}
 			<div className={styles.file_input}>
 				<input type="file" id="file" className={styles.file} />
-				<label htmlFor="file">Select file</label>
+				<label htmlFor="file">Выбрать файл</label>
 			</div>
 		</div>
 	);

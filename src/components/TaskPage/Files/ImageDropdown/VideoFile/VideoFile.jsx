@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './VideoFile.module.scss'
-
+import styles from './VideoFile.module.scss';
 
 const VideoFile = ({ src }) => {
 	return (
 		<div className={styles.video_wrapper}>
-			<video controls className={styles.video}>
+			<video controls muted className={styles.video}>
 				<source src={src} type="video/mp4" />
 			</video>
+			<button>Удалить файл</button>
 		</div>
 	);
 };

@@ -1,8 +1,11 @@
-.video {
-  width: 100%;
-}
+.wrapper {
+	width: 100%;
+	.video {
+		width: 100%;
+	}
 
-.video_wrapper {
-  display: flex;
-  justify-content: center;
+	.video_wrapper {
+		display: flex;
+		justify-content: center;
+	}
 }
