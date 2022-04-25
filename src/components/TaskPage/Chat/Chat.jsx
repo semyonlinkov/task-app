@@ -5,9 +5,7 @@ import styles from './Chat.module.scss';
 import Message from './Message/Message';
 
 const Chat = () => {
-	const task = useStore($showSingleTask);
 
-	console.log(task);
 
 	return (
 		<div className={styles.wrapper}>

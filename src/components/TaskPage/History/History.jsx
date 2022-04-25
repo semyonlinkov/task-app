@@ -1,10 +1,9 @@
 import { useStore } from 'effector-react';
 import React from 'react';
-import { $showSingleTask } from '../../../store/tasks';
+import {$singleTask} from "../../../store/selectedTask";
 
 const History = () => {
-	const task = useStore($showSingleTask);
-
+	const task = useStore($singleTask);
 	return <div>History</div>;
 };
 

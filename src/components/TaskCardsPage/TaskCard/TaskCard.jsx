@@ -28,8 +28,21 @@ export const TaskCard = ({ task }) => {
 		<div className={styles.wrapper} onClick={() => navigate(`/tasks/${task.id}`)}>
 			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
 			<div className={styles.task_data}>
-				{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
-				{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
+				<div className={styles.flex_div}>
+					<div>
+						{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
+						{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
+					</div>
+					{task.readed !== '0000-00-00 00:00:00' && <div className={styles.readed}>
+						<p>
+							Прочитано
+						</p>
+						<p>
+							{moment(task.readed).format('DD.MM.YYYY HH:mm')}
+						</p>
+					</div> }
+				</div>
+
 				{task.desc && <p className={styles.desc}>{task.desc}</p>}
 				{task.creatorName && (
 					<p>
@@ -50,7 +63,8 @@ export const TaskCard = ({ task }) => {
 					</p>
 				) : null}
 
-				{task.date_create && <p className={styles.date}>{moment(task.date_create).format('DD.MM.YYYY')}</p>}
+				{task.date_create && <p className={styles.date}>{moment(task.date_create).format('DD.MM.YYYY hh:mm')}</p>}
+
 			</div>
 		</div>
 	);
