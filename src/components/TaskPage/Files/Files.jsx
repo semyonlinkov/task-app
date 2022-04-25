@@ -1,26 +1,61 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useState } from 'react';
-
-import ImageDropdown from './ImageDropdown/ImageDropdown';
+import React, { useEffect, useMemo, useState } from 'react';
+import FilesDropdown from './FilesDropdown/FilesDropdown';
 
 import styles from './Files.module.scss';
 import { $singleTask } from '../../../store/selectedTask';
+import OtherFile from './FilesDropdown/OtherFile/OtherFile';
 
 const Files = () => {
 	const task = useStore($singleTask);
-	const [files, setFiles] = useState([]);
+	const [filesArr, setFilesArr] = useState([]);
+	const [imageFiles, setImageFiles] = useState([]);
+	const [videoFiles, setVideoFiles] = useState([]);
+	const [otherFiles, setOtherFiles] = useState([]);
 
 	useEffect(() => {
-		const newTask = { ...task };
-		setFiles(newTask.files.split(';'));
+		const { files } = task;
+		setFilesArr(files.split(';'));
 	}, []);
 
-	// console.log(task);
+	const fileExt = (file) => {
+		return file.split('.').at(-1);
+	};
+
+	const filesFilter = useMemo(() => {
+		filesArr.forEach((file, i) => {
+			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg') {
+				setImageFiles((prev) => [...prev, file]);
+			} else if (fileExt(file) === 'mp4') {
+				setVideoFiles((prev) => [...prev, file]);
+			} else {
+				setOtherFiles((prev) => [...prev, file]);
+			}
+		});
+	}, [filesArr]);
 
 	return (
 		<div className={styles.wrapper}>
-			{files.map((file) => (
-				<ImageDropdown key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} alt={file} />
+			{imageFiles.map((file) => (
+				<FilesDropdown
+					key={file}
+					src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
+					alt={file}
+					fileName={file}
+					typeFile="Фото"
+				/>
+			))}
+			{videoFiles.map((file) => (
+				<FilesDropdown
+					key={file}
+					src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
+					alt={file}
+					fileName={file}
+					typeFile="Видео"
+				/>
+			))}
+			{otherFiles.map((file) => (
+				<OtherFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
 			))}
 			<div className={styles.file_input}>
 				<input type="file" id="file" className={styles.file} />

@@ -1,13 +1,12 @@
 import React from 'react';
 
-const OtherFile = ({ src }) => {
-	console.log(src);
-
+const OtherFile = ({ src, fileName }) => {
 	return (
 		<>
 			<a target="_blank" download={src} href={src}>
-				Скачать
+				{fileName}
 			</a>
+			<button>удалить</button>
 		</>
 	);
 };
