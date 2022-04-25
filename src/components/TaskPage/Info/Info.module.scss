@@ -45,13 +45,21 @@
 	}
 
 	.start_btn {
+		background: #ff0000;
+
+	}
+
+	.finish_btn {
+		background: #288b28;
+	}
+
+	.btn {
 		border: none;
 		outline: none;
 		padding: 10px 25px;
 		font-size: 16px;
 		border-radius: 5px;
 		margin-top: 20px;
-		background: #367936;
 		font-weight: 500;
 		float: right;
 		color: white;

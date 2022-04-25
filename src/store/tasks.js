@@ -1,7 +1,7 @@
-import { createStore, createEffect, combine } from 'effector'
+import {createStore, createEffect, combine, createEvent} from 'effector'
 import { $toggleValue } from './taskToggleState';
 import { $user } from './user';
-import {$singleTask} from "./selectedTask";
+
 
 
 export const getTasks = createEffect(async (id) => {
@@ -14,7 +14,7 @@ export const getTasks = createEffect(async (id) => {
 })
 
 
-const $tasks = createStore([]).on(
+export const $tasks = createStore([]).on(
 	getTasks.doneData,
 	(_, data) => data
 )
@@ -66,13 +66,3 @@ export const $customersStatus = combine(
 	}
 )
 
-export const $showSingleTask = combine(
-	$tasks, getTasks.pending, $singleTask,
-	(data, isLoading, id) => {
-		if (isLoading) {
-			return []
-		} else {
-			return data.filter(el => el.id === id)[0]
-		}
-	}
-)

@@ -19,7 +19,6 @@ const TaskCardsPage = () => {
 		}
 	}, [user]);
 
-	console.log('render'); //* дохуя рендеров
 
 	return (
 		<>

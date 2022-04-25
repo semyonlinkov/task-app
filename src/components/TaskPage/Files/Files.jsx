@@ -1,14 +1,13 @@
 import { useStore } from 'effector-react';
 import React, { useEffect, useState } from 'react';
-import { $showSingleTask } from '../../../store/tasks';
 
-import { catPhotos } from '../../../fakeData/data';
 import ImageDropdown from './ImageDropdown/ImageDropdown';
 
 import styles from './Files.module.scss';
+import { $singleTask } from "../../../store/selectedTask";
 
 const Files = () => {
-	const task = useStore($showSingleTask);
+	const task = useStore($singleTask);
 	const [files, setFiles] = useState([]);
 
 	useEffect(() => {

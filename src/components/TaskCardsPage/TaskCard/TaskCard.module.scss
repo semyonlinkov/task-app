@@ -53,4 +53,14 @@
 		margin: 8px 0;
 		border-radius: 3px;
 	}
+
+	.flex_div {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.readed {
+		text-align: right;
+		font-weight: 500;
+	}
 }
