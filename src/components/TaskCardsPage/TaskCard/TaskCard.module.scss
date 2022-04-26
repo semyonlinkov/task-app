@@ -27,15 +27,15 @@
 	}
 
 	.done {
-		background-color: green;
+		background-color: var(--task-done);
 	}
 
 	.in_progress {
-		background-color: blue;
+		background-color: var(--task-in-progress);
 	}
 
 	.new {
-		background-color: red;
+		background-color: var(--task-new);
 	}
 
 	hr {

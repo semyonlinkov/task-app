@@ -19,6 +19,7 @@ const TaskCardsPage = () => {
 		}
 	}, [user]);
 
+	// ? tasks.filter((task) => task.status !== 'Выполнено').map((task) => <TaskCard task={task} key={task.id} />)
 	return (
 		<>
 			{toggleValue === 'gettedTasks'

@@ -12,19 +12,19 @@ import Info from './Info/Info';
 import Files from './Files/Files';
 import History from './History/History';
 import Chat from './Chat/Chat';
-import {$tasks} from "../../store/tasks";
+import { $tasks } from '../../store/tasks';
 
 const TaskPage = () => {
 	const tasks = useStore($tasks);
-	const { id } = useParams();
-
 	const taskPageNav = useStore($taskPageNav);
 
+	const { id } = useParams();
+
 	useLayoutEffect(() => {
-		setSingleTask(tasks.filter(el => el.id === id)[0]);
-		return () => {
-			setSingleTask(0);
-		};
+		setSingleTask(tasks.filter((el) => el.id === id)[0]);
+		// return () => {
+		// 	setSingleTask([]);
+		// };
 	}, []);
 
 	return (

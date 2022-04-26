@@ -19,9 +19,6 @@ const CreateTaskPage = () => {
 	const files = getValues('files');
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
-	// console.log(files);
-	// console.log(watch());
-
 	useEffect(() => {
 		if (workers === 'loading') {
 			setIsLoading(true);
@@ -108,7 +105,7 @@ const CreateTaskPage = () => {
 			</label>
 			<label className={styles.btn_file}>
 				<input type="file" multiple {...register('files')} />
-				<p>{files ? `Добавлено файлов ${files.length}` : 'Добавить файлы'}</p>
+				<p>{files?.length ? `Добавлено файлов ${files.length}` : 'Добавить файлы'}</p>
 			</label>
 			<label>
 				<input

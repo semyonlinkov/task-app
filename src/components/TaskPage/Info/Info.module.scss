@@ -32,16 +32,16 @@
 		}
 	}
 
-	.red {
-		background: red;
+	.new {
+		background: var(--task-new);
 	}
 
-	.green {
-		background: forestgreen;
+	.in_progress {
+		background: var(--task-in-progress);
 	}
 
-	.orange {
-		background: orange;
+	.done {
+		background: var(--task-done);
 	}
 
 	.start_btn {

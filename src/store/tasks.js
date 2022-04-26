@@ -1,7 +1,6 @@
-import {createStore, createEffect, combine, createEvent} from 'effector'
+import { createStore, createEffect, combine, createEvent } from 'effector'
 import { $toggleValue } from './taskToggleState';
 import { $user } from './user';
-
 
 
 export const getTasks = createEffect(async (id) => {
@@ -13,31 +12,18 @@ export const getTasks = createEffect(async (id) => {
 	return req.json();
 })
 
-
 export const $tasks = createStore([]).on(
 	getTasks.doneData,
 	(_, data) => data
 )
 
 export const $taskStatus = combine(
-	$tasks, getTasks.pending, $toggleValue, $user,
-	(data, isLoading, toggle, user) => {
+	$tasks, getTasks.pending, $user,
+	(data, isLoading, user) => {
 		if (isLoading) {
 			return []
 		} else {
-			if (toggle === 'gettedTasks') {
-				return data.filter(task => task.customerID == user.ID);
-			}
-			if (toggle === 'takenTasks') {
-				let customers = [];
-				const newData = data.filter(task => task.creatorID == user.ID);
-				newData.forEach(el => {
-					if (customers.indexOf(el.customer) === -1) {
-						customers.push(el.customer);
-					}
-				})
-				return newData;
-			}
+			return data.filter(task => task.customerID == user.ID);
 		}
 	}
 )

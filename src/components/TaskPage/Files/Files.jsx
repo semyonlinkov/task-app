@@ -18,11 +18,13 @@ const Files = () => {
 	useEffect(() => {
 		const { files } = task;
 		setFilesArr(files.split(';'));
-	}, []);
+	}, [task]);
 
 	const fileExt = (file) => {
 		return file.split('.').at(-1);
 	};
+
+	console.log('render');
 
 	const filesFilter = useMemo(() => {
 		filesArr.forEach((file, i) => {
@@ -40,19 +42,15 @@ const Files = () => {
 		<div className={styles.wrapper}>
 			{imageFiles &&
 				imageFiles.map((file) => (
-					<>
-						<FilesDropdown key={file} alt={file} fileName={file} typeFile="Фото">
-							<ImageFile key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
-						</FilesDropdown>
-					</>
+					<FilesDropdown key={file} alt={file} fileName={file} typeFile="Фото">
+						<ImageFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+					</FilesDropdown>
 				))}
 			{videoFiles &&
 				videoFiles.map((file) => (
-					<>
-						<FilesDropdown key={file} alt={file} fileName={file} typeFile="Видео">
-							<VideoFile key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
-						</FilesDropdown>
-					</>
+					<FilesDropdown key={file} alt={file} fileName={file} typeFile="Видео">
+						<VideoFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+					</FilesDropdown>
 				))}
 			{otherFiles &&
 				otherFiles.map((file) => (
