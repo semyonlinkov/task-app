@@ -3,19 +3,49 @@
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100%;
+	overflow: hidden;
 
 	.messages_area {
 		display: flex;
 		flex-direction: column-reverse;
 		flex: 1;
-		overflow: scroll;
+		overflow: auto;
+		align-items: stretch;
+
+		.message {
+			display: flex;
+			margin: 10px 0;
+		}
+
+		.my_message {
+			align-self: flex-end;
+			flex-direction: row-reverse;
+		}
+
+		.another_message {
+			flex-direction: reverse;
+			align-self: flex-start;
+		}
 	}
 
 	.input_area {
 		display: flex;
 		justify-content: space-between;
+		height: 120px;
+		border-top: 1px solid #aaaaaa;
+
 		textarea {
+			font-family: 'Roboto', sans-serif;
+			font-size: 16px;
+			resize: none;
 			flex: 1;
+			border: none;
+			padding: 5px;
+		}
+		input[type='image'] {
+			width: 40px;
+			height: 40px;
+			margin: 12px 10px 5px 10px;
 		}
 	}
 }

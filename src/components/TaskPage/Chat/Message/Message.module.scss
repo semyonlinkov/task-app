@@ -1,6 +1,29 @@
 .wrapper {
-	.my_message {
+	position: relative;
+	background-color: #f7f7f7;
+	border: 1px solid #aaaaaa;
+	border-radius: 3px;
+	width: 70vw;
+	padding: 7px;
+
+	.name {
+		font-weight: 500;
+		padding-bottom: 5px;
 	}
-	.not_my_message {
+
+	.date {
+		font-weight: 500;
+		padding-top: 5px;
+	}
+
+	.readed_mark {
+		position: absolute;
+		right: 5px;
+		bottom: 0;
+
+		img {
+			width: 20px;
+			height: 20px;
+		}
 	}
 }

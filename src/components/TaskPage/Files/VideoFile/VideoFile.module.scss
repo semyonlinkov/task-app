@@ -1,8 +1,10 @@
 .wrapper {
-	width: 100%;
-	
 	.video {
-		width: 100%;
+		width: 100vw;
+	}
+
+	source {
+		width: 100vw;
 	}
 
 	.video_wrapper {
