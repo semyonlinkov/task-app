@@ -22,9 +22,6 @@ const TaskPage = () => {
 
 	useLayoutEffect(() => {
 		setSingleTask(tasks.filter((el) => el.id === id)[0]);
-		// return () => {
-		// 	setSingleTask([]);
-		// };
 	}, []);
 
 	return (

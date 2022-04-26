@@ -16,15 +16,12 @@ const Files = () => {
 	const [otherFiles, setOtherFiles] = useState([]);
 
 	useEffect(() => {
-		const { files } = task;
-		setFilesArr(files.split(';'));
+		setFilesArr(task.files.split(';'));
 	}, [task]);
 
 	const fileExt = (file) => {
 		return file.split('.').at(-1);
 	};
-
-	console.log('render');
 
 	const filesFilter = useMemo(() => {
 		filesArr.forEach((file, i) => {
