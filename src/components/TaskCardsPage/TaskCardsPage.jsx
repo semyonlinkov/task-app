@@ -19,7 +19,6 @@ const TaskCardsPage = () => {
 		}
 	}, [user]);
 
-
 	return (
 		<>
 			{toggleValue === 'gettedTasks'

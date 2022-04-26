@@ -18,9 +18,9 @@ const CreateTaskPage = () => {
 	const onSubmit = (data) => createTask(data, user, () => navigate('/'));
 	const files = getValues('files');
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
-	
-		// console.log(files);
-		// console.log(watch());
+
+	// console.log(files);
+	// console.log(watch());
 
 	useEffect(() => {
 		if (workers === 'loading') {

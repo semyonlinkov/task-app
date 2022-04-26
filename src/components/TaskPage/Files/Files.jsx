@@ -4,7 +4,9 @@ import FilesDropdown from './FilesDropdown/FilesDropdown';
 
 import styles from './Files.module.scss';
 import { $singleTask } from '../../../store/selectedTask';
-import OtherFile from './FilesDropdown/OtherFile/OtherFile';
+import OtherFile from './OtherFile/OtherFile';
+import ImageFile from './ImageFile/ImageFile';
+import VideoFile from './VideoFile/VideoFile';
 
 const Files = () => {
 	const task = useStore($singleTask);
@@ -36,27 +38,30 @@ const Files = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			{imageFiles.map((file) => (
-				<FilesDropdown
-					key={file}
-					src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
-					alt={file}
-					fileName={file}
-					typeFile="Фото"
-				/>
-			))}
-			{videoFiles.map((file) => (
-				<FilesDropdown
-					key={file}
-					src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
-					alt={file}
-					fileName={file}
-					typeFile="Видео"
-				/>
-			))}
-			{otherFiles.map((file) => (
-				<OtherFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
-			))}
+			{imageFiles &&
+				imageFiles.map((file) => (
+					<>
+						<FilesDropdown key={file} alt={file} fileName={file} typeFile="Фото">
+							<ImageFile key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+						</FilesDropdown>
+					</>
+				))}
+			{videoFiles &&
+				videoFiles.map((file) => (
+					<>
+						<FilesDropdown key={file} alt={file} fileName={file} typeFile="Видео">
+							<VideoFile key={file} src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+						</FilesDropdown>
+					</>
+				))}
+			{otherFiles &&
+				otherFiles.map((file) => (
+					<OtherFile
+						key={file}
+						src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
+						fileName={file}
+					/>
+				))}
 			<div className={styles.file_input}>
 				<input type="file" id="file" className={styles.file} />
 				<label htmlFor="file">Выбрать файл</label>

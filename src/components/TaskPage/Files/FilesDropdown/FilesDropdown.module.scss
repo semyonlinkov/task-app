@@ -5,10 +5,10 @@
 
 	.dropdown {
 		display: flex;
+		justify-content: space-between;
 		align-items: center;
 		padding: 6px 14px;
 		border-bottom: 1px solid #aaaaaa;
-		justify-content: space-between;
 
 		p {
 			flex: 1;

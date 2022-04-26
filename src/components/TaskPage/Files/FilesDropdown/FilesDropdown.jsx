@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import styles from './FilesDropdown.module.scss';
-import ImageFile from './ImageFile/ImageFile';
-import VideoFile from './VideoFile/VideoFile';
 import eye from '../../../../img/eye.png';
 import trash from '../../../../img/trash.png';
 
-const ImageDropdown = ({ src, fileName, typeFile }) => {
+const ImageDropdown = ({ typeFile, children }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const openToggle = () => {
@@ -21,8 +19,8 @@ const ImageDropdown = ({ src, fileName, typeFile }) => {
 					<input type="image" src={trash} />
 				</div>
 			</div>
-			{typeFile === 'Фото' && isOpen && <ImageFile src={src} fileName={fileName} />}
-			{typeFile === 'Видео' && isOpen && <VideoFile src={src} fileName={fileName} />}
+			{typeFile === 'Фото' && isOpen && children}
+			{typeFile === 'Видео' && isOpen && children}
 		</div>
 	);
 };

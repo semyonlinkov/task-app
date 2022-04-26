@@ -1,0 +1,22 @@
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 14px;
+	border-bottom: 1px solid #aaaaaa;
+
+	p {
+		flex: 1;
+	}
+
+	a {
+		padding-left: 15px;
+	}
+
+	input[type='image'] {
+		height: 20px;
+		width: 20px;
+		padding-top: 1px;
+		margin-right: 10px;
+	}
+}
