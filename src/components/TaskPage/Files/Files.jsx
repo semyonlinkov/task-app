@@ -35,6 +35,8 @@ const Files = () => {
 		});
 	}, [filesArr]);
 
+	console.log(task);
+
 	return (
 		<div className={styles.wrapper}>
 			{imageFiles &&
