@@ -16,7 +16,9 @@ const Files = () => {
 	const [otherFiles, setOtherFiles] = useState([]);
 
 	useEffect(() => {
-		setFilesArr(task.files.split(';'));
+		if (task.files !== '') {
+			setFilesArr(task.files.split(';'));
+		}
 	}, [task]);
 
 	const fileExt = (file) => {

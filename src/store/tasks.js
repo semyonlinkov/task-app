@@ -17,17 +17,38 @@ export const $tasks = createStore([]).on(
 	(_, data) => data
 )
 
+export const setFilter = createEvent();
+
+export const $filter = createStore('Все').on(
+	setFilter,
+	(prev, data) => {
+		if (prev === data) {
+			return 'Все'
+		} else {
+			return data;
+		}
+	}
+)
+
 export const $taskStatus = combine(
-	$tasks, getTasks.pending,$toggleValue, $user,
-	(data, isLoading,toggle, user) => {
+	$tasks, getTasks.pending, $toggleValue, $user, $filter,
+	(data, isLoading, toggle, user, filter) => {
 		if (isLoading) {
 			return []
 		} else {
 			if (toggle === 'gettedTasks') {
-				return data.filter(task => task.customerID == user.ID); 
+				return data.filter(task => task.customerID == user.ID && task.status !== 'Выполнено');
 			}
 			if (toggle === 'takenTasks') {
-				return data.filter(task => task.customerID !== user.ID); 
+				if (filter === 'Новая') {
+					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID);
+				} else if (filter === 'В работе') {
+					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID)
+				} else if (filter === 'Выполнено') {
+					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID)
+				} else {
+					return data.filter(task => task.customerID !== user.ID)
+				}
 			}
 		}
 	}
@@ -37,17 +58,10 @@ export const $customersStatus = combine(
 	$tasks, getTasks.pending, $toggleValue, $user,
 	(data, isLoading, toggle, user) => {
 
-		// console.log(toggle);
-		// console.log(data);
-		// console.log(user);
-
-
 		if (isLoading) {
 			return []
 		} else {
-			if (toggle === 'gettedTasks') {
-				return data.filter(task => task.customerID == user.ID);
-			}
+
 			if (toggle === 'takenTasks') {
 				let customers = [];
 				const newData = data.filter(task => task.creatorID == user.ID);

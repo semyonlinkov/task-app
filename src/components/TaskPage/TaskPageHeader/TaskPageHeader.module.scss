@@ -1,4 +1,4 @@
-ul {
+.wrapper {
 	display: flex;
 	justify-content: space-between;
 
@@ -23,3 +23,29 @@ ul {
 		border-right: none;
 	}
 }
+
+// ul {
+// 	display: flex;
+// 	justify-content: space-between;
+
+// 	li {
+// 		padding: 6px;
+// 		border-right: 1px solid #aaaaaa;
+// 		border-bottom: 1px solid #aaaaaa;
+// 		width: 25%;
+// 		display: flex;
+// 		justify-content: center;
+// 	}
+
+// 	img {
+// 		width: 35px;
+// 	}
+
+// 	.active {
+// 		border-bottom: 1px solid #aaaaaa00;
+// 	}
+
+// 	:last-child {
+// 		border-right: none;
+// 	}
+// }

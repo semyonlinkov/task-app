@@ -17,7 +17,7 @@ const MainData = () => {
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
-		if (task.id && task.readed === '0000-00-00 00:00:00') {
+		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
 			setReaded(task.id);
 		}
 	}, [task]);
