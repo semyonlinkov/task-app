@@ -1,1 +1,40 @@
+.wrapper {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 40px;
+	border-bottom: 1px solid #aaaaaa;
 
+	.choosen {
+		background-color: #cacaca;
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+		padding: 4px 20px 3px 16px;
+	}
+
+	p {
+		margin-top: 2px;
+	}
+
+	.task_mark {
+		width: 16px;
+		height: 16px;
+		border-radius: 1000px;
+		margin-right: 6px;
+	}
+
+	.new {
+		background-color: var(--task-new);
+	}
+
+	.in_progress {
+		background-color: var(--task-in-progress);
+	}
+
+	.done {
+		background-color: var(--task-done);
+	}
+}

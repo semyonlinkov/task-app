@@ -6,7 +6,7 @@ import { $customersStatus, $filter, $taskStatus, getTasks, setFilter } from '../
 import { $toggleValue } from '../../store/taskToggleState';
 import { useStore } from 'effector-react';
 import TaskDropdown from './TasksDropdown/TaskDropdown';
-import styles from './TaskCardsPage.module.scss';
+import TasksFilter from './TasksFilter/TasksFilter';
 
 const TaskCardsPage = () => {
 	const user = useStore($user);
@@ -23,22 +23,7 @@ const TaskCardsPage = () => {
 
 	return (
 		<>
-			{toggleValue === 'takenTasks' && (
-				<ul className={styles.task_filter}>
-					<li className={filter === 'Новая' ? styles.choosen : null} onClick={() => setFilter('Новая')}>
-						<div className={`${styles.task_mark} ${styles.new}`}></div>
-						<p>Новая</p>
-					</li>
-					<li className={filter === 'В работе' ? styles.choosen : null} onClick={() => setFilter('В работе')}>
-						<div className={`${styles.task_mark} ${styles.in_progress}`}></div>
-						<p>В работе</p>
-					</li>
-					<li className={filter === 'Выполнено' ? styles.choosen : null} onClick={() => setFilter('Выполнено')}>
-						<div className={`${styles.task_mark} ${styles.done}`}></div>
-						<p>Выполнено</p>
-					</li>
-				</ul>
-			)}
+			{toggleValue === 'takenTasks' && <TasksFilter />}
 			{toggleValue === 'gettedTasks'
 				? tasks.map((task) => <TaskCard task={task} key={task.id} />)
 				: customers.map((name) => <TaskDropdown name={name} key={name} />)}
