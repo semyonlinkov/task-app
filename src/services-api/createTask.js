@@ -2,7 +2,7 @@ export const createTask = (form, user, changeHisory) => {
 	let formData = new FormData();
 
 	formData.append('creatorID', user.ID);
-	formData.append('creatorName', `${user.NAME} ${user.LAST_NAME} ${user.SECOND_NAME}`);
+	formData.append('creatorName', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
 
 	for (let key in form) {
 		if (key !== 'files') {

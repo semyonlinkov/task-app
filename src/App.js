@@ -19,7 +19,7 @@ function App() {
 				})
 			)
 		} else {
-			setUser({ ID: "3353", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
+			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
 		}
 
 		getWorkers();

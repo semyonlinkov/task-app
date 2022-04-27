@@ -7,7 +7,7 @@ const Avatar = ({ src }) => {
 		<div className={styles.wrapper}>
 			<img src={src ? src : avatar} alt="avatar" />
 		</div>
-	);
+);
 };
 
 export default Avatar;

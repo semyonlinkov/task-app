@@ -1,7 +1,7 @@
 import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
 import { createTask } from '../../services-api/createTask';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
@@ -61,6 +61,8 @@ const CreateTaskPage = () => {
 					{...register('department')}
 					onChange={(e) => {
 						setValue('department', e.target.value);
+						setValue('executor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
+						setValue('coexecutor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
 					}}>
 					{workers !== 'loading'
 						? Object.keys(workers).map((department) => (

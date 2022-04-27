@@ -1,4 +1,4 @@
-import styles from './Header.module.scss'
+import styles from './Header.module.scss';
 import { useStore } from 'effector-react';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import { $toggleValue } from '../../store/taskToggleState';
@@ -17,17 +17,18 @@ const Header = () => {
 				className={styles.task_img}
 				type="image"
 				src={pathname === '/' ? create : cross}
-				onClick={() => pathname === '/' ? navigate('/create_task') : navigate('/')}
+				onClick={() => (pathname === '/' ? navigate('/create_task') : navigate('/'))}
 			/>
-			{pathname === '/'
-				? <div className={styles.toggle_switch}>
+			{pathname === '/' ? (
+				<div className={styles.toggle_switch}>
 					<ToggleSwitch />
-					<p className={styles.switch_title}>{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}</p>
+					<p className={styles.switch_title}>
+						{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}
+					</p>
 				</div>
-				: null
-			}
+			) : null}
 		</div>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;

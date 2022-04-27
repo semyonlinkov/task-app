@@ -20,7 +20,7 @@ export const TaskCard = ({ task }) => {
 		if (nameArray.length < 3) {
 			return `${nameArray[0]} ${nameArray[1]}`;
 		} else {
-			return `${nameArray[0]} ${nameArray[1][0]}.${nameArray[2][0]}`;
+			return `${nameArray[0]} ${nameArray[1][0]}.${nameArray[2][0]}`; 
 		}
 	};
 
@@ -33,14 +33,12 @@ export const TaskCard = ({ task }) => {
 						{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
 						{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
 					</div>
-					{task.readed !== '0000-00-00 00:00:00' && <div className={styles.readed}>
-						<p>
-							Прочитано
-						</p>
-						<p>
-							{moment(task.readed).format('DD.MM.YYYY HH:mm')}
-						</p>
-					</div> }
+					{task.readed !== '0000-00-00 00:00:00' && (
+						<div className={styles.readed}>
+							<p>Прочитано</p>
+							<p>{moment(task.readed).format('DD.MM.YYYY HH:mm')}</p>
+						</div>
+					)}
 				</div>
 
 				{task.desc && <p className={styles.desc}>{task.desc}</p>}
@@ -64,7 +62,6 @@ export const TaskCard = ({ task }) => {
 				) : null}
 
 				{task.date_create && <p className={styles.date}>{moment(task.date_create).format('DD.MM.YYYY hh:mm')}</p>}
-
 			</div>
 		</div>
 	);

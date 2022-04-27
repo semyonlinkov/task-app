@@ -18,12 +18,17 @@ export const $tasks = createStore([]).on(
 )
 
 export const $taskStatus = combine(
-	$tasks, getTasks.pending, $user,
-	(data, isLoading, user) => {
+	$tasks, getTasks.pending,$toggleValue, $user,
+	(data, isLoading,toggle, user) => {
 		if (isLoading) {
 			return []
 		} else {
-			return data.filter(task => task.customerID == user.ID);
+			if (toggle === 'gettedTasks') {
+				return data.filter(task => task.customerID == user.ID); 
+			}
+			if (toggle === 'takenTasks') {
+				return data.filter(task => task.customerID !== user.ID); 
+			}
 		}
 	}
 )
@@ -31,6 +36,12 @@ export const $taskStatus = combine(
 export const $customersStatus = combine(
 	$tasks, getTasks.pending, $toggleValue, $user,
 	(data, isLoading, toggle, user) => {
+
+		// console.log(toggle);
+		// console.log(data);
+		// console.log(user);
+
+
 		if (isLoading) {
 			return []
 		} else {
@@ -39,7 +50,6 @@ export const $customersStatus = combine(
 			}
 			if (toggle === 'takenTasks') {
 				let customers = [];
-
 				const newData = data.filter(task => task.creatorID == user.ID);
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
