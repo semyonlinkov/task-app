@@ -19,8 +19,7 @@ function App() {
 				})
 			)
 		} else {
-			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
-			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' })
+			setUser({ ID: "1", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' })
 		}
 
 		getWorkers();

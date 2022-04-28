@@ -3,7 +3,7 @@
 	font-size: 13px;
 	font-weight: 400;
 	border-bottom: 1px solid black;
-
+	position: relative;
 	p {
 		padding: 2px;
 	}
@@ -66,5 +66,25 @@
 }
 
 .defect {
-	border: 3px solid red;
+	border: 1px solid red;
+	border-radius: 5px;
+}
+
+.brack_shtamp {
+	position: absolute;
+	right: 15px;
+	top: 55px;
+	transform: rotate(45deg);
+	color: red;
+
+	border-radius: 7px;
+	font-weight: 700;
+	border: 2px solid red;
+	padding: 3px 20px;
+	font-size: 25px;
+
+}
+
+.white {
+	background: white;
 }
