@@ -74,10 +74,10 @@ const CreateTaskPage = () => {
 					}}>
 					{workers !== 'loading'
 						? Object.keys(workers).map((department) => (
-								<option key={department} value={department}>
-									{department}
-								</option>
-						  ))
+							<option key={department} value={department}>
+								{department}
+							</option>
+						))
 						: null}
 				</select>
 			</label>
@@ -86,10 +86,10 @@ const CreateTaskPage = () => {
 				<select {...register('executor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
+							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+								{person.NAME}
+							</option>
+						))
 						: null}
 				</select>
 			</label>
@@ -98,10 +98,10 @@ const CreateTaskPage = () => {
 				<select {...register('coexecutor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
+							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+								{person.NAME}
+							</option>
+						))
 						: null}
 				</select>
 			</label>

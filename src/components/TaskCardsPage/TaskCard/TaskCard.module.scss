@@ -2,7 +2,7 @@
 	display: flex;
 	font-size: 13px;
 	font-weight: 400;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #aaaaaa;
 	position: relative;
 	p {
 		padding: 2px;
@@ -26,6 +26,10 @@
 		}
 	}
 
+	.new {
+		background-color: var(--task-new);
+	}
+
 	.done {
 		background-color: var(--task-done);
 	}
@@ -34,8 +38,8 @@
 		background-color: var(--task-in-progress);
 	}
 
-	.new {
-		background-color: var(--task-new);
+	.defect {
+		background-color: var(--task-defect);
 	}
 
 	hr {
@@ -82,7 +86,6 @@
 	border: 2px solid red;
 	padding: 3px 20px;
 	font-size: 25px;
-
 }
 
 .white {

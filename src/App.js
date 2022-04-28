@@ -1,7 +1,7 @@
 import './App.css';
 import Header from "./components/Header/Header";
 import { useEffect } from "react";
-import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { setUser } from "./store/user";
 import { getWorkers } from './store/workers';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
@@ -19,7 +19,7 @@ function App() {
 				})
 			)
 		} else {
-			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' })
+			setUser({ ID: "1", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' })
 		}
 
 		getWorkers();
@@ -27,22 +27,20 @@ function App() {
 
 	return (
 		<div className="app">
-			<HashRouter hashType="noslash">
-
-					<LoadingSpinner />
-					<div className='app-header'>
-						<Header />
-					</div>
-					<div className='app-content'>
-						<Routes>
-							<Route path="/" element={<TaskCardsPage />} />
-							<Route path="/create_task" element={<CreateTaskPage />} />
-							<Route path="/tasks/:id" element={<TaskPage />} />
-							<Route path="*" element={<h1>404</h1>} />
-						</Routes>
-					</div>
-
-			</HashRouter>
+			<BrowserRouter >
+				<LoadingSpinner />
+				<div className='app-header'>
+					<Header />
+				</div>
+				<div className='app-content'>
+					<Routes>
+						<Route path="/" element={<TaskCardsPage />} />
+						<Route path="/create_task" element={<CreateTaskPage />} />
+						<Route path="/tasks/:id" element={<TaskPage />} />
+						<Route path="*" element={<h1>404</h1>} />
+					</Routes>
+				</div>
+			</BrowserRouter>
 		</div>
 	);
 }

@@ -10,11 +10,16 @@ import { setReaded } from '../../../services-api/setReaded';
 import { startTask } from '../../../services-api/startTask';
 import { $singleTask } from '../../../store/selectedTask';
 import TaskRaportForm from '../TaskRaportForm/TaskRaportForm';
+import { useForm } from 'react-hook-form';
 
 const MainData = () => {
+	const { register, handleSubmit, watch, setValue, getValues } = useForm();
+
 	const task = useStore($singleTask);
 	const user = useStore($user);
+
 	const [showForm, setShowForm] = useState(false);
+	const [showInput, setShowInput] = useState(false);
 
 	useEffect(() => {
 		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
@@ -22,32 +27,47 @@ const MainData = () => {
 		}
 	}, [task]);
 
+	const putStatusMark = () => {
+		if (task.status === 'Новая') {
+			return styles.new;
+		} else if (task.status === 'В работе') {
+			return styles.in_progress;
+		} else if (task.status === 'Выполнено') {
+			return styles.done;
+		} else if (task.status === 'Брак') {
+			return styles.defect;
+		}
+	};
+
+	// console.log(user, 'user');
+	// console.log(task, 'task');
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.status}>
-				<div
-					className={`${styles.circleStatus} ${
-						task.status === 'Новая' ? styles.new : task.status === 'В работе' ? styles.in_progress : styles.done
-					}`}></div>
+				<div className={`${styles.circleStatus} ${putStatusMark()}`}></div>
 				<p>Задача {task.status}</p>
 			</div>
 			<p className={styles.title}>{task.title}</p>
-			{task.object_name ? (
-				<p>
-					<span>Название объекта:</span> {task.object_name}
-				</p>
-			) : null}
-			{task.object_address ? (
+			{task.object_name && (
+				<>
+					<p>
+						<span>Название объекта:</span> {task.object_name}
+						{/* <input type="img" src/> {user.ID === task.creatorID && <input type="text" placeholder={task.object_name} />} */}
+					</p>
+				</>
+			)}
+			{task.object_address && (
 				<p>
 					<span>Адрес объекта:</span> {task.object_address}
 				</p>
-			) : null}
-			{task.date_deadline !== '0000-00-00 00:00:00' ? (
+			)}
+			{task.date_deadline !== '0000-00-00 00:00:00' && (
 				<p>
 					<span>Срок выполнения</span> до{' '}
 					<span style={{ fontWeight: 500 }}>{moment(task.date_deadline).format('DD.MM HH:mm')}</span>
 				</p>
-			) : null}
+			)}
 			<p>
 				<span>Постановщик:</span> {task.creatorName}
 			</p>
@@ -56,6 +76,14 @@ const MainData = () => {
 				<img src={Info} alt="" />
 				<p>{task.desc}</p>
 			</div>
+
+			{task.deffect_comment && (
+				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
+					<img src={Info} alt="" />
+					<p>{task.deffect_comment}</p>
+				</div>
+			)}
+
 			<div className={styles.info_blocks}>
 				<img src={Phone} alt="" />
 				<p>

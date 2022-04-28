@@ -1,9 +1,3 @@
-:root {
-	--task-new: #f50000;
-	--task-in-progress: #f59f00;
-	--task-done: #2686de;
-}
-
 .app {
 	display: flex;
 	flex-direction: column;
