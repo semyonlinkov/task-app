@@ -11,6 +11,7 @@
 
 	input {
 		width: 100%;
+		padding-left: 5px;
 		height: 27px;
 		border: 1px solid #aaaaaa;
 		border-radius: 4px;
@@ -79,5 +80,19 @@
 		&:active {
 			background-color: #225022;
 		}
+	}
+}
+
+
+.checkbox_flex {
+	display: flex;
+	flex-direction: row-reverse;
+	margin: 15px 0;
+	align-items: center;
+	justify-content: flex-start;
+	input {
+		width: 20px;
+		height: 20px;
+		margin-left: 20px;
 	}
 }
