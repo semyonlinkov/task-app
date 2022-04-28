@@ -1,12 +1,12 @@
 .wrapper {
 	display: flex;
 	flex-direction: row-reverse;
-	height: 60px;
+	height: 50px;
 	padding: 0 10px;
 
 	background-color: white;
 	align-items: center;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid var(--border-color);
 	justify-content: space-between;
 
 	.toggle_switch {

@@ -20,6 +20,10 @@ const TasksFilter = () => {
 				<div className={`${styles.task_mark} ${styles.done}`}></div>
 				<p>Выполнено</p>
 			</li>
+			<li className={dataFilter === 'Брак' ? styles.choosen : null} onClick={() => setDataFilter('Брак')}>
+				<div className={`${styles.task_mark} ${styles.defect}`}></div>
+				<p>Брак</p>
+			</li>
 		</ul>
 	);
 };

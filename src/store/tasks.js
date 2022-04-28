@@ -53,6 +53,8 @@ export const $taskStatus = combine(
 					return data.filter(task => task.status === 'В работе').filter(task => task.customerID !== user.ID)
 				} else if (dataFilter === 'Выполнено') {
 					return data.filter(task => task.status === 'Выполнено').filter(task => task.customerID !== user.ID)
+				} else if (dataFilter === 'Брак') {
+					return data.filter(task => task.status === 'Брак').filter(task => task.customerID !== user.ID)
 				} else {
 					return data.filter(task => task.customerID !== user.ID)
 				}

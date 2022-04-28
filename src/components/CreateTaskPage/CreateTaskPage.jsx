@@ -27,6 +27,8 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
+	console.log(watch());
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
@@ -49,7 +51,7 @@ const CreateTaskPage = () => {
 			</label>
 			<label>
 				<p>Телефон клиента</p>
-				<input {...register('clientPhoneNumber')} />
+				<input type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" {...register('clientPhoneNumber')} />
 			</label>
 			<label>
 				<p>ФИО клиента</p>
@@ -100,6 +102,15 @@ const CreateTaskPage = () => {
 			<label>
 				<p>Выбрать дату</p>
 				<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
+			</label>
+			<label style={{ display: 'flex', justifyContent: 'space-around', padding: '10px 0' }}>
+				<p style={{ display: 'block' }}>Отправить СМС клиенту</p>
+				<input
+					style={{ display: 'block', alignSelf: 'center' }}
+					type="checkbox"
+					{...register('sendSMS')}
+					onChange={(e) => setValue('sendSMS', e.target.value)}
+				/>
 			</label>
 			<label>
 				<p>Комментарий</p>

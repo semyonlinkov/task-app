@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
+:root {
+	--task-new: #2686de;
+	--task-in-progress: #f59f00;
+	--task-done: #34b334;
+	--task-defect: #f50000;
+
+	--main-color: #ffffff;
+	--second-color: #aaaaaa;
+
+	--border-color: #aaaaaa;
+}
+
 * {
 	padding: 0;
 	margin: 0;

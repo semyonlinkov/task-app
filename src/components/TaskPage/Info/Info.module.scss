@@ -44,6 +44,10 @@
 		background: var(--task-done);
 	}
 
+	.defect {
+		background: var(--task-defect);
+	}
+
 	.start_btn {
 		background: #ff0000;
 	}
@@ -78,5 +82,10 @@
 			margin-right: 10px;
 			width: 20px;
 		}
+	}
+
+	.defect_block {
+		border-top: 1px solid #db1919;
+		border-bottom: 1px solid #db1919;
 	}
 }

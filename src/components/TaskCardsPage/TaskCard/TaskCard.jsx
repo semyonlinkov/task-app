@@ -13,7 +13,7 @@ export const TaskCard = ({ task }) => {
 		} else if (task.status === 'Выполнено') {
 			return styles.done;
 		} else if (task.status === 'Брак') {
-			return styles.white;
+			return styles.defect;
 		}
 	};
 
@@ -26,18 +26,13 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
-	// console.log(task);
-
 	return (
-		<div
-			className={`${styles.wrapper} `}
-			onClick={() => navigate(`/tasks/${task.id}`)}>
+		<div className={`${styles.wrapper} `} onClick={() => navigate(`/tasks/${task.id}`)}>
 			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
 			{task.status === 'Брак' && <div className={styles.brack_shtamp}>Брак</div>}
 			<div className={styles.task_data}>
 				<div className={styles.flex_div}>
 					<div>
-
 						{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
 						{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
 					</div>
@@ -49,9 +44,17 @@ export const TaskCard = ({ task }) => {
 					)}
 				</div>
 
-				{task.desc && <p className={styles.desc}><span>Описание:</span> {task.desc}</p>}
+				{task.desc && (
+					<p className={styles.desc}>
+						<span>Описание:</span> {task.desc}
+					</p>
+				)}
 
-				{task.deffect_comment && <p className={`${styles.desc} ${styles.defect}`}><span>Брак:</span> {task.deffect_comment}</p>}
+				{task.deffect_comment && (
+					<p className={`${styles.desc} ${styles.defect}`}>
+						<span>Брак:</span> {task.deffect_comment}
+					</p>
+				)}
 
 				{task.creatorName && (
 					<p>
