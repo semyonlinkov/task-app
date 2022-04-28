@@ -12,6 +12,8 @@ export const TaskCard = ({ task }) => {
 			return styles.in_progress;
 		} else if (task.status === 'Выполнено') {
 			return styles.done;
+		} else if (task.status === 'Брак') {
+			return null;
 		}
 	};
 
@@ -20,16 +22,21 @@ export const TaskCard = ({ task }) => {
 		if (nameArray.length < 3) {
 			return `${nameArray[0]} ${nameArray[1]}`;
 		} else {
-			return `${nameArray[0]} ${nameArray[1][0]}.${nameArray[2][0]}`; 
+			return `${nameArray[0]} ${nameArray[1][0]}.${nameArray[2][0]}`;
 		}
 	};
 
+	// console.log(task);
+
 	return (
-		<div className={styles.wrapper} onClick={() => navigate(`/tasks/${task.id}`)}>
-			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
+		<div
+			className={`${styles.wrapper} ${task.status == 'Брак' && styles.defect}`}
+			onClick={() => navigate(`/tasks/${task.id}`)}>
+			{task.status !== 'Брак' && <div className={`${styles.indication_mark} ${putStatusMark()}`}></div>}
 			<div className={styles.task_data}>
 				<div className={styles.flex_div}>
 					<div>
+						{task.deffect_comment && <h2>Брак</h2>}
 						{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
 						{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
 					</div>
@@ -42,6 +49,9 @@ export const TaskCard = ({ task }) => {
 				</div>
 
 				{task.desc && <p className={styles.desc}>{task.desc}</p>}
+
+				{task.deffect_comment && <p className={`${styles.desc} ${styles.defect}`}>{task.deffect_comment}</p>}
+
 				{task.creatorName && (
 					<p>
 						Постановщик: <span>{getNormalName(task.creatorName)}</span>

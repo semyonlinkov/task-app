@@ -17,10 +17,10 @@ export const $tasks = createStore([]).on(
 	(_, data) => data
 )
 
-export const setFilter = createEvent();
+export const setDataFilter = createEvent();
 
-export const $filter = createStore('Все').on(
-	setFilter,
+export const $dataFilter = createStore('Все').on(
+	setDataFilter,
 	(prev, data) => {
 		if (prev === data) {
 			return 'Все'
@@ -31,21 +31,28 @@ export const $filter = createStore('Все').on(
 )
 
 export const $taskStatus = combine(
-	$tasks, getTasks.pending, $toggleValue, $user, $filter,
-	(data, isLoading, toggle, user, filter) => {
+	$tasks, getTasks.pending, $toggleValue, $user, $dataFilter,
+	(data, isLoading, toggle, user, dataFilter) => {
 		if (isLoading) {
 			return []
 		} else {
+
 			if (toggle === 'gettedTasks') {
-				return data.filter(task => task.customerID == user.ID && task.status !== 'Выполнено');
+				const defectFirstData = [
+					...[...data].filter(task => task.status === 'Брак'),
+					...[...data].filter(task => task.status !== 'Брак')
+				];
+
+				return defectFirstData.filter(task => task.customerID == user.ID && task.status !== 'Выполнено');
 			}
+
 			if (toggle === 'takenTasks') {
-				if (filter === 'Новая') {
-					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID);
-				} else if (filter === 'В работе') {
-					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID)
-				} else if (filter === 'Выполнено') {
-					return data.filter(task => task.status === filter).filter(task => task.customerID !== user.ID)
+				if (dataFilter === 'Новая') {
+					return data.filter(task => task.status === 'Новая').filter(task => task.customerID !== user.ID);
+				} else if (dataFilter === 'В работе') {
+					return data.filter(task => task.status === 'В работе').filter(task => task.customerID !== user.ID)
+				} else if (dataFilter === 'Выполнено') {
+					return data.filter(task => task.status === 'Выполнено').filter(task => task.customerID !== user.ID)
 				} else {
 					return data.filter(task => task.customerID !== user.ID)
 				}

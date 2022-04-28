@@ -12,14 +12,14 @@
 		height: 16px;
 		min-width: 16px;
 		border-radius: 100px;
-		margin: 10px;
+		margin: 10px 0 0 10px;
 	}
 
 	.task_data {
 		display: flex;
 		flex-direction: column;
 		flex: 1;
-		padding: 6px 20px 0 0;
+		padding: 6px 10px 0 10px;
 		.date {
 			align-self: end;
 			padding: 5px 0;
@@ -63,4 +63,8 @@
 		text-align: right;
 		font-weight: 500;
 	}
+}
+
+.defect {
+	border: 3px solid red;
 }

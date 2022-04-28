@@ -1,22 +1,22 @@
 import { useStore } from 'effector-react';
 import React from 'react';
-import { $filter, setFilter } from '../../../store/tasks';
+import { $dataFilter, setDataFilter } from '../../../store/tasks';
 import styles from './TasksFilter.module.scss';
 
 const TasksFilter = () => {
-	const filter = useStore($filter);
+	const dataFilter = useStore($dataFilter);
 
 	return (
 		<ul className={styles.wrapper}>
-			<li className={filter === 'Новая' ? styles.choosen : null} onClick={() => setFilter('Новая')}>
+			<li className={dataFilter === 'Новая' ? styles.choosen : null} onClick={() => setDataFilter('Новая')}>
 				<div className={`${styles.task_mark} ${styles.new}`}></div>
 				<p>Новая</p>
 			</li>
-			<li className={filter === 'В работе' ? styles.choosen : null} onClick={() => setFilter('В работе')}>
+			<li className={dataFilter === 'В работе' ? styles.choosen : null} onClick={() => setDataFilter('В работе')}>
 				<div className={`${styles.task_mark} ${styles.in_progress}`}></div>
 				<p>В работе</p>
 			</li>
-			<li className={filter === 'Выполнено' ? styles.choosen : null} onClick={() => setFilter('Выполнено')}>
+			<li className={dataFilter === 'Выполнено' ? styles.choosen : null} onClick={() => setDataFilter('Выполнено')}>
 				<div className={`${styles.task_mark} ${styles.done}`}></div>
 				<p>Выполнено</p>
 			</li>

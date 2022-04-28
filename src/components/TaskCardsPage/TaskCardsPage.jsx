@@ -1,8 +1,8 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { TaskCard } from './TaskCard/TaskCard';
 
 import { $user } from '../../store/user';
-import { $customersStatus, $filter, $taskStatus, getTasks, setFilter } from '../../store/tasks';
+import { $customersStatus, $dataFilter, $taskStatus, getTasks, setDataFilter } from '../../store/tasks';
 import { $toggleValue } from '../../store/taskToggleState';
 import { useStore } from 'effector-react';
 import TaskDropdown from './TasksDropdown/TaskDropdown';
@@ -13,13 +13,13 @@ const TaskCardsPage = () => {
 	const tasks = useStore($taskStatus);
 	const customers = useStore($customersStatus);
 	const toggleValue = useStore($toggleValue);
-	const filter = useStore($filter);
+	const dataFilter = useStore($dataFilter);
 
 	useLayoutEffect(() => {
 		if (user.ID !== 0) {
 			getTasks(user.ID);
 		}
-	}, [user, filter]);
+	}, [user, dataFilter]);
 
 	return (
 		<>
