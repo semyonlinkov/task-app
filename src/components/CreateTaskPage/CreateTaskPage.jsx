@@ -1,7 +1,7 @@
 import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
 import { createTask } from '../../services-api/createTask';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
@@ -15,8 +15,8 @@ const CreateTaskPage = () => {
 	const { register, handleSubmit, watch, setValue, getValues } = useForm();
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
-	const [tel, setTel] = useState('')
-	const [checkbox, setCheckBox] = useState(false)
+	const [tel, setTel] = useState('');
+	const [checkbox, setCheckBox] = useState(false);
 	const onSubmit = (data) => createTask(data, user, () => navigate('/'), tel, checkbox);
 	const files = getValues('files');
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
@@ -51,12 +51,12 @@ const CreateTaskPage = () => {
 			</label>
 			<label>
 				<p>Телефон клиента</p>
-				<InputMask mask="+7\ 999 999-99-99" maskChar={""} value={tel} onChange={(e) => setTel(e.target.value)}>
+				<InputMask mask="+7\ 999 999-99-99" maskChar={''} value={tel} onChange={(e) => setTel(e.target.value)}>
 					{(inputProps) => <input {...inputProps} type="tel" disableUnderline />}
 				</InputMask>
 			</label>
 			<label className={styles.checkbox_flex}>
-				<input type="checkbox" checked={checkbox} onChange={e => setCheckBox(!checkbox)}/>
+				<input type="checkbox" checked={checkbox} onChange={(e) => setCheckBox(!checkbox)} />
 				Уведомить клиента по SMS
 			</label>
 			<label>
@@ -74,10 +74,10 @@ const CreateTaskPage = () => {
 					}}>
 					{workers !== 'loading'
 						? Object.keys(workers).map((department) => (
-							<option key={department} value={department}>
-								{department}
-							</option>
-						))
+								<option key={department} value={department}>
+									{department}
+								</option>
+						  ))
 						: null}
 				</select>
 			</label>
@@ -86,10 +86,10 @@ const CreateTaskPage = () => {
 				<select {...register('executor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
-							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-								{person.NAME}
-							</option>
-						))
+								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+									{person.NAME}
+								</option>
+						  ))
 						: null}
 				</select>
 			</label>
@@ -98,10 +98,10 @@ const CreateTaskPage = () => {
 				<select {...register('coexecutor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
-							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-								{person.NAME}
-							</option>
-						))
+								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+									{person.NAME}
+								</option>
+						  ))
 						: null}
 				</select>
 			</label>
