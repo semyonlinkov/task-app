@@ -37,6 +37,7 @@ export const $taskStatus = combine(
 			return []
 		} else {
 
+
 			if (toggle === 'gettedTasks') {
 				const defectFirstData = [
 					...[...data].filter(task => task.status === 'Брак'),

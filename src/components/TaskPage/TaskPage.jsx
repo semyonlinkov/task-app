@@ -7,7 +7,7 @@ import { useStore } from 'effector-react';
 
 import TaskPageHeader from './TaskPageHeader/TaskPageHeader';
 import TaskPageFooter from './TaskPageFooter/TaskPageFooter';
-import { $taskPageNav } from '../../store/taskPageNavState';
+import { $taskPageNav, setTaskPageNav } from '../../store/taskPageNavState';
 import Info from './Info/Info';
 import Files from './Files/Files';
 import History from './History/History';
@@ -22,6 +22,9 @@ const TaskPage = () => {
 
 	useLayoutEffect(() => {
 		setSingleTask(tasks.filter((el) => el.id === id)[0]);
+		return () => {
+			setTaskPageNav('info');
+		};
 	}, []);
 
 	return (

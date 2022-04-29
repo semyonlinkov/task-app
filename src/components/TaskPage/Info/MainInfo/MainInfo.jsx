@@ -97,6 +97,11 @@ const MainData = () => {
 					Завершить работу
 				</button>
 			) : null}
+			{user.ID === task.customerID && task.status === 'Брак' ? (
+				<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
+					Изменить отчёт
+				</button>
+			) : null}
 
 			{showForm && <TaskRaportForm close={() => setShowForm(false)} id={task.id} timeStart={task.timeStart} />}
 		</div>

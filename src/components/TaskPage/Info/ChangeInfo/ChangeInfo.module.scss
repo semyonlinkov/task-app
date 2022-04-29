@@ -38,6 +38,18 @@
 		float: right;
 	}
 
+	input {
+		margin-left: 10px;
+		padding: 1px 3px;
+		border: 1px solid #aaaaaa;
+	}
+	
+	textarea {
+		width: 100%;
+		padding: 1px 3px;
+		border: 1px solid #aaaaaa;
+	}
+
 	.new {
 		background: var(--task-new);
 	}

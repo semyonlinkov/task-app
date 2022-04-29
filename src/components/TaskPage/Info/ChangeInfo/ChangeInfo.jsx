@@ -74,9 +74,6 @@ const MainData = () => {
 				<span style={{ fontWeight: 500 }}>{moment(task.date_deadline).format('DD.MM HH:mm')}</span>
 				<input type="date" value={task.date_deadline} />
 			</p> */}
-			{/* <p>
-				<span>Постановщик:</span> {task.creatorName}
-			</p> */}
 
 			{/* //? че с ебаным браком */}
 			{task.deffect_comment && (
@@ -94,7 +91,6 @@ const MainData = () => {
 
 			<div className={styles.info_blocks}>
 				<img src={Info} alt="description" />
-				<p>Комментарий:</p>
 				<textarea {...register('desc')}></textarea>
 			</div>
 

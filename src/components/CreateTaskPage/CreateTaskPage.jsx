@@ -29,8 +29,6 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
-	console.log(watch());
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
@@ -45,11 +43,11 @@ const CreateTaskPage = () => {
 			</label>
 			<label>
 				<p>Название объекта</p>
-				<input {...register('objectName')} />
+				<input type="text" {...register('objectName')} />
 			</label>
 			<label>
 				<p>Адресс объекта</p>
-				<input {...register('objectAdress')} />
+				<input type="text" {...register('objectAdress')} />
 			</label>
 			<label>
 				<p>Телефон клиента</p>
@@ -57,13 +55,17 @@ const CreateTaskPage = () => {
 					{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
 				</InputMask>
 			</label>
-			<label className={styles.checkbox_flex}>
+			{/* <label className={styles.checkbox_flex}>
 				<input type="checkbox" checked={checkbox} onChange={(e) => setCheckBox(!checkbox)} />
 				Уведомить клиента по SMS
-			</label>
+			</label> */}
 			<label>
 				<p>ФИО клиента</p>
-				<input {...register('fullname')} />
+				<input type="text" {...register('fullname')} />
+			</label>
+			<label>
+				<p>Поиск по номеру/фамилии</p>
+				<input type="text" />
 			</label>
 			<label>
 				<p>Отдел</p>
