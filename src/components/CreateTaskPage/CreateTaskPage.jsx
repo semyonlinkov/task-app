@@ -29,6 +29,8 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
+	console.log(watch());
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
@@ -52,7 +54,7 @@ const CreateTaskPage = () => {
 			<label>
 				<p>Телефон клиента</p>
 				<InputMask mask="+7\ 999 999-99-99" maskChar={''} value={tel} onChange={(e) => setTel(e.target.value)}>
-					{(inputProps) => <input {...inputProps} type="tel" disableUnderline />}
+					{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
 				</InputMask>
 			</label>
 			<label className={styles.checkbox_flex}>

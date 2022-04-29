@@ -1,0 +1,97 @@
+.wrapper {
+	padding: 10px 20px;
+
+	p {
+		padding: 5px 0;
+		font-weight: 400;
+	}
+
+	span {
+		font-weight: 300;
+	}
+
+	.title {
+		text-align: center;
+		font-weight: 500;
+		font-size: 18px;
+		margin: 10px 0;
+	}
+
+	.circleStatus {
+		width: 20px;
+		height: 20px;
+		border-radius: 50px;
+	}
+
+	.status {
+		display: flex;
+		align-items: center;
+		font-weight: 500;
+		div {
+			margin-right: 15px;
+		}
+	}
+
+	input[type='image'] {
+		width: 19px;
+		height: 19px;
+		float: right;
+	}
+
+	.new {
+		background: var(--task-new);
+	}
+
+	.in_progress {
+		background: var(--task-in-progress);
+	}
+
+	.done {
+		background: var(--task-done);
+	}
+
+	.defect {
+		background: var(--task-defect);
+	}
+
+	.start_btn {
+		background: #ff0000;
+	}
+
+	.finish_btn {
+		background: #288b28;
+	}
+
+	.btn {
+		border: none;
+		outline: none;
+		padding: 10px 25px;
+		font-size: 16px;
+		border-radius: 5px;
+		margin-top: 20px;
+		font-weight: 500;
+		float: right;
+		color: white;
+	}
+
+	.info_blocks {
+		padding: 10px 0;
+		border-top: 1px solid #aaaaaa;
+		border-bottom: 1px solid #aaaaaa;
+		display: flex;
+		align-items: flex-start;
+		margin-top: 20px;
+		p {
+			padding: 0;
+		}
+		img {
+			margin-right: 10px;
+			width: 20px;
+		}
+	}
+
+	.defect_block {
+		border-top: 1px solid #db1919;
+		border-bottom: 1px solid #db1919;
+	}
+}
