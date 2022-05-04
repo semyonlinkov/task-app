@@ -1,4 +1,5 @@
 .wrapper {
+	position: relative;
 	padding: 10px 20px;
 
 	p {
@@ -42,12 +43,24 @@
 		margin-left: 10px;
 		padding: 1px 3px;
 		border: 1px solid #aaaaaa;
+		max-width: 100%;
 	}
-	
+
 	textarea {
 		width: 100%;
+		height: 100px;
 		padding: 1px 3px;
 		border: 1px solid #aaaaaa;
+	}
+
+	button[type='submit'] {
+		position: absolute;
+		right: 15px;
+		top: 12px;
+		width: 27px;
+		height: 27px;
+		border-radius: 100px;
+		border: none;
 	}
 
 	.new {
@@ -72,6 +85,9 @@
 
 	.finish_btn {
 		background: #288b28;
+	}
+
+	button[type='submit'] {
 	}
 
 	.btn {

@@ -3,17 +3,17 @@ import styles from './ChangeInfo.module.scss';
 
 import Info from '../../../../img/icons8-info-50.png';
 import Phone from '../../../../img/icons8-phone-50.png';
-import moment from 'moment';
 import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
 import { setReaded } from '../../../../services-api/setReaded';
-import { $singleTask } from '../../../../store/selectedTask';
+import { $singleTask, setSingleTask } from '../../../../store/selectedTask';
 import InputMask from 'react-input-mask';
 import { useForm } from 'react-hook-form';
 import { changeTask } from '../../../../services-api/changeTask';
 import User from '../../../../img/user.png';
+import Done from '../../../../img/checkBlue.png';
 
-const MainData = () => {
+const ChangeInfo = ({ setIsMainInfo }) => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
 
@@ -21,7 +21,7 @@ const MainData = () => {
 
 	const { register, handleSubmit, watch, setValue, getValues } = useForm();
 
-	const onSubmit = (data) => changeTask(data, tel, user);
+	const onSubmit = (data) => changeTask(data, tel, user, setIsMainInfo, setSingleTask);
 
 	useEffect(() => {
 		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
@@ -53,6 +53,7 @@ const MainData = () => {
 
 	// console.log(task.id);
 	// console.log(watch());
+	console.log(task);
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
@@ -75,7 +76,6 @@ const MainData = () => {
 				<input type="date" value={task.date_deadline} />
 			</p> */}
 
-			{/* //? че с ебаным браком */}
 			{task.deffect_comment && (
 				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
 					<img src={Info} alt="" />
@@ -103,9 +103,13 @@ const MainData = () => {
 					</InputMask>
 				</p>
 			</div>
-			<button type="submit">Принять изменения</button>
+			<button
+				className={styles.sub_btn}
+				style={{ backgroundImage: `url(${Done})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain' }}
+				type="submit"
+			/>
 		</form>
 	);
 };
 
-export default MainData;
+export default ChangeInfo;

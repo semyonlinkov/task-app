@@ -1,6 +1,6 @@
 import { $linkServer } from "../$config";
 
-export const changeTask = (form, tel, user) => {
+export const changeTask = (form, tel, user, onClick, setSingleTask) => {
 	let formData = new FormData();
 
 	formData.append('creatorID', user.ID);
@@ -19,9 +19,10 @@ export const changeTask = (form, tel, user) => {
 		.then(res => {
 			if (res) {
 				alert('Задача изменена!');
+				setSingleTask(res[0])
+				onClick();
 			}
 			console.log(res);
-
 		})
 		.catch(err => console.log(err));
 }
