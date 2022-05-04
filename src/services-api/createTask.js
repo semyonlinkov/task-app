@@ -1,14 +1,10 @@
-export const createTask = (form, user, changeHisory, tel, checkbox) => {
+export const createTask = (form, user, changeHisory, tel) => {
 
 	let formData = new FormData();
 
 	formData.append('creatorID', user.ID);
 	formData.append('clientPhoneNumber', tel);
 	formData.append('creatorName', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
-
-	if (checkbox) {
-		fetch(`https://volga24bot.com/sms/send_sms.php?tel=${tel}&message=Ваша заявка принята и поставлена в очередь выполнения`)
-	}
 
 	for (let key in form) {
 		if (key !== 'files') {

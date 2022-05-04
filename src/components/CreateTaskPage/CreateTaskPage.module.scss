@@ -32,6 +32,21 @@
 		border-radius: 4px;
 	}
 
+	.select_dropdown {
+		position: absolute;
+		width: 95vw;
+		max-height: 150px;
+		background-color: #ebebeb;
+		overflow: scroll;
+
+		li {
+			padding: 7px 3px;
+			border-bottom: 1px solid #aaaaaa;
+			border-left: 1px solid #aaaaaa;
+			border-right: 1px solid #aaaaaa;
+		}
+	}
+
 	.btn_file {
 		position: relative;
 		height: 40px;
@@ -82,7 +97,6 @@
 		}
 	}
 }
-
 
 .checkbox_flex {
 	display: flex;

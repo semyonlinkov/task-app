@@ -11,23 +11,52 @@ import InputMask from 'react-input-mask';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
-
 	const { register, handleSubmit, watch, setValue, getValues } = useForm();
+	const [tel, setTel] = useState('');
+
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
-	const [tel, setTel] = useState('');
-	const [checkbox, setCheckBox] = useState(false);
-	const onSubmit = (data) => createTask(data, user, () => navigate('/'), tel, checkbox);
-	const files = getValues('files');
+
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
+
+	const [checkbox, setCheckBox] = useState(false);
+	const onSubmit = (data) => createTask(data, user, () => navigate('/'), tel);
+
+	const files = getValues('files');
+
+	const [allWorkers, setAllWorkers] = useState([]);
+	const [searchedWorkers, setSearchedWorkers] = useState([]);
+	const [searchedWorker, setSearchedWorker] = useState('');
+
+	const [chooseSearchType, setChooseSearchType] = useState();
+
+	const allWorkersHandler = () => {
+		let array = [];
+		Object.values(workers).forEach((arr) => {
+			array = [...array, ...arr];
+		});
+		return array;
+	};
+
+	const searchHandler = (str) => {
+		if (str) {
+			setSearchedWorkers([...allWorkers].filter((worker) => worker.NAME.toLowerCase().includes(str.toLowerCase())));
+		} else {
+			setSearchedWorkers([]);
+		}
+	};
 
 	useEffect(() => {
 		if (workers === 'loading') {
 			setIsLoading(true);
 		} else {
 			setIsLoading(false);
+			setAllWorkers(allWorkersHandler());
 		}
 	}, [workers]);
+
+console.log(watch());
+
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
@@ -55,18 +84,62 @@ const CreateTaskPage = () => {
 					{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
 				</InputMask>
 			</label>
-			{/* <label className={styles.checkbox_flex}>
-				<input type="checkbox" checked={checkbox} onChange={(e) => setCheckBox(!checkbox)} />
-				Уведомить клиента по SMS
-			</label> */}
 			<label>
 				<p>ФИО клиента</p>
 				<input type="text" {...register('fullname')} />
 			</label>
 			<label>
-				<p>Поиск по номеру/фамилии</p>
-				<input type="text" />
+				<p>Выбрать исполнителя по имени</p>
+				<input
+					type="text"
+					onChange={(e) => {
+						searchHandler(e.target.value);
+						setSearchedWorker(e.target.value);
+					}}
+					value={searchedWorker}
+				/>
+				{searchedWorkers && (
+					<ul className={styles.select_dropdown}>
+						{[...searchedWorkers].map((person) => (
+							<li
+								key={person.ID}
+								onClick={() => {
+									setValue('executor', `${person.ID}:${person.NAME}`);
+									setSearchedWorker(person.NAME);
+									setSearchedWorkers([]);
+								}}>
+								{person.NAME} | {person.DEPARTAMENT}
+							</li>
+						))}
+					</ul>
+				)}
 			</label>
+			{/* <label>
+				<p>Выбрать наблюдателя по имени</p>
+				<input
+					type="text"
+					onChange={(e) => {
+						searchHandler(e.target.value);
+						setSearchedWorker(e.target.value);
+					}}
+					value={searchedWorker}
+				/>
+				{searchedWorkers && (
+					<ul className={styles.select_dropdown}>
+						{[...searchedWorkers].map((person) => (
+							<li
+								key={person.ID}
+								onClick={() => {
+									setValue('coexecutor', `${person.ID}:${person.NAME}`);
+									setSearchedWorker(person.NAME);
+									setSearchedWorkers([]);
+								}}>
+								{person.NAME} | {person.DEPARTAMENT}
+							</li>
+						))}
+					</ul>
+				)}
+			</label> */}
 			<label>
 				<p>Отдел</p>
 				<select
@@ -98,7 +171,7 @@ const CreateTaskPage = () => {
 				</select>
 			</label>
 			<label>
-				<p>Соисполнитель</p>
+				<p>Наблюдатель</p>
 				<select {...register('coexecutor')}>
 					{watch().department
 						? Object.values(workers[watch().department]).map((person) => (
