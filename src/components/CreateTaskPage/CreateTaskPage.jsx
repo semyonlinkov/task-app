@@ -1,7 +1,7 @@
 import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
 import { createTask } from '../../services-api/createTask';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
@@ -27,18 +27,18 @@ const CreateTaskPage = () => {
 	const [allWorkers, setAllWorkers] = useState([]);
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
-	const allWorkersHandler = () => {
+	const allWorkersHandler = useMemo(() => {
 		let array = [];
 		Object.values(workers).forEach((arr) => (array = [...array, ...arr]));
 		return array;
-	};
+	}, [workers]);
 
 	useEffect(() => {
 		if (workers === 'loading') {
 			setIsLoading(true);
 		} else {
 			setIsLoading(false);
-			setAllWorkers(allWorkersHandler());
+			setAllWorkers(allWorkersHandler);
 		}
 	}, [workers]);
 
@@ -49,9 +49,9 @@ const CreateTaskPage = () => {
 			<label>
 				<p>Вид заявки</p>
 				<select {...register('type')}>
-					{typeTask.map((el) => (
-						<option key={el} value={el}>
-							{el}
+					{typeTask.map((task) => (
+						<option key={task} value={task}>
+							{task}
 						</option>
 					))}
 				</select>
@@ -74,6 +74,16 @@ const CreateTaskPage = () => {
 				<p>ФИО клиента</p>
 				<input type="text" {...register('fullname')} />
 			</label>
+
+			{searchBy !== 'name' ? (
+				<ChooseByDepartmentBlock
+					register={register}
+					setValue={setValue}
+					workers={workers}
+					watch={watch}
+					setSearchBy={(value) => setSearchBy(value)}
+				/>
+			) : null}
 			{searchBy !== 'department' ? (
 				<>
 					<WorkerSelect
@@ -89,15 +99,6 @@ const CreateTaskPage = () => {
 						setSearchBy={(value) => setSearchBy(value)}
 					/>
 				</>
-			) : null}
-			{searchBy !== 'name' ? (
-				<ChooseByDepartmentBlock
-					register={register}
-					setValue={setValue}
-					workers={workers}
-					watch={watch}
-					setSearchBy={(value) => setSearchBy(value)}
-				/>
 			) : null}
 			<label>
 				<p>Выбрать дату</p>

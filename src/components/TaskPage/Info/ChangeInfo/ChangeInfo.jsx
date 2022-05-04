@@ -53,7 +53,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 
 	// console.log(task.id);
 	// console.log(watch());
-	console.log(task);
+	// console.log(task);
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
