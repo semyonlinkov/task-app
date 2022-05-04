@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import styles from './WorkerSelect.module.scss';
 
-const WorkerSelect = () => {
-	const [allWorkers, setAllWorkers] = useState([]);
+const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy }) => {
 	const [searchedWorkers, setSearchedWorkers] = useState([]);
 	const [searchedWorker, setSearchedWorker] = useState('');
 
@@ -13,9 +13,17 @@ const WorkerSelect = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (searchedWorker) {
+			setSearchBy('name');
+		} else {
+			setSearchBy('none');
+		}
+	}, [searchedWorker]);
+
 	return (
 		<label>
-			<p>Выбрать исполнителя по имени</p>
+			<p>{title}</p>
 			<input
 				type="text"
 				onChange={(e) => {
@@ -26,11 +34,11 @@ const WorkerSelect = () => {
 			/>
 			{searchedWorkers && (
 				<ul className={styles.select_dropdown}>
-					{[...searchedWorkers].map((person) => (
+					{searchedWorkers.map((person) => (
 						<li
 							key={person.ID}
 							onClick={() => {
-								setValue('executor', `${person.ID}:${person.NAME}`);
+								setValue(`${person.ID}:${person.NAME}`);
 								setSearchedWorker(person.NAME);
 								setSearchedWorkers([]);
 							}}>

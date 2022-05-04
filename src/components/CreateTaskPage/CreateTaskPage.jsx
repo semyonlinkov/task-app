@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
 import { setIsLoading } from '../../store/loadingState';
 import InputMask from 'react-input-mask';
+import WorkerSelect from './WorkerSelect/WorkerSelect';
+import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -19,31 +21,16 @@ const CreateTaskPage = () => {
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
-	const [checkbox, setCheckBox] = useState(false);
 	const onSubmit = (data) => createTask(data, user, () => navigate('/'), tel);
-
 	const files = getValues('files');
 
 	const [allWorkers, setAllWorkers] = useState([]);
-	const [searchedWorkers, setSearchedWorkers] = useState([]);
-	const [searchedWorker, setSearchedWorker] = useState('');
-
-	const [chooseSearchType, setChooseSearchType] = useState();
+	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
 	const allWorkersHandler = () => {
 		let array = [];
-		Object.values(workers).forEach((arr) => {
-			array = [...array, ...arr];
-		});
+		Object.values(workers).forEach((arr) => (array = [...array, ...arr]));
 		return array;
-	};
-
-	const searchHandler = (str) => {
-		if (str) {
-			setSearchedWorkers([...allWorkers].filter((worker) => worker.NAME.toLowerCase().includes(str.toLowerCase())));
-		} else {
-			setSearchedWorkers([]);
-		}
 	};
 
 	useEffect(() => {
@@ -55,8 +42,7 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
-console.log(watch());
-
+	console.log(watch());
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
@@ -88,100 +74,31 @@ console.log(watch());
 				<p>ФИО клиента</p>
 				<input type="text" {...register('fullname')} />
 			</label>
-			<label>
-				<p>Выбрать исполнителя по имени</p>
-				<input
-					type="text"
-					onChange={(e) => {
-						searchHandler(e.target.value);
-						setSearchedWorker(e.target.value);
-					}}
-					value={searchedWorker}
+			{searchBy !== 'department' ? (
+				<>
+					<WorkerSelect
+						setValue={(value) => setValue('executor', value)}
+						allWorkers={allWorkers}
+						title={'Выбрать исполнителя по имени'}
+						setSearchBy={(value) => setSearchBy(value)}
+					/>
+					<WorkerSelect
+						setValue={(value) => setValue('coexecutor', value)}
+						allWorkers={allWorkers}
+						title={'Выбрать наблюдателя по имени'}
+						setSearchBy={(value) => setSearchBy(value)}
+					/>
+				</>
+			) : null}
+			{searchBy !== 'name' ? (
+				<ChooseByDepartmentBlock
+					register={register}
+					setValue={setValue}
+					workers={workers}
+					watch={watch}
+					setSearchBy={(value) => setSearchBy(value)}
 				/>
-				{searchedWorkers && (
-					<ul className={styles.select_dropdown}>
-						{[...searchedWorkers].map((person) => (
-							<li
-								key={person.ID}
-								onClick={() => {
-									setValue('executor', `${person.ID}:${person.NAME}`);
-									setSearchedWorker(person.NAME);
-									setSearchedWorkers([]);
-								}}>
-								{person.NAME} | {person.DEPARTAMENT}
-							</li>
-						))}
-					</ul>
-				)}
-			</label>
-			{/* <label>
-				<p>Выбрать наблюдателя по имени</p>
-				<input
-					type="text"
-					onChange={(e) => {
-						searchHandler(e.target.value);
-						setSearchedWorker(e.target.value);
-					}}
-					value={searchedWorker}
-				/>
-				{searchedWorkers && (
-					<ul className={styles.select_dropdown}>
-						{[...searchedWorkers].map((person) => (
-							<li
-								key={person.ID}
-								onClick={() => {
-									setValue('coexecutor', `${person.ID}:${person.NAME}`);
-									setSearchedWorker(person.NAME);
-									setSearchedWorkers([]);
-								}}>
-								{person.NAME} | {person.DEPARTAMENT}
-							</li>
-						))}
-					</ul>
-				)}
-			</label> */}
-			<label>
-				<p>Отдел</p>
-				<select
-					{...register('department')}
-					onChange={(e) => {
-						setValue('department', e.target.value);
-						setValue('executor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
-						setValue('coexecutor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
-					}}>
-					{workers !== 'loading'
-						? Object.keys(workers).map((department) => (
-								<option key={department} value={department}>
-									{department}
-								</option>
-						  ))
-						: null}
-				</select>
-			</label>
-			<label>
-				<p>Исполнитель</p>
-				<select {...register('executor')}>
-					{watch().department
-						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
-						: null}
-				</select>
-			</label>
-			<label>
-				<p>Наблюдатель</p>
-				<select {...register('coexecutor')}>
-					{watch().department
-						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
-						: null}
-				</select>
-			</label>
+			) : null}
 			<label>
 				<p>Выбрать дату</p>
 				<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
