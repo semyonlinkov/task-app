@@ -19,8 +19,13 @@ const ImageDropdown = ({ typeFile, children, fileName }) => {
 			<div className={styles.dropdown}>
 				<p className={styles.title}>{typeFile}</p>
 				<div className={styles.btns}>
-					<input type="image" src={eye} onClick={openToggle} />
-					<input type="image" src={trash} onClick={() => removeFile(task.files, task.id, fileName)} />
+					<input className={styles.show} type="image" src={eye} onClick={openToggle} />
+					<input
+						className={styles.delete}
+						type="image"
+						src={trash}
+						onClick={() => removeFile(task.files, task.id, fileName)}
+					/>
 				</div>
 			</div>
 			{typeFile === 'Фото' && isOpen && children}

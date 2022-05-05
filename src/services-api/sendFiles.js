@@ -18,8 +18,6 @@ export const sendFiles = (files, id) => {
 		.then(res => res.json())
 		.then(res => {
 			setIsLoading(false);
-			console.log(res);
-			
 			setSingleTask(res);
 		})
 		.catch(err => console.log(err));

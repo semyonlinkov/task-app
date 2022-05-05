@@ -15,10 +15,6 @@ export const removeFile = (files, id, fileName) => {
 	formData.append('item', fileName);
 	formData.append('files', filesArr.join(';'));
 
-	console.log(id);
-	console.log(filesArr.join(';'));
-	console.log(fileName);
-
 	fetch('https://volga24bot.com/tasks/deleteFile.php', {
 		method: 'POST',
 		body: formData
@@ -27,7 +23,6 @@ export const removeFile = (files, id, fileName) => {
 		.then(res => {
 			setIsLoading(false);
 			setSingleTask(res);
-			console.log(res);
 		})
 		.catch(err => console.log(err));
 }

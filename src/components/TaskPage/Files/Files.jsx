@@ -22,7 +22,6 @@ const Files = () => {
 			if (taskArr.at(-1) === '') {
 				taskArr.splice(taskArr.length - 1, 1);
 			}
-			console.log(taskArr);
 			setFilesArr(taskArr);
 		}
 	}, [task]);
@@ -46,7 +45,7 @@ const Files = () => {
 		});
 	}, [filesArr]);
 
-	console.log(task);
+	console.log('render');
 
 	return (
 		<div className={styles.wrapper}>
