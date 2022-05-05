@@ -42,8 +42,6 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
-	console.log(watch());
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>

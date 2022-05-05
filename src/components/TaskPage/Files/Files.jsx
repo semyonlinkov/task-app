@@ -3,10 +3,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import FilesDropdown from './FilesDropdown/FilesDropdown';
 
 import styles from './Files.module.scss';
-import { $singleTask } from '../../../store/selectedTask';
+import { $singleTask, setSingleTask } from '../../../store/selectedTask';
 import OtherFile from './OtherFile/OtherFile';
 import ImageFile from './ImageFile/ImageFile';
 import VideoFile from './VideoFile/VideoFile';
+import { sendFiles } from '../../../services-api/sendFiles';
 
 const Files = () => {
 	const task = useStore($singleTask);
@@ -16,8 +17,13 @@ const Files = () => {
 	const [otherFiles, setOtherFiles] = useState([]);
 
 	useEffect(() => {
-		if (task.files !== '') {
-			setFilesArr(task.files.split(';'));
+		if (task.files !== '' || task.files !== undefined) {
+			const taskArr = task.files.split(';');
+			if (taskArr.at(-1) === '') {
+				taskArr.splice(taskArr.length - 1, 1);
+			}
+			console.log(taskArr);
+			setFilesArr(taskArr);
 		}
 	}, [task]);
 
@@ -26,7 +32,10 @@ const Files = () => {
 	};
 
 	const filesFilter = useMemo(() => {
-		filesArr.forEach((file, i) => {
+		setImageFiles([]);
+		setVideoFiles([]);
+		setOtherFiles([]);
+		filesArr.forEach((file) => {
 			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg') {
 				setImageFiles((prev) => [...prev, file]);
 			} else if (fileExt(file) === 'mp4') {
@@ -37,30 +46,40 @@ const Files = () => {
 		});
 	}, [filesArr]);
 
+	console.log(task);
+
 	return (
 		<div className={styles.wrapper}>
 			{imageFiles &&
-				imageFiles.map((file) => (
-					<FilesDropdown key={file} alt={file} fileName={file} typeFile="Фото">
+				imageFiles.map((file, i) => (
+					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Фото">
 						<ImageFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
 					</FilesDropdown>
 				))}
 			{videoFiles &&
-				videoFiles.map((file) => (
-					<FilesDropdown key={file} alt={file} fileName={file} typeFile="Видео">
+				videoFiles.map((file, i) => (
+					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Видео">
 						<VideoFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
 					</FilesDropdown>
 				))}
 			{otherFiles &&
-				otherFiles.map((file) => (
+				otherFiles.map((file, i) => (
 					<OtherFile
-						key={file}
+						key={file + i}
 						src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
 						fileName={file}
 					/>
 				))}
 			<div className={styles.file_input}>
-				<input type="file" id="file" className={styles.file} />
+				<input
+					onChange={(e) => {
+						sendFiles(e.target.files, task.id, setSingleTask);
+					}}
+					type="file"
+					id="file"
+					className={styles.file}
+					multiple
+				/>
 				<label htmlFor="file">Выбрать файл</label>
 			</div>
 		</div>

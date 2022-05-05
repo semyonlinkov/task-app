@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './WorkerSelect.module.scss';
 
-const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy }) => {
+const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy, watch }) => {
 	const [searchedWorkers, setSearchedWorkers] = useState([]);
 	const [searchedWorker, setSearchedWorker] = useState('');
 

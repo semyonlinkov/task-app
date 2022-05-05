@@ -22,9 +22,9 @@ const TaskPage = () => {
 
 	useLayoutEffect(() => {
 		setSingleTask(tasks.filter((el) => el.id === id)[0]);
-		return () => {
-			setTaskPageNav('info');
-		};
+		// return () => {
+		// 	setTaskPageNav('info');
+		// };
 	}, []);
 
 	return (
