@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './History.module.scss';
 
 import { $singleTask } from '../../../store/selectedTask';
@@ -43,7 +43,7 @@ const History = () => {
 		}
 
 		if (task.status == 'Брак') {
-			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_tim }]);
+			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
 		}
 	}, [task]);
 
@@ -64,7 +64,6 @@ const History = () => {
 					/>
 				))}
 			</div>
-
 			{task.report_comment && <Report task={task} />}
 		</div>
 	);
