@@ -19,14 +19,16 @@ const Header = () => {
 				src={pathname === '/' ? create : cross}
 				onClick={() => (pathname === '/' ? navigate('/create_task') : navigate('/'))}
 			/>
-			{pathname === '/' ? (
+			{pathname === '/create_task' && <p>Создать задачу</p>}
+			{pathname.includes('tasks') && <p>Задача: {pathname.split('/').at(-1)}</p>}
+			{pathname === '/' && (
 				<div className={styles.toggle_switch}>
 					<ToggleSwitch />
 					<p className={styles.switch_title}>
 						{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}
 					</p>
 				</div>
-			) : null}
+			)}
 		</div>
 	);
 };
