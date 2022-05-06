@@ -45,8 +45,6 @@ const Files = () => {
 		});
 	}, [filesArr]);
 
-	console.log('render');
-
 	return (
 		<div className={styles.wrapper}>
 			{imageFiles &&
@@ -72,7 +70,17 @@ const Files = () => {
 			<div className={styles.file_input}>
 				<input
 					onChange={(e) => {
-						sendFiles(e.target.files, task.id, setSingleTask);
+						let fileNameAlredyHasCheck = false;
+
+						Array.from(e.target.files).forEach((file) => {
+							if (task.files.includes(file.name)) fileNameAlredyHasCheck = true;
+						});
+
+						if (fileNameAlredyHasCheck) {
+							alert('Ошибка! Такой файл уже существует. Переименуйте файл');
+						} else {
+							sendFiles(e.target.files, task.id, setSingleTask);
+						}
 					}}
 					type="file"
 					id="file"
