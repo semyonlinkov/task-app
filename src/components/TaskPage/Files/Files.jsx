@@ -18,7 +18,7 @@ const Files = () => {
 
 	useEffect(() => {
 		if (task.files !== '' || task.files !== undefined) {
-			const taskArr = task.files.split(';');
+			const taskArr = { ...task }.files.split(';');
 			if (taskArr.at(-1) === '') {
 				taskArr.splice(taskArr.length - 1, 1);
 			}
@@ -35,7 +35,7 @@ const Files = () => {
 		setVideoFiles([]);
 		setOtherFiles([]);
 		filesArr.forEach((file) => {
-			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg') {
+			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg' || fileExt(file) === 'jpg') {
 				setImageFiles((prev) => [...prev, file]);
 			} else if (fileExt(file) === 'mp4') {
 				setVideoFiles((prev) => [...prev, file]);
@@ -70,6 +70,7 @@ const Files = () => {
 			<div className={styles.file_input}>
 				<input
 					onChange={(e) => {
+						console.log('onClick');
 						let fileNameAlredyHasCheck = false;
 
 						Array.from(e.target.files).forEach((file) => {

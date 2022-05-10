@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Info.module.scss';
 
 import edit from '../../../img/edit.png';

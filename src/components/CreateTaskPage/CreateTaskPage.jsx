@@ -73,7 +73,7 @@ const CreateTaskPage = () => {
 				<input type="text" {...register('fullname')} />
 			</label>
 
-			{searchBy !== 'name' ? (
+			{searchBy !== 'name' && (
 				<ChooseByDepartmentBlock
 					register={register}
 					setValue={setValue}
@@ -81,8 +81,8 @@ const CreateTaskPage = () => {
 					watch={watch}
 					setSearchBy={(value) => setSearchBy(value)}
 				/>
-			) : null}
-			{searchBy !== 'department' ? (
+			)}
+			{searchBy !== 'department' && (
 				<>
 					<WorkerSelect
 						setValue={(value) => setValue('executor', value)}
@@ -97,7 +97,7 @@ const CreateTaskPage = () => {
 						setSearchBy={(value) => setSearchBy(value)}
 					/>
 				</>
-			) : null}
+			)}
 			<label>
 				<p>Выбрать дату</p>
 				<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />

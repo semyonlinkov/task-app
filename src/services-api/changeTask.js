@@ -22,7 +22,6 @@ export const changeTask = (form, tel, user, setIsMainInfo, setSingleTask) => {
 				setIsMainInfo();
 				setSingleTask(res[0]);
 			}
-			console.log(res);
 		})
 		.catch(err => console.log(err));
 }

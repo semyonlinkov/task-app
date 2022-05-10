@@ -1,7 +1,6 @@
 import { setIsLoading } from "../store/loadingState";
-import { setSingleTask } from "../store/selectedTask";
 
-export const sendFiles = (files, id) => {
+export const sendFiles = (files, id, setSingleTask) => {
 	setIsLoading(true);
 	let formData = new FormData();
 

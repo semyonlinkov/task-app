@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from './TaskPage.module.scss';
@@ -20,7 +20,7 @@ const TaskPage = () => {
 
 	const { id } = useParams();
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		setSingleTask(tasks.filter((el) => el.id === id)[0]);
 		return () => setTaskPageNav('info');
 	}, []);
