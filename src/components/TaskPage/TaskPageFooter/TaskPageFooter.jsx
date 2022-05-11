@@ -25,11 +25,13 @@ const TaskPageFooter = () => {
 			{task.status && task.creatorID === user.ID && (
 				<>
 					<li>
-						<img src={Arrow} alt="dispose" />
+						<img src={Arrow} alt="defect" />
 					</li>
-					<li>
-						<img src={Check} alt="get_job" />
-					</li>
+					{task.status === 'Выполнено' && (
+						<li>
+							<img src={Check} alt="get_job" />
+						</li>
+					)}
 				</>
 			)}
 		</ul>
