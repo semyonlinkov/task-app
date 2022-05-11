@@ -14,5 +14,4 @@ export const deleteTask = (id, historyChange) => {
 				}
 			})
 	}
-
 }

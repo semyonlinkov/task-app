@@ -9,7 +9,9 @@ const Point = ({ title, status, date, last }) => {
 				{!last && <div className={`${styles.stick} ${status ? styles.active : null}`} />}
 			</div>
 			<div className={styles.info_block}>
-				<p className={`${status ? styles.active_font : null}`}>{title}</p>
+				<p className={`${status ? styles.active_font : null} ${status === 'Брак' ? styles.defect_font : null}`}>
+					{title}
+				</p>
 				<p className={styles.date}>{status ? date : null}</p>
 			</div>
 		</div>

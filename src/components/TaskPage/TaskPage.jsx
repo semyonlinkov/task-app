@@ -31,6 +31,14 @@ const TaskPage = () => {
 				<TaskPageHeader />
 			</div>
 			<div className={styles.content}>
+				{/* {
+					{
+						info: <Info />,
+						files: <Files />,
+						history: <History />,
+						chat: <Chat />,
+					}[taskPageNav]
+				} */}
 				{taskPageNav === 'info' && <Info />}
 				{taskPageNav === 'files' && <Files />}
 				{taskPageNav === 'history' && <History />}

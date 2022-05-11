@@ -13,8 +13,12 @@ const TaskRaport = ({ id, timeStart, close }) => {
 		comment: '',
 	});
 
-	const handleSubmit = (form) => {
-		finishTask(form, id, timeStart, () => navigate('/'));
+	const handleSubmit = (form, status) => {
+		if (status === 'finish') {
+			finishTask(form, id, timeStart, () => navigate('/'));
+		} else if (status === 'changeDepartment') {
+			// changeDepartment();
+		}
 	};
 
 	return (
@@ -45,8 +49,14 @@ const TaskRaport = ({ id, timeStart, close }) => {
 						</p>
 					</label>
 
-					<button className={`${styles.btn} ${styles.sub_btn}`} onClick={() => handleSubmit(form)}>
-						Отправить отчёт
+					<button className={`${styles.btn} ${styles.sub_btn}`} onClick={() => handleSubmit(form, 'finish')}>
+						Завершить и отправить отчёт
+					</button>
+
+					<button
+						className={`${styles.btn} ${styles.sub_btn}`}
+						onClick={() => handleSubmit(form, 'changeDepartment')}>
+						Завершить и направить в другой отдел
 					</button>
 				</div>
 			</div>

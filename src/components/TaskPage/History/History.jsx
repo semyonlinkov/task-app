@@ -10,40 +10,42 @@ const History = () => {
 	const task = useStore($singleTask);
 	const [checkpoints, setCheckpoints] = useState([]);
 
+	// console.log(task);
+
 	useEffect(() => {
 		setCheckpoints([]);
 
-		if (task) {
+		if (task.date_create && task.date_create !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Поставлена', status: true, date: task.date_create }]);
 		}
 
 		//* !== "0000-00-00 00:00:00"
-		if (task.readed) {
+		if (task.readed && task.readed !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Прочитана', status: true, date: task.readed }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'Прочитана', status: false, date: task.readed }]);
 		}
 
-		if (task.title && task.timeStart !== '0000-00-00 00:00:00') {
+		if (task.timeStart && task.timeStart !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: task.title, status: true, date: task.timeStart }]);
 		} else {
-			setCheckpoints((prev) => [...prev, { title: task.title, status: 0, date: task.date_create }]);
+			setCheckpoints((prev) => [...prev, { title: task.title, status: 0, date: task.timeStart }]);
 		}
 
 		if (task.status === 'В работе' || task.status === 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: true, date: task.date_create }]);
+			setCheckpoints((prev) => [...prev, { title: 'В работе', status: 'В работе', date: task.date_create }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.date_create }]);
 		}
 
 		if (task.status == 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: true, date: task.timeEnd }]);
+			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: 'Выполнено', date: task.timeEnd }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: false, date: task.timeEnd }]);
 		}
 
 		if (task.status == 'Брак') {
-			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
+			setCheckpoints((prev) => [...prev, { title: 'Брак', status: 'Брак', date: task.deffect_time }]);
 		}
 	}, [task]);
 
@@ -64,7 +66,24 @@ const History = () => {
 					/>
 				))}
 			</div>
-			{task.report_comment && <Report task={task} />}
+			{task.report_comment && (
+				<Report
+					title={task.title}
+					status={task.status}
+					comment={task.report_comment}
+					date={task.timeEnd}
+					type={'report'}
+				/>
+			)}
+			{task.deffect_comment && (
+				<Report
+					title={task.tilte}
+					status={task.status}
+					comment={task.deffect_comment}
+					date={task.deffect_time}
+					type={'deffect'}
+				/>
+			)}
 		</div>
 	);
 };

@@ -6,8 +6,9 @@ import Arrow from '../../../img/red-arrow.png';
 import styles from './TaskPageFooter.module.scss';
 import { deleteTask } from '../../../services-api/deleteTask';
 import { useNavigate } from 'react-router-dom';
-import { $singleTask } from '../../../store/selectedTask';
+import { $singleTask, setSingleTask } from '../../../store/selectedTask';
 import { $user } from '../../../store/user';
+import { deffectTask } from '../../../services-api/deffectTask';
 
 const TaskPageFooter = () => {
 	const navigate = useNavigate();
@@ -24,7 +25,7 @@ const TaskPageFooter = () => {
 			)}
 			{task.status && task.creatorID === user.ID && (
 				<>
-					<li>
+					<li onClick={() => deffectTask(task.id, () => navigate('/'), setSingleTask)}>
 						<img src={Arrow} alt="defect" />
 					</li>
 					{task.status === 'Выполнено' && (

@@ -52,6 +52,11 @@
 		}
 	}
 
+	.active_font {
+		color: blue;
+		font-weight: 500;
+	}
+
 	.defect {
 		background-color: red;
 		z-index: 2;
@@ -60,8 +65,8 @@
 		}
 	}
 
-	.active_font {
-		color: blue;
+	.defect_font {
+		color: rgb(153, 2, 2);
 		font-weight: 500;
 	}
 }

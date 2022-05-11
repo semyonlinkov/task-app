@@ -15,7 +15,6 @@ const Files = () => {
 	const [imageFiles, setImageFiles] = useState([]);
 	const [videoFiles, setVideoFiles] = useState([]);
 	const [otherFiles, setOtherFiles] = useState([]);
-
 	useEffect(() => {
 		if (task.files !== '' || task.files !== undefined) {
 			const taskArr = { ...task }.files.split(';');
@@ -47,6 +46,7 @@ const Files = () => {
 
 	return (
 		<div className={styles.wrapper}>
+			{!filesArr.length && <h3 style={{ textAlign: 'center', paddingTop: '15px' }}>Нет файлов</h3>}
 			{imageFiles &&
 				imageFiles.map((file, i) => (
 					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Фото">
@@ -70,7 +70,6 @@ const Files = () => {
 			<div className={styles.file_input}>
 				<input
 					onChange={(e) => {
-						console.log('onClick');
 						let fileNameAlredyHasCheck = false;
 
 						Array.from(e.target.files).forEach((file) => {
@@ -79,8 +78,10 @@ const Files = () => {
 
 						if (fileNameAlredyHasCheck) {
 							alert('Ошибка! Такой файл уже существует. Переименуйте файл');
+							e.target.value = null;
 						} else {
 							sendFiles(e.target.files, task.id, setSingleTask);
+							e.target.value = null;
 						}
 					}}
 					type="file"

@@ -1,15 +1,13 @@
 import styles from './Report.module.scss';
 import moment from 'moment';
 
-const Report = ({ task }) => {
-	// console.log(task);
-
+const Report = ({ title, status, comment, date, type }) => {
 	return (
-		<div className={styles.wrapper}>
-			<p className={styles.task_name}>Задача: {task.title}</p>
-			<p className={styles.status}>Статус: {task.status}</p>
-			<p className={styles.comment}>{task.report_comment}</p>
-			<p className={styles.date}>{moment(task.timeEnd).format('DD.MM.YYYY')}</p>
+		<div className={`${styles.wrapper} ${type === 'deffect' ? styles.deffect : styles.report}`}>
+			<p className={styles.status}>Статус: {status}</p>
+			<p className={styles.task_name}>Задача: {title}</p>
+			<p className={styles.comment}>{comment}</p>
+			<p className={styles.date}>{moment(date).format('DD.MM.YYYY')}</p>
 		</div>
 	);
 };
