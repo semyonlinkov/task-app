@@ -42,6 +42,8 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
+	console.log(watch());
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
@@ -83,20 +85,12 @@ const CreateTaskPage = () => {
 				/>
 			)}
 			{searchBy !== 'department' && (
-				<>
-					<WorkerSelect
-						setValue={(value) => setValue('executor', value)}
-						allWorkers={allWorkers}
-						title={'Выбрать исполнителя по имени'}
-						setSearchBy={(value) => setSearchBy(value)}
-					/>
-					<WorkerSelect
-						setValue={(value) => setValue('coexecutor', value)}
-						allWorkers={allWorkers}
-						title={'Выбрать наблюдателя по имени'}
-						setSearchBy={(value) => setSearchBy(value)}
-					/>
-				</>
+				<WorkerSelect
+					setValue={(value) => setValue('executor', value)}
+					allWorkers={allWorkers}
+					title={'Выбрать исполнителя по имени'}
+					setSearchBy={(value) => setSearchBy(value)}
+				/>
 			)}
 			<label>
 				<p>Выбрать дату</p>

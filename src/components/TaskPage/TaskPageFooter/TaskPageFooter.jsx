@@ -19,10 +19,10 @@ const TaskPageFooter = () => {
 		<ul className={styles.wrapper}>
 			{task.customerID !== user.ID && (
 				<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
-					<img src={Trash} alt="" />
+					<img src={Trash} alt="trash" />
 				</li>
 			)}
-			{task.status === 'Выполнено' && task.creatorID === user.ID && (
+			{task.status && task.creatorID === user.ID && (
 				<>
 					<li>
 						<img src={Arrow} alt="dispose" />

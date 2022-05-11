@@ -5,9 +5,11 @@ import { $toggleValue } from '../../store/taskToggleState';
 import { useLocation, useNavigate } from 'react-router-dom';
 import create from '../../img/create-task-3.png';
 import cross from '../../img/cross-2.png';
+import { $singleTask } from '../../store/selectedTask';
 
 const Header = () => {
 	const toggleValue = useStore($toggleValue);
+	const task = useStore($singleTask);
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 
@@ -19,12 +21,12 @@ const Header = () => {
 				src={pathname === '/' ? create : cross}
 				onClick={() => (pathname === '/' ? navigate('/create_task') : navigate('/'))}
 			/>
-			{pathname === '/create_task' && <p>Создать задачу</p>}
-			{pathname.includes('tasks') && <p>Задача: {pathname.split('/').at(-1)}</p>}
+			{pathname === '/create_task' && <p className={styles.title_weight}>Создать задачу</p>}
+			{pathname.includes('tasks') && <p className={styles.title_weight}>Задача: {task?.title}</p>}
 			{pathname === '/' && (
 				<div className={styles.toggle_switch}>
 					<ToggleSwitch />
-					<p className={styles.switch_title}>
+					<p className={styles.title_weight}>
 						{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}
 					</p>
 				</div>

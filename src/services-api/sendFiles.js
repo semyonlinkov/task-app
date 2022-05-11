@@ -1,6 +1,8 @@
 import { setIsLoading } from "../store/loadingState";
 
 export const sendFiles = (files, id, setSingleTask) => {
+	if (!files.length) return;
+
 	setIsLoading(true);
 	let formData = new FormData();
 
