@@ -8,9 +8,11 @@ import OtherFile from './OtherFile/OtherFile';
 import ImageFile from './ImageFile/ImageFile';
 import VideoFile from './VideoFile/VideoFile';
 import { sendFiles } from '../../../services-api/sendFiles';
+import { $user } from '../../../store/user';
 
 const Files = () => {
 	const task = useStore($singleTask);
+	const user = useStore($user);
 	const [filesArr, setFilesArr] = useState([]);
 	const [imageFiles, setImageFiles] = useState([]);
 	const [videoFiles, setVideoFiles] = useState([]);
@@ -44,9 +46,12 @@ const Files = () => {
 		});
 	}, [filesArr]);
 
+	// console.log(user);
+	// console.log(task.creatorID === user.ID);
+
 	return (
 		<div className={styles.wrapper}>
-			{!filesArr.length && <h3 style={{ textAlign: 'center', paddingTop: '15px' }}>Нет файлов</h3>}
+			{!filesArr.length && <p className={styles.not_files}>Нет файлов</p>}
 			{imageFiles &&
 				imageFiles.map((file, i) => (
 					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Фото">
@@ -67,30 +72,32 @@ const Files = () => {
 						fileName={file}
 					/>
 				))}
-			<div className={styles.file_input}>
-				<input
-					onChange={(e) => {
-						let fileNameAlredyHasCheck = false;
+			{task.creatorID === user.ID && (
+				<div className={styles.file_input}>
+					<input
+						onChange={(e) => {
+							let fileNameAlredyHasCheck = false;
 
-						Array.from(e.target.files).forEach((file) => {
-							if (task.files.includes(file.name)) fileNameAlredyHasCheck = true;
-						});
+							Array.from(e.target.files).forEach((file) => {
+								if (task.files.includes(file.name)) fileNameAlredyHasCheck = true;
+							});
 
-						if (fileNameAlredyHasCheck) {
-							alert('Ошибка! Такой файл уже существует. Переименуйте файл');
-							e.target.value = null;
-						} else {
-							sendFiles(e.target.files, task.id, setSingleTask);
-							e.target.value = null;
-						}
-					}}
-					type="file"
-					id="file"
-					className={styles.file}
-					multiple
-				/>
-				<label htmlFor="file">Выбрать файл</label>
-			</div>
+							if (fileNameAlredyHasCheck) {
+								alert('Ошибка! Такой файл уже существует. Переименуйте файл');
+								e.target.value = null;
+							} else {
+								sendFiles(e.target.files, task.id, setSingleTask);
+								e.target.value = null;
+							}
+						}}
+						type="file"
+						id="file"
+						className={styles.file}
+						multiple
+					/>
+					<label htmlFor="file">Выбрать файл</label>
+				</div>
+			)}
 		</div>
 	);
 };

@@ -12,6 +12,3 @@ export const startTask = (id) => {
 			}
 		})
 }
-
-
-

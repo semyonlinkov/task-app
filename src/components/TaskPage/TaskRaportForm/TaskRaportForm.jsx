@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './TaskRaportForm.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import { finishTask } from '../../../services-api/finishTask';
 import Exit from '../../../img/cross-1.png';
 

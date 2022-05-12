@@ -23,7 +23,7 @@ const TaskPageFooter = () => {
 					<img src={Trash} alt="trash" />
 				</li>
 			)}
-			{task.status && task.creatorID === user.ID && (
+			{task.status !== 'Брак' && task.creatorID === user.ID && (
 				<>
 					<li onClick={() => deffectTask(task.id, () => navigate('/'), setSingleTask)}>
 						<img src={Arrow} alt="defect" />

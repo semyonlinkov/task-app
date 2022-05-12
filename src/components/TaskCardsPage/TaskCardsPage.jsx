@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { TaskCard } from './TaskCard/TaskCard';
 
+import styles from './TaskCardsPage.module.scss';
 import { $user } from '../../store/user';
 import { $customersStatus, $dataFilter, $taskStatus, getTasks, setDataFilter } from '../../store/tasks';
 import { $toggleValue } from '../../store/taskToggleState';
@@ -22,12 +23,18 @@ const TaskCardsPage = () => {
 	}, [user, dataFilter]);
 
 	return (
-		<>
+		<div className={styles.wrapper}>
 			{toggleValue === 'takenTasks' && <TasksFilter />}
+			{!tasks?.length && toggleValue === 'gettedTasks' && (
+				<p className={styles.not_tasks}>У вас нет поставленных задач</p>
+			)}
+			{!customers?.length && toggleValue === 'takenTasks' && (
+				<p className={styles.not_tasks}>Вы еще не поставили задачу</p>
+			)}
 			{toggleValue === 'gettedTasks'
 				? tasks.map((task) => <TaskCard task={task} key={task.id} />)
 				: customers.map((name) => <TaskDropdown name={name} key={name} />)}
-		</>
+		</div>
 	);
 };
 
