@@ -1,3 +1,5 @@
+import { $linkServer } from "../$config";
+
 export const createTask = (form, user, changeHisory, tel) => {
 
 	let formData = new FormData();
@@ -16,7 +18,7 @@ export const createTask = (form, user, changeHisory, tel) => {
 		}
 	}
 
-	fetch("https://volga24bot.com/tasks/createTask.php", {
+	fetch(`${$linkServer}/createTask.php`, {
 		method: "POST",
 		body: formData
 	})

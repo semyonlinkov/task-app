@@ -23,8 +23,8 @@ const Chat = () => {
 				</div>
 			</div>
 			<div className={styles.input_area}>
-				<textarea></textarea>
-				<input type="image" src={Send} />
+				<textarea onChange={(e) => console.log(e.target.value)}></textarea>
+				<input onClick={() => console.log('click')} type="image" src={Send} />
 			</div>
 		</div>
 	);

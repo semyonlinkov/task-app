@@ -1,3 +1,4 @@
+import { $linkServer } from "../$config";
 import { setIsLoading } from "../store/loadingState";
 import { setSingleTask } from "../store/selectedTask";
 
@@ -15,7 +16,7 @@ export const removeFile = (files, id, fileName) => {
 	formData.append('item', fileName);
 	formData.append('files', filesArr.join(';'));
 
-	fetch('https://volga24bot.com/tasks/deleteFile.php', {
+	fetch(`${$linkServer}/deleteFile.php`, {
 		method: 'POST',
 		body: formData
 	})

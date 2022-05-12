@@ -1,3 +1,4 @@
+import { $linkServer } from "../$config";
 import { setIsLoading } from "../store/loadingState";
 
 export const sendFiles = (files, id, setSingleTask) => {
@@ -12,7 +13,7 @@ export const sendFiles = (files, id, setSingleTask) => {
 
 	formData.append("id", id);
 
-	fetch('https://volga24bot.com/tasks/Files.php', {
+	fetch(`${$linkServer}/Files.php`, {
 		method: 'POST',
 		body: formData
 	})
