@@ -16,8 +16,8 @@ const ImageDropdown = ({ typeFile, children, fileName }) => {
 		setIsOpen((prev) => !prev);
 	};
 
-	console.log(task);
-	console.log(user);
+	// console.log(task);
+	// console.log(user);
 
 	return (
 		<div className={styles.wrapper}>
