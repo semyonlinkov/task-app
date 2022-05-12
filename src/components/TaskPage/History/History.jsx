@@ -10,8 +10,6 @@ const History = () => {
 	const task = useStore($singleTask);
 	const [checkpoints, setCheckpoints] = useState([]);
 
-	// console.log(task);
-
 	useEffect(() => {
 		setCheckpoints([]);
 
@@ -29,13 +27,13 @@ const History = () => {
 		if (task.timeStart && task.timeStart !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: task.title, status: true, date: task.timeStart }]);
 		} else {
-			setCheckpoints((prev) => [...prev, { title: task.title, status: 0, date: task.timeStart }]);
+			setCheckpoints((prev) => [...prev, { title: task.title, status: false, date: task.timeStart }]);
 		}
 
 		if (task.status === 'В работе' || task.status === 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: 'В работе', date: task.date_create }]);
+			setCheckpoints((prev) => [...prev, { title: 'В работе', status: 'В работе', date: task.timeStart }]);
 		} else {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.date_create }]);
+			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.timeStart }]);
 		}
 
 		if (task.status == 'Выполнено') {
@@ -44,13 +42,13 @@ const History = () => {
 			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: false, date: task.timeEnd }]);
 		}
 
-		if (task.status == 'Брак') {
+		if (task.status === 'Брак' || task.deffect_time !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Брак', status: 'Брак', date: task.deffect_time }]);
 		}
 	}, [task]);
 
 	// console.log(checkpoints);
-	// console.log(task);
+	console.log(task);
 
 	return (
 		<div className={styles.wrapper}>
@@ -66,24 +64,15 @@ const History = () => {
 					/>
 				))}
 			</div>
-			{task.report_comment && (
-				<Report
-					title={task.title}
-					status={task.status}
-					comment={task.report_comment}
-					date={task.timeEnd}
-					type={'report'}
-				/>
-			)}
-			{task.deffect_comment && (
-				<Report
-					title={task.tilte}
-					status={task.status}
-					comment={task.deffect_comment}
-					date={task.deffect_time}
-					type={'deffect'}
-				/>
-			)}
+			{task.timeEnd !== '0000-00-00 00:00:00' ||
+				(task.deffect_completed !== '0000-00-00 00:00:00' && (
+					<Report
+						title={task.title}
+						status={task.status}
+						comment={task.report_comment}
+						date={task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed}
+					/>
+				))}
 		</div>
 	);
 };

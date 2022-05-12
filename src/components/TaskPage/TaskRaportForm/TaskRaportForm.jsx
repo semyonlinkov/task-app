@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { finishTask } from '../../../services-api/finishTask';
 import Exit from '../../../img/cross-1.png';
 
-const TaskRaport = ({ id, timeStart, close }) => {
+const TaskRaport = ({ id, timeStart, close, status }) => {
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
@@ -12,10 +12,10 @@ const TaskRaport = ({ id, timeStart, close }) => {
 		comment: '',
 	});
 
-	const handleSubmit = (form, status) => {
-		if (status === 'finish') {
-			finishTask(form, id, timeStart, () => navigate('/'));
-		} else if (status === 'changeDepartment') {
+	const handleSubmit = (form, taskType) => {
+		if (taskType === 'finish') {
+			finishTask(form, id, timeStart, status === 'Брак' ? true : false, () => navigate('/'));
+		} else if (taskType === 'changeDepartment') {
 			// changeDepartment();
 		}
 	};

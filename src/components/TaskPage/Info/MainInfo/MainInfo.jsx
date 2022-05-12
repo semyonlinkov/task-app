@@ -36,6 +36,8 @@ const MainData = () => {
 		}
 	};
 
+	// console.log(task);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.status}>
@@ -103,7 +105,14 @@ const MainData = () => {
 				</button>
 			) : null}
 
-			{showForm && <TaskRaportForm close={() => setShowForm(false)} id={task.id} timeStart={task.timeStart} />}
+			{showForm && (
+				<TaskRaportForm
+					close={() => setShowForm(false)}
+					id={task.id}
+					timeStart={task.timeStart}
+					status={task.status}
+				/>
+			)}
 		</div>
 	);
 };
