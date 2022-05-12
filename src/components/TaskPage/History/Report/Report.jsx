@@ -1,52 +1,59 @@
+import { useEffect, useState } from 'react';
+
 import styles from './Report.module.scss';
 import moment from 'moment';
-import ImageFile from '../../Files/ImageFile/ImageFile';
-import VideoFile from '../../Files/VideoFile/VideoFile';
-import OtherFile from '../../Files/OtherFile/OtherFile';
-import { useState } from 'react';
+import { $linkServer } from '../../../../$config';
 
-const Report = ({ title, status, comment, date }) => {
-	// const [filesArr, setFilesArr] = useState([]);
-	// const [imageFiles, setImageFiles] = useState([]);
-	// const [videoFiles, setVideoFiles] = useState([]);
-	// const [otherFiles, setOtherFiles] = useState([]);
+const Report = ({ id, title, status, comment, date, filesArr }) => {
+	const [imageFiles, setImageFiles] = useState([]);
+	const [videoFiles, setVideoFiles] = useState([]);
+	const [otherFiles, setOtherFiles] = useState([]);
 
-	// useEffect(() => {
-	// 	if (task.files !== '' || task.files !== undefined) {
-	// 		const taskArr = { ...task }.files.split(';');
-	// 		if (taskArr.at(-1) === '') {
-	// 			taskArr.splice(taskArr.length - 1, 1);
-	// 		}
-	// 		setFilesArr(taskArr);
-	// 	}
-	// }, [task]);
+	const fileExt = (file) => {
+		return file.split('.').at(-1);
+	};
+
+	useEffect(() => {
+		if (filesArr) {
+			setImageFiles([]);
+			setVideoFiles([]);
+			setOtherFiles([]);
+			filesArr.forEach((file) => {
+				if (fileExt(file) === 'png' || fileExt(file) === 'jpeg' || fileExt(file) === 'jpg') {
+					setImageFiles((prev) => [...prev, file]);
+				} else if (fileExt(file) === 'mp4') {
+					setVideoFiles((prev) => [...prev, file]);
+				} else {
+					setOtherFiles((prev) => [...prev, file]);
+				}
+			});
+		}
+	}, []);
+
+	console.log(imageFiles, videoFiles, otherFiles);
 
 	return (
 		<div className={`${styles.wrapper} ${styles.report}`}>
 			<p className={styles.status}>Статус: {status}</p>
 			<p className={styles.task_name}>Задача: {title}</p>
-			<p className={styles.comment}>{comment}</p>
+			{comment && <p className={styles.comment}>{comment}</p>}
 
-			{/* {imageFiles &&
-				imageFiles.map((file, i) => (
-					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Фото">
-						<ImageFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
-					</FilesDropdown>
-				))}
+			{imageFiles &&
+				imageFiles.map((file) => <img src={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} alt={file} />)}
 			{videoFiles &&
-				videoFiles.map((file, i) => (
-					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Видео">
-						<VideoFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
-					</FilesDropdown>
+				videoFiles.map((file) => (
+					<video controls muted className={styles.video}>
+						<source src={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} type="video/mp4" />
+					</video>
 				))}
 			{otherFiles &&
-				otherFiles.map((file, i) => (
-					<OtherFile
-						key={file + i}
-						src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
-						fileName={file}
-					/>
-				))} */}
+				otherFiles.map((file) => (
+					<>
+						<a target="_blank" download={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} href={file}>
+							{file}
+						</a>
+					</>
+				))}
 
 			<p className={styles.date}>{moment(date).format('DD.MM.YYYY')}</p>
 		</div>

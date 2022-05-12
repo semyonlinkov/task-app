@@ -48,7 +48,7 @@ const History = () => {
 	}, [task]);
 
 	// console.log(checkpoints);
-	console.log(task);
+	// console.log(task);
 
 	return (
 		<div className={styles.wrapper}>
@@ -67,9 +67,11 @@ const History = () => {
 			{task.timeEnd !== '0000-00-00 00:00:00' ||
 				(task.deffect_completed !== '0000-00-00 00:00:00' && (
 					<Report
+						id={task.id}
 						title={task.title}
 						status={task.status}
 						comment={task.report_comment}
+						filesArr={task.report_files ? task.report_files.split(';') : false}
 						date={task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed}
 					/>
 				))}

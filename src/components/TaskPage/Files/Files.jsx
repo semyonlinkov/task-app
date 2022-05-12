@@ -13,10 +13,12 @@ import { $user } from '../../../store/user';
 const Files = () => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
+
 	const [filesArr, setFilesArr] = useState([]);
 	const [imageFiles, setImageFiles] = useState([]);
 	const [videoFiles, setVideoFiles] = useState([]);
 	const [otherFiles, setOtherFiles] = useState([]);
+
 	useEffect(() => {
 		if (task.files !== '' || task.files !== undefined) {
 			const taskArr = { ...task }.files.split(';');
@@ -35,6 +37,7 @@ const Files = () => {
 		setImageFiles([]);
 		setVideoFiles([]);
 		setOtherFiles([]);
+		
 		filesArr.forEach((file) => {
 			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg' || fileExt(file) === 'jpg') {
 				setImageFiles((prev) => [...prev, file]);
