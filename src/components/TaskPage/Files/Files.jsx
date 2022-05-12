@@ -9,6 +9,7 @@ import ImageFile from './ImageFile/ImageFile';
 import VideoFile from './VideoFile/VideoFile';
 import { sendFiles } from '../../../services-api/sendFiles';
 import { $user } from '../../../store/user';
+import { $linkServer } from '../../../$config';
 
 const Files = () => {
 	const task = useStore($singleTask);
@@ -37,7 +38,7 @@ const Files = () => {
 		setImageFiles([]);
 		setVideoFiles([]);
 		setOtherFiles([]);
-		
+
 		filesArr.forEach((file) => {
 			if (fileExt(file) === 'png' || fileExt(file) === 'jpeg' || fileExt(file) === 'jpg') {
 				setImageFiles((prev) => [...prev, file]);
@@ -58,22 +59,18 @@ const Files = () => {
 			{imageFiles &&
 				imageFiles.map((file, i) => (
 					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Фото">
-						<ImageFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+						<ImageFile src={`${$linkServer}/taskFiles/${task.id}/${file}`} fileName={file} />
 					</FilesDropdown>
 				))}
 			{videoFiles &&
 				videoFiles.map((file, i) => (
 					<FilesDropdown key={file + i} alt={file} fileName={file} typeFile="Видео">
-						<VideoFile src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`} fileName={file} />
+						<VideoFile src={`${$linkServer}/taskFiles/${task.id}/${file}`} fileName={file} />
 					</FilesDropdown>
 				))}
 			{otherFiles &&
 				otherFiles.map((file, i) => (
-					<OtherFile
-						key={file + i}
-						src={`https://volga24bot.com/tasks/taskFiles/${task.id}/${file}`}
-						fileName={file}
-					/>
+					<OtherFile key={file + i} src={`${$linkServer}/taskFiles/${task.id}/${file}`} fileName={file} />
 				))}
 			{task.creatorID === user.ID && (
 				<div className={styles.file_input}>

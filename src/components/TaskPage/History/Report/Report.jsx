@@ -38,21 +38,20 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 			<p className={styles.task_name}>Задача: {title}</p>
 			{comment && <p className={styles.comment}>{comment}</p>}
 
-			{imageFiles &&
-				imageFiles.map((file) => <img src={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} alt={file} />)}
+			{imageFiles && imageFiles.map((file) => <img src={`${$linkServer}/raportFiles/${id}/${file}`} alt={file} />)}
+
 			{videoFiles &&
 				videoFiles.map((file) => (
 					<video controls muted className={styles.video}>
-						<source src={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} type="video/mp4" />
+						<source src={`${$linkServer}/raportFiles/${id}/${file}`} type="video/mp4" />
 					</video>
 				))}
+
 			{otherFiles &&
 				otherFiles.map((file) => (
-					<>
-						<a target="_blank" download={`https://volga24bot.com/tasks/raportFiles/${id}/${file}`} href={file}>
-							{file}
-						</a>
-					</>
+					<a target="_blank" download={`${$linkServer}/raportFiles/${id}/${file}`} href={file}>
+						{file}
+					</a>
 				))}
 
 			<p className={styles.date}>{moment(date).format('DD.MM.YYYY')}</p>
