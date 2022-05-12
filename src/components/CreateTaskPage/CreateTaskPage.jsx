@@ -21,7 +21,9 @@ const CreateTaskPage = () => {
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
-	const onSubmit = (data) => createTask(data, user, () => navigate('/'), tel);
+	const onSubmit = (data) => {
+		createTask(data, user, () => navigate('/'), tel);
+	};
 	const files = getValues('files');
 
 	const [allWorkers, setAllWorkers] = useState([]);

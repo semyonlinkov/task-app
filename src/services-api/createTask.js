@@ -2,6 +2,14 @@ import { $linkServer } from "../$config";
 
 export const createTask = (form, user, changeHisory, tel) => {
 
+	console.log(form, 'form');
+	console.log(user, 'user');
+
+	if (form.executor.split(':')[0] === user.ID || form.coexecutor.split(':')[0] === user.ID) {
+		alert('Нельзя поставить задачу самому себе!');
+		return;
+	}
+
 	let formData = new FormData();
 
 	formData.append('creatorID', user.ID);
@@ -28,7 +36,6 @@ export const createTask = (form, user, changeHisory, tel) => {
 				alert('Задача создана!');
 				changeHisory();
 			}
-
 		})
 		.catch(err => console.log(err));
 }
