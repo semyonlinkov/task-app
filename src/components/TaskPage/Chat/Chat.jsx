@@ -1,11 +1,27 @@
-import React from 'react';
-import { $showSingleTask } from '../../../store/tasks';
+import React, { useEffect, useState } from 'react';
+import { $singleTask } from '../../../store/selectedTask';
+import { $user } from '../../../store/user';
 import styles from './Chat.module.scss';
 import Message from './Message/Message';
 import Send from '../../../img/send-message.png';
 import Avatar from './Avatar/Avatar';
+import { useStore } from 'effector-react';
+import { getAllMessages } from '../../../services-api/getAllMessages';
 
 const Chat = () => {
+	const [messages, setMessages] = useState([]);
+	const task = useStore($singleTask);
+	const user = useStore($user);
+
+	useEffect(() => {
+		getAllMessages(task.id, setMessages);
+
+		// console.log(task);
+		// console.log(user);
+		console.log(messages);
+	}, []);
+
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.messages_area}>
