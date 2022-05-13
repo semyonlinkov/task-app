@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { $singleTask } from '../../../store/selectedTask';
 import { $user } from '../../../store/user';
 import styles from './Chat.module.scss';
@@ -7,40 +7,66 @@ import Send from '../../../img/send-message.png';
 import Avatar from './Avatar/Avatar';
 import { useStore } from 'effector-react';
 import { getAllMessages } from '../../../services-api/getAllMessages';
+import { sendMessage } from '../../../services-api/sendMessage';
 
 const Chat = () => {
-	const [messages, setMessages] = useState([]);
 	const task = useStore($singleTask);
 	const user = useStore($user);
 
+	const [messages, setMessages] = useState([]);
+	const [message, setMessage] = useState('');
+
+	const lastDiv = useRef(null);
+
 	useEffect(() => {
 		getAllMessages(task.id, setMessages);
-
-		// console.log(task);
-		// console.log(user);
-		console.log(messages);
 	}, []);
 
+	useEffect(() => {
+		lastDiv.current.scrollIntoView();
+	}, [messages]);
+
+	console.dir(messages);
+	// console.dir(user);
+	// console.dir(task);
+	// console.dir('render');
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.messages_area}>
-				<div className={`${styles.message} ${styles.my_message}`}>
-					<Avatar src={''} />
-					<Message message={''} readed={true} name={'Иван Иванов Иванович'} date={'12.12.1212'} text={''} />
-				</div>
-				<div className={`${styles.message} ${styles.another_message}`}>
-					<Avatar src={''} />
-					<Message message={''} readed={true} name={'Петр Петров Петрович'} date={'12.12.1212'} text={''} />
-				</div>
-				<div className={`${styles.message} ${styles.my_message}`}>
-					<Avatar src={''} />
-					<Message message={''} readed={false} name={'Иван Иванов Иванович'} date={'12.12.1212'} text={''} />
-				</div>
+				{messages &&
+					messages.map((message) => (
+						<div
+							className={`${styles.message} ${
+								user.ID === message.senderID ? styles.my_message : styles.another_message
+							}`}
+							key={message.id}>
+							<Avatar src={''} />
+							<Message
+								readed={message.view}
+								name={message.senderName}
+								date={message.date}
+								text={message.Comment}
+							/>
+						</div>
+					))}
+				{/* Чат будет прокручиваться до этого элемента который будет всегда вконце чата */}
+				<div ref={lastDiv} />
 			</div>
 			<div className={styles.input_area}>
-				<textarea onChange={(e) => console.log(e.target.value)}></textarea>
-				<input onClick={() => console.log('click')} type="image" src={Send} />
+				<textarea onChange={(e) => setMessage(e.target.value)} value={message}></textarea>
+				<input
+					onClick={() => {
+						if (message) {
+							sendMessage(user.ID, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, message, task.id, () =>
+								getAllMessages(task.id, setMessages),
+							);
+							setMessage('');
+						}
+					}}
+					type="image"
+					src={Send}
+				/>
 			</div>
 		</div>
 	);

@@ -10,6 +10,7 @@ import { setIsLoading } from '../../store/loadingState';
 import InputMask from 'react-input-mask';
 import WorkerSelect from './WorkerSelect/WorkerSelect';
 import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
+import { $customers, getCustomerByPhone } from '../../store/getCusomer';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -18,6 +19,9 @@ const CreateTaskPage = () => {
 
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
+	const customers = useStore($customers);
+
+	console.dir(customers);
 
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
@@ -66,7 +70,18 @@ const CreateTaskPage = () => {
 			</label>
 			<label>
 				<p>Телефон клиента</p>
-				<InputMask mask="+7\ 999 999-99-99" maskChar={''} value={tel} onChange={(e) => setTel(e.target.value)}>
+				<InputMask
+					mask="+7\ 999 999-99-99"
+					maskChar={''}
+					value={tel}
+					onChange={(e) => {
+						setTel(e.target.value);
+						console.log(e.target.value.length);
+
+						if (e.target.value.length === 16) {
+							getCustomerByPhone(e.target.value);
+						}
+					}}>
 					{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
 				</InputMask>
 			</label>

@@ -7,7 +7,7 @@
 
 	.messages_area {
 		display: flex;
-		flex-direction: column-reverse;
+		flex-direction: column;
 		flex: 1;
 		overflow: auto;
 		align-items: stretch;
@@ -18,13 +18,13 @@
 		}
 
 		.my_message {
-			align-self: flex-end;
-			flex-direction: row-reverse;
+			flex-direction: reverse;
+			align-self: flex-start;
 		}
 
 		.another_message {
-			flex-direction: reverse;
-			align-self: flex-start;
+			align-self: flex-end;
+			flex-direction: row-reverse;
 		}
 	}
 
