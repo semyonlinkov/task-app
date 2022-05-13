@@ -5,6 +5,11 @@
 	border-top: 1px solid #aaaaaa;
 	border-bottom: 1px solid #aaaaaa;
 
+	.title {
+		text-align: center;
+		font-weight: 500;
+	}
+
 	.task_name {
 		font-size: 0.9rem;
 		font-weight: 500;
@@ -26,23 +31,68 @@
 		padding: 4px 8px 0 8px;
 	}
 
+	.show_files_btn {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		border-top: 1px solid var(--border-color);
+		font-weight: 500;
+		img {
+			// text-align: start;
+			height: 20px;
+			width: 20px;
+			transition: all 0.3s ease-out;
+			margin-left: 10px;
+			margin-top: 4px;
+		}
+		.open {
+			transform: rotate(180deg);
+		}
+	}
+
+	.images_wrapper {
+		display: flex;
+		flex-flow: wrap;
+		gap: 5px;
+		padding: 5px;
+		img {
+			max-width: 150px;
+		}
+	}
+
+	.videos_wrapper {
+		video {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	.others_wrapper {
+		padding: 0 10px;
+		a {
+			display: block;
+			padding: 3px 0;
+		}
+	}
+
 	.date {
 		align-self: flex-end;
+		padding-bottom: 4px;
 		font-size: 0.9rem;
 		font-weight: 500;
 	}
 }
 
-.report {
-	background-color: rgb(216, 247, 212);
-	.comment {
-		background-color: #adc4a7;
-	}
-}
+// .report {
+// 	background-color: rgb(216, 247, 212);
+// 	.comment {
+// 		background-color: #adc4a7;
+// 	}
+// }
 
-.deffect {
-	background-color: rgb(255, 210, 210);
-	.comment {
-		background-color: #d6b0b0;
-	}
-}
+// .deffect {
+// 	background-color: rgb(255, 210, 210);
+// 	.comment {
+// 		background-color: #d6b0b0;
+// 	}
+// }
