@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from './TaskPage.module.scss';
-import { setSingleTask } from '../../store/selectedTask';
+import { $singleTask, setSingleTask } from '../../store/selectedTask';
 import { useStore } from 'effector-react';
 
 import TaskPageHeader from './TaskPageHeader/TaskPageHeader';

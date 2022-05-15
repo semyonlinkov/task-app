@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FilesDropdown from './FilesDropdown/FilesDropdown';
 
 import styles from './Files.module.scss';
@@ -34,7 +34,7 @@ const Files = () => {
 		return file.split('.').at(-1);
 	};
 
-	const filesFilter = useMemo(() => {
+	useEffect(() => {
 		setImageFiles([]);
 		setVideoFiles([]);
 		setOtherFiles([]);
@@ -52,6 +52,7 @@ const Files = () => {
 
 	// console.log(user);
 	// console.log(task.creatorID === user.ID);
+	console.log('render');
 
 	return (
 		<div className={styles.wrapper}>

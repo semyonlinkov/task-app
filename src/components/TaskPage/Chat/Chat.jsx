@@ -28,7 +28,7 @@ const Chat = () => {
 		lastDiv.current.scrollIntoView();
 	}, [messages]);
 
-	// console.log(messages);
+	console.log(messages);
 	// console.dir(user);
 	// console.dir(task);
 	// console.dir('render');

@@ -21,8 +21,6 @@ const CreateTaskPage = () => {
 	const workers = useStore($workerStatus);
 	const customers = useStore($customers);
 
-	console.dir(customers);
-
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
 	const onSubmit = (data) => {
@@ -48,6 +46,9 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
+	console.log(customers);
+	console.log(tel);
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 			<label>
@@ -71,14 +72,14 @@ const CreateTaskPage = () => {
 			<label>
 				<p>Телефон клиента</p>
 				<InputMask
-					mask="+7\ 999 999-99-99"
+					mask={'9 999 999-99-99'}
 					maskChar={''}
 					value={tel}
 					onChange={(e) => {
 						setTel(e.target.value);
 						console.log(e.target.value.length);
 
-						if (e.target.value.length === 16) {
+						if (e.target.value.length <= 15) {
 							getCustomerByPhone(e.target.value);
 						}
 					}}>
