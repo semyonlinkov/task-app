@@ -8,6 +8,7 @@ import Avatar from './Avatar/Avatar';
 import { useStore } from 'effector-react';
 import { getAllMessages } from '../../../services-api/getAllMessages';
 import { sendMessage } from '../../../services-api/sendMessage';
+import { setCommentsViewed } from '../../../services-api/setCommentsViewed';
 
 const Chat = () => {
 	const task = useStore($singleTask);
@@ -20,13 +21,14 @@ const Chat = () => {
 
 	useEffect(() => {
 		getAllMessages(task.id, setMessages);
+		setCommentsViewed(242);
 	}, []);
 
 	useEffect(() => {
 		lastDiv.current.scrollIntoView();
 	}, [messages]);
 
-	console.dir(messages);
+	// console.log(messages);
 	// console.dir(user);
 	// console.dir(task);
 	// console.dir('render');
