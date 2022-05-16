@@ -21,7 +21,10 @@ const Chat = () => {
 
 	useEffect(() => {
 		getAllMessages(task.id, setMessages);
-		setCommentsViewed(242);
+		if (messages) {
+
+		}
+		setCommentsViewed([242]);
 	}, []);
 
 	useEffect(() => {

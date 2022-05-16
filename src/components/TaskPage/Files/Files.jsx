@@ -52,7 +52,7 @@ const Files = () => {
 
 	// console.log(user);
 	// console.log(task.creatorID === user.ID);
-	console.log('render');
+	// console.log('render');
 
 	return (
 		<div className={styles.wrapper}>

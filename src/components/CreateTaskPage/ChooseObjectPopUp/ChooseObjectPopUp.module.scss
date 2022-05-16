@@ -1,0 +1,43 @@
+.wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	overflow: scroll;
+
+	.title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 1.2rem;
+		font-weight: 500;
+		padding: 5px;
+		border-bottom: 1px solid #aaaaaa;
+		img {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	.address_wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-self: center;
+		.address {
+			flex: 1;
+		}
+	}
+
+	.number {
+		font-weight: 500;
+	}
+
+	li {
+		p {
+			padding: 5px 3px;
+			border-bottom: 1px solid #aaaaaa;
+		}
+	}
+}

@@ -11,6 +11,7 @@ import InputMask from 'react-input-mask';
 import WorkerSelect from './WorkerSelect/WorkerSelect';
 import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
 import { $customers, getCustomerByPhone } from '../../store/getCusomer';
+import ChooseObjectPopUp from './ChooseObjectPopUp/ChooseObjectPopUp';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -31,6 +32,8 @@ const CreateTaskPage = () => {
 	const [allWorkers, setAllWorkers] = useState([]);
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
+	const [showObjectPopUp, setShowObjectPopUp] = useState(false);
+
 	const allWorkersHandler = useMemo(() => {
 		let array = [];
 		Object.values(workers).forEach((arr) => (array = [...array, ...arr]));
@@ -46,89 +49,100 @@ const CreateTaskPage = () => {
 		}
 	}, [workers]);
 
-	console.log(customers);
-	console.log(tel);
+	// console.log(customers);
+	// console.log(tel);
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
-			<label>
-				<p>Вид заявки</p>
-				<select {...register('type')}>
-					{typeTask.map((task) => (
-						<option key={task} value={task}>
-							{task}
-						</option>
-					))}
-				</select>
-			</label>
-			<label>
-				<p>Название объекта</p>
-				<input type="text" {...register('objectName')} />
-			</label>
-			<label>
-				<p>Адресс объекта</p>
-				<input type="text" {...register('objectAdress')} />
-			</label>
-			<label>
-				<p>Телефон клиента</p>
-				<InputMask
-					mask={'9 999 999-99-99'}
-					maskChar={''}
-					value={tel}
-					onChange={(e) => {
-						setTel(e.target.value);
-						console.log(e.target.value.length);
+		<>
+			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
+				<label>
+					<p>Вид заявки</p>
+					<select {...register('type')}>
+						{typeTask.map((task) => (
+							<option key={task} value={task}>
+								{task}
+							</option>
+						))}
+					</select>
+				</label>
+				<label>
+					<p>Название объекта</p>
+					<input type="text" {...register('objectName')} />
+				</label>
+				<label>
+					<p>Адресс объекта</p>
+					<input type="text" {...register('objectAdress')} />
+				</label>
+				<label>
+					<p>Телефон клиента</p>
+					<InputMask
+						mask={'9 999 999-99-99'}
+						maskChar={''}
+						value={tel}
+						onChange={(e) => {
+							setTel(e.target.value);
+							// console.log(e.target.value.length);
 
-						if (e.target.value.length <= 15) {
-							getCustomerByPhone(e.target.value);
-						}
-					}}>
-					{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
-				</InputMask>
-			</label>
-			<label>
-				<p>ФИО клиента</p>
-				<input type="text" {...register('fullname')} />
-			</label>
+							if (e.target.value.length == 15) {
+								setIsLoading(true);
+								getCustomerByPhone(e.target.value);
+								setShowObjectPopUp(true);
+							}
+						}}>
+						{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
+					</InputMask>
+				</label>
+				<label>
+					<p>ФИО клиента</p>
+					<input type="text" {...register('fullname')} />
+				</label>
 
-			{searchBy !== 'name' && (
-				<ChooseByDepartmentBlock
-					register={register}
+				{searchBy !== 'name' && (
+					<ChooseByDepartmentBlock
+						register={register}
+						setValue={setValue}
+						workers={workers}
+						watch={watch}
+						setSearchBy={(value) => setSearchBy(value)}
+					/>
+				)}
+				{searchBy !== 'department' && (
+					<WorkerSelect
+						setValue={(value) => setValue('executor', value)}
+						allWorkers={allWorkers}
+						title={'Выбрать исполнителя по имени'}
+						setSearchBy={(value) => setSearchBy(value)}
+					/>
+				)}
+				<label>
+					<p>Выбрать дату</p>
+					<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
+				</label>
+				<label>
+					<p>Комментарий</p>
+					<textarea placeholder="Введите свой комментарий" {...register('comment')} />
+				</label>
+				<label className={styles.btn_file}>
+					<input type="file" multiple {...register('files')} />
+					<p>{files?.length ? `Добавлено файлов ${files.length}` : 'Добавить файлы'}</p>
+				</label>
+				<label>
+					<input
+						className={styles.btn_sub}
+						type="submit"
+						value="Создать заявку"
+						onClick={() => console.log(watch('files'))}
+					/>
+				</label>
+			</form>
+			{showObjectPopUp && (
+				<ChooseObjectPopUp
+					customers={customers}
+					setShowObjectPopUp={() => setShowObjectPopUp(false)}
 					setValue={setValue}
-					workers={workers}
-					watch={watch}
-					setSearchBy={(value) => setSearchBy(value)}
 				/>
 			)}
-			{searchBy !== 'department' && (
-				<WorkerSelect
-					setValue={(value) => setValue('executor', value)}
-					allWorkers={allWorkers}
-					title={'Выбрать исполнителя по имени'}
-					setSearchBy={(value) => setSearchBy(value)}
-				/>
-			)}
-			<label>
-				<p>Выбрать дату</p>
-				<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
-			</label>
-			<label>
-				<p>Комментарий</p>
-				<textarea placeholder="Введите свой комментарий" {...register('comment')} />
-			</label>
-			<label className={styles.btn_file}>
-				<input type="file" multiple {...register('files')} />
-				<p>{files?.length ? `Добавлено файлов ${files.length}` : 'Добавить файлы'}</p>
-			</label>
-			<label>
-				<input
-					className={styles.btn_sub}
-					type="submit"
-					value="Создать заявку"
-					onClick={() => console.log(watch('files'))}
-				/>
-			</label>
-		</form>
+		</>
 	);
 };
 
