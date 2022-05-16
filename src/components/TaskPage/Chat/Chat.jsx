@@ -21,24 +21,30 @@ const Chat = () => {
 
 	useEffect(() => {
 		getAllMessages(task.id, setMessages);
-		// setCommentsViewed([242]);
 	}, []);
 
 	useEffect(() => {
 		lastDiv.current.scrollIntoView();
 
 		if (messages.length) {
-			console.log('useEffect');
-
 			let notReadedMessagesIdsArr = messages
 				.filter((message) => message.senderID != user.ID && message.view === '0')
 				.map((message) => message.id);
 
 			if (notReadedMessagesIdsArr.length) {
-				setCommentsViewed(notReadedMessagesIdsArr);
+				setCommentsViewed(notReadedMessagesIdsArr, () => getAllMessages(task.id, setMessages));
 			}
 		}
 	}, [messages]);
+
+	const sendMessageHandler = () => {
+		if (message) {
+			sendMessage(user.ID, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, message, task.id, () =>
+				getAllMessages(task.id, setMessages),
+			);
+			setMessage('');
+		}
+	};
 
 	// console.log(messages);
 	// console.dir(user);
@@ -68,19 +74,15 @@ const Chat = () => {
 				<div ref={lastDiv} />
 			</div>
 			<div className={styles.input_area}>
-				<textarea onChange={(e) => setMessage(e.target.value)} value={message}></textarea>
-				<input
-					onClick={() => {
-						if (message) {
-							sendMessage(user.ID, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, message, task.id, () =>
-								getAllMessages(task.id, setMessages),
-							);
-							setMessage('');
+				<textarea
+					onKeyUp={(e) => {
+						if (e.key === 'Enter') {
+							sendMessageHandler();
 						}
 					}}
-					type="image"
-					src={Send}
-				/>
+					onChange={(e) => setMessage(e.target.value)}
+					value={message}></textarea>
+				<input onClick={sendMessageHandler} type="image" src={Send} />
 			</div>
 		</div>
 	);
