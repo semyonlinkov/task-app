@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Info.module.scss';
 
 import edit from '../../../img/edit.png';
@@ -19,6 +19,7 @@ const MainData = () => {
 		<div className={styles.wrapper}>
 			{task.creatorID === user.ID && (
 				<input
+					alt={isMainInfo ? 'edit' : 'cross'}
 					type="image"
 					className={isMainInfo ? styles.cross : styles.edit}
 					src={isMainInfo ? edit : cross}

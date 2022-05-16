@@ -9,6 +9,7 @@ import { useStore } from 'effector-react';
 import { getAllMessages } from '../../../services-api/getAllMessages';
 import { sendMessage } from '../../../services-api/sendMessage';
 import { setCommentsViewed } from '../../../services-api/setCommentsViewed';
+import { setIsLoading } from '../../../store/loadingState';
 
 const Chat = () => {
 	const task = useStore($singleTask);
@@ -19,32 +20,35 @@ const Chat = () => {
 
 	const lastDiv = useRef(null);
 
+	const sendMessageHandler = () => {
+		if (message) {
+			sendMessage(user.ID, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, message, task.id, () =>
+				getAllMessages(task.id, setMessages, () => setIsLoading(false)),
+			);
+			setMessage('');
+		}
+	};
+
 	useEffect(() => {
-		getAllMessages(task.id, setMessages);
-	}, []);
+		setIsLoading(true);
+		getAllMessages(task.id, setMessages, () => setIsLoading(false));
+	}, [task.id]);
 
 	useEffect(() => {
 		lastDiv.current.scrollIntoView();
 
 		if (messages.length) {
 			let notReadedMessagesIdsArr = messages
-				.filter((message) => message.senderID != user.ID && message.view === '0')
+				.filter((message) => message.senderID !== user.ID && message.view === '0')
 				.map((message) => message.id);
 
 			if (notReadedMessagesIdsArr.length) {
-				setCommentsViewed(notReadedMessagesIdsArr, () => getAllMessages(task.id, setMessages));
+				setCommentsViewed(notReadedMessagesIdsArr, () =>
+					getAllMessages(task.id, setMessages, () => setIsLoading(false)),
+				);
 			}
 		}
-	}, [messages]);
-
-	const sendMessageHandler = () => {
-		if (message) {
-			sendMessage(user.ID, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, message, task.id, () =>
-				getAllMessages(task.id, setMessages),
-			);
-			setMessage('');
-		}
-	};
+	}, [messages, task.id, user.ID]);
 
 	// console.log(messages);
 	// console.dir(user);
@@ -82,7 +86,7 @@ const Chat = () => {
 					}}
 					onChange={(e) => setMessage(e.target.value)}
 					value={message}></textarea>
-				<input onClick={sendMessageHandler} type="image" src={Send} />
+				<input onClick={sendMessageHandler} type="image" alt="send" src={Send} />
 			</div>
 		</div>
 	);

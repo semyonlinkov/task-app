@@ -1,4 +1,4 @@
-import { createStore, createEffect, combine, createEvent } from 'effector';
+import { createStore, createEffect } from 'effector';
 import { setIsLoading } from './loadingState';
 
 

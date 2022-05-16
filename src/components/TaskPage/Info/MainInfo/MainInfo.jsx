@@ -22,7 +22,7 @@ const MainData = () => {
 		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
 			setReaded(task.id);
 		}
-	}, [task]);
+	}, [task, user.ID]);
 
 	const putStatusMark = () => {
 		if (task.status === 'Новая') {

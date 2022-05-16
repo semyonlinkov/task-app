@@ -1,8 +1,8 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from './TaskPage.module.scss';
-import { $singleTask, setSingleTask } from '../../store/selectedTask';
+import { setSingleTask } from '../../store/selectedTask';
 import { useStore } from 'effector-react';
 
 import TaskPageHeader from './TaskPageHeader/TaskPageHeader';
@@ -23,7 +23,7 @@ const TaskPage = () => {
 	useEffect(() => {
 		setSingleTask(tasks.filter((el) => el.id === id)[0]);
 		return () => setTaskPageNav('info');
-	}, []);
+	}, [id, tasks]);
 
 	return (
 		<div className={styles.wrapper}>

@@ -30,7 +30,7 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 				}
 			});
 		}
-	}, []);
+	}, [filesArr]);
 
 	// console.log('render');
 
@@ -44,7 +44,7 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 			<p className={styles.date}>{moment(date).format('DD.MM.YYYY')}</p>
 			{filesArr && (
 				<div className={styles.show_files_btn} onClick={() => setShowFiles((prev) => !prev)}>
-					<img className={showFiles && styles.open} src={chevron} alt="" />
+					<img className={showFiles ? styles.open : null} src={chevron} alt="" />
 					<p>{showFiles ? 'Скрыть' : 'Показать'} прикрепленные файлы</p>
 				</div>
 			)}
@@ -69,7 +69,12 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 					<div className={styles.others_wrapper}>
 						{otherFiles &&
 							otherFiles.map((file) => (
-								<a key={file} target="_blank" download={`${$linkServer}/raportFiles/${id}/${file}`} href={file}>
+								<a
+									key={file}
+									target="_blank"
+									rel="noreferrer"
+									download={`${$linkServer}/raportFiles/${id}/${file}`}
+									href={file}>
 									{file}
 								</a>
 							))}

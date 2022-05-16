@@ -36,17 +36,13 @@ export const $taskStatus = combine(
 		if (isLoading) {
 			return []
 		} else {
-
-
 			if (toggle === 'gettedTasks') {
 				const defectFirstData = [
 					...[...data].filter(task => task.status === 'Брак'),
 					...[...data].filter(task => task.status !== 'Брак')
 				];
-
 				return defectFirstData.filter(task => task.customerID == user.ID && task.status !== 'Выполнено');
 			}
-
 			if (toggle === 'takenTasks') {
 				if (dataFilter === 'Новая') {
 					return data.filter(task => task.status === 'Новая').filter(task => task.customerID !== user.ID);
@@ -67,11 +63,9 @@ export const $taskStatus = combine(
 export const $customersStatus = combine(
 	$tasks, getTasks.pending, $toggleValue, $user,
 	(data, isLoading, toggle, user) => {
-
 		if (isLoading) {
 			return []
 		} else {
-
 			if (toggle === 'takenTasks') {
 				let customers = [];
 				const newData = data.filter(task => task.creatorID == user.ID);

@@ -19,7 +19,8 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 
 	const [tel, setTel] = useState(task.client_phone);
 
-	const { register, handleSubmit, watch, setValue, getValues } = useForm();
+	// const { register, handleSubmit, watch, setValue, getValues } = useForm();
+	const { register, handleSubmit, setValue } = useForm();
 
 	const onSubmit = (data) => changeTask(data, tel, user, setIsMainInfo, setSingleTask);
 
@@ -37,7 +38,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 		setValue('clinet_name', task.clinet_name);
 		setValue('desc', task.desc);
 		setValue('id', task.id);
-	}, [task]);
+	}, [task, user.ID]);
 
 	const putStatusMark = () => {
 		if (task.status === 'Новая') {
