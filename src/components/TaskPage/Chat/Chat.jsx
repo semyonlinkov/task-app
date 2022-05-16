@@ -21,17 +21,26 @@ const Chat = () => {
 
 	useEffect(() => {
 		getAllMessages(task.id, setMessages);
-		if (messages) {
-
-		}
-		setCommentsViewed([242]);
+		// setCommentsViewed([242]);
 	}, []);
 
 	useEffect(() => {
 		lastDiv.current.scrollIntoView();
+
+		if (messages.length) {
+			console.log('useEffect');
+
+			let notReadedMessagesIdsArr = messages
+				.filter((message) => message.senderID != user.ID && message.view === '0')
+				.map((message) => message.id);
+
+			if (notReadedMessagesIdsArr.length) {
+				setCommentsViewed(notReadedMessagesIdsArr);
+			}
+		}
 	}, [messages]);
 
-	console.log(messages);
+	// console.log(messages);
 	// console.dir(user);
 	// console.dir(task);
 	// console.dir('render');
