@@ -56,7 +56,7 @@ const History = () => {
 		}
 
 		if (task.status === 'Брак' || task.deffect_time !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: 'Брак', status: 'Брак', date: task.deffect_time }]);
+			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
 		}
 	}, [task]);
 
