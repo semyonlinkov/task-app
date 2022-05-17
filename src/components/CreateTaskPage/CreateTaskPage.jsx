@@ -1,7 +1,7 @@
 import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
 import { createTask } from '../../services-api/createTask';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
@@ -52,7 +52,9 @@ const CreateTaskPage = () => {
 			setAllWorkers(allWorkersHandler);
 			// setAllObjects();
 		}
-	}, [workers]);
+	}, [workers, allWorkersHandler]);
+
+	const [blockPhoneInput, setBlockPhoneInput] = useState(false);
 
 	// console.log(customers);
 	// console.log(tel);
@@ -93,10 +95,13 @@ const CreateTaskPage = () => {
 							setTel(e.target.value);
 							// console.log(e.target.value.length);
 
-							if (e.target.value.length == 15) {
+							if (e.target.value.length == 15 && blockPhoneInput) {
 								setIsLoading(true);
 								getCustomerByPhone(e.target.value);
 								setShowObjectPopUp(true);
+								setBlockPhoneInput(false);
+							} else {
+								setBlockPhoneInput(true);
 							}
 						}}>
 						{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
