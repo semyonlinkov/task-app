@@ -36,9 +36,23 @@ const History = () => {
 		}
 
 		if (task.status == 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: true, date: task.timeEnd }]);
+			setCheckpoints((prev) => [
+				...prev,
+				{
+					title: 'Выполнена',
+					status: true,
+					date: task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed,
+				},
+			]);
 		} else {
-			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: false, date: task.timeEnd }]);
+			setCheckpoints((prev) => [
+				...prev,
+				{
+					title: 'Выполнена',
+					status: false,
+					date: task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed,
+				},
+			]);
 		}
 
 		if (task.status === 'Брак' || task.deffect_time !== '0000-00-00 00:00:00') {
