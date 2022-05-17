@@ -12,6 +12,7 @@ import WorkerSelect from './WorkerSelect/WorkerSelect';
 import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
 import { $customers, getCustomerByPhone } from '../../store/getCusomer';
 import ChooseObjectPopUp from './ChooseObjectPopUp/ChooseObjectPopUp';
+import ObjectSelect from './ObjectSelect/ObjectSelect';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -30,6 +31,9 @@ const CreateTaskPage = () => {
 	const files = getValues('files');
 
 	const [allWorkers, setAllWorkers] = useState([]);
+	// const [allObjects, setAllObjects] = useState([]);
+	// const [allAdresses, setAllAdresses] = useState([]);
+
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
 	const [showObjectPopUp, setShowObjectPopUp] = useState(false);
@@ -46,6 +50,7 @@ const CreateTaskPage = () => {
 		} else {
 			setIsLoading(false);
 			setAllWorkers(allWorkersHandler);
+			// setAllObjects();
 		}
 	}, [workers]);
 
@@ -68,6 +73,11 @@ const CreateTaskPage = () => {
 				<label>
 					<p>Название объекта</p>
 					<input type="text" {...register('objectName')} />
+					{/* <ObjectSelect
+						setValue={(value) => setValue('objectName', value)}
+						allObjects={allObjects}
+						title={'Название объекта'}
+					/> */}
 				</label>
 				<label>
 					<p>Адресс объекта</p>
