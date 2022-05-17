@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from 'effector-react';
-import { $toggleValue, setToggle } from '../../store/taskToggleState';
+import { $toggleValue, setToggle } from '../../../store/taskToggleState';
 import styles from './ToggleSwitch.module.scss';
 
 const ToggleSwitch = () => {

@@ -1,6 +1,6 @@
 import styles from './Header.module.scss';
 import { useStore } from 'effector-react';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 import { $toggleValue } from '../../store/taskToggleState';
 import { useLocation, useNavigate } from 'react-router-dom';
 import create from '../../img/create-task-3.png';
