@@ -17,7 +17,6 @@ const History = () => {
 			setCheckpoints((prev) => [...prev, { title: 'Поставлена', status: true, date: task.date_create }]);
 		}
 
-		//* !== "0000-00-00 00:00:00"
 		if (task.readed && task.readed !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Прочитана', status: true, date: task.readed }]);
 		} else {
@@ -31,13 +30,13 @@ const History = () => {
 		}
 
 		if (task.status === 'В работе' || task.status === 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: 'В работе', date: task.timeStart }]);
+			setCheckpoints((prev) => [...prev, { title: 'В работе', status: true, date: task.timeStart }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.timeStart }]);
 		}
 
 		if (task.status == 'Выполнено') {
-			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: 'Выполнено', date: task.timeEnd }]);
+			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: true, date: task.timeEnd }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'Выполнена', status: false, date: task.timeEnd }]);
 		}

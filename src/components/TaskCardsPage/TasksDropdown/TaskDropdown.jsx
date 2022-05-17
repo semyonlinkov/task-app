@@ -12,7 +12,7 @@ const TaskDropdown = ({ name }) => {
 
 	useLayoutEffect(() => {
 		setFilteredTasks(tasks.filter((task) => task.customer === name));
-	}, []);
+	}, [name, tasks]);
 
 	const tasksHandler = () => {
 		setFilteredTasks(tasks.filter((task) => task.customer === name));
@@ -36,7 +36,12 @@ const TaskDropdown = ({ name }) => {
 	return (
 		<>
 			<div className={styles.dropdown} onClick={tasksHandler}>
-				<input className={`${styles.chevron} ${isOpen ? styles.open : null}`} type="image" src={chevron} />
+				<input
+					className={`${styles.chevron} ${isOpen ? styles.open : null}`}
+					type="image"
+					alt="chevron"
+					src={chevron}
+				/>
 				<p className={styles.title}>
 					{shortName()} - {filteredTasks.length} {numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
 				</p>

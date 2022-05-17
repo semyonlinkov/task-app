@@ -8,6 +8,7 @@ import { $toggleValue } from '../../store/taskToggleState';
 import { useStore } from 'effector-react';
 import TaskDropdown from './TasksDropdown/TaskDropdown';
 import TasksFilter from './TasksFilter/TasksFilter';
+import { setIsLoading } from '../../store/loadingState';
 
 const TaskCardsPage = () => {
 	const user = useStore($user);
@@ -17,12 +18,15 @@ const TaskCardsPage = () => {
 	const dataFilter = useStore($dataFilter);
 
 	useEffect(() => {
+		if (user.ID === 0) {
+			setIsLoading(true);
+		}
+
 		if (user.ID !== 0) {
 			getTasks(user.ID);
+			setIsLoading(false);
 		}
 	}, [user, dataFilter]);
-
-	// console.log('render');
 
 	return (
 		<div className={styles.wrapper}>

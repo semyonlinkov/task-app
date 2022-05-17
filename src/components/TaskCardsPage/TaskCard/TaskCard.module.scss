@@ -26,19 +26,19 @@
 		}
 	}
 
-	.new {
+	.new_mark {
 		background-color: var(--task-new);
 	}
 
-	.done {
+	.done_mark {
 		background-color: var(--task-done);
 	}
 
-	.in_progress {
+	.in_progress_mark {
 		background-color: var(--task-in-progress);
 	}
 
-	.defect {
+	.defect_mark {
 		background-color: var(--task-defect);
 	}
 
@@ -58,6 +58,12 @@
 		border-radius: 3px;
 	}
 
+	.defect {
+		background-color: var(--task-defect);
+		background: rgb(240, 230, 230);
+		border: 1px solid red;
+	}
+
 	.flex_div {
 		display: flex;
 		justify-content: space-between;
@@ -67,11 +73,6 @@
 		text-align: right;
 		font-weight: 500;
 	}
-}
-
-.defect {
-	border: 1px solid red;
-	border-radius: 5px;
 }
 
 .brack_shtamp {

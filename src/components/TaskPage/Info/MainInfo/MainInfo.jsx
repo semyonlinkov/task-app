@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './MainInfo.module.scss';
 
 import Info from '../../../../img/icons8-info-50.png';
+import ExclMark from '../../../../img/exclamation-mark.png';
 import Phone from '../../../../img/icons8-phone-50.png';
 import User from '../../../../img/user.png';
 import moment from 'moment';
@@ -71,23 +72,23 @@ const MainData = () => {
 			</div>
 
 			<div className={styles.info_blocks}>
+				<img src={Phone} alt="" />
+				<p>
+					<a href={`tel:${task.client_phone}`}>{task.client_phone}</a>
+				</p>
+			</div>
+
+			<div className={styles.info_blocks}>
 				<img src={Info} alt="" />
 				<p>{task.desc}</p>
 			</div>
 
 			{task.deffect_comment && (
 				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
-					<img src={Info} alt="" />
+					<img src={ExclMark} alt="" />
 					<p>{task.deffect_comment}</p>
 				</div>
 			)}
-
-			<div className={styles.info_blocks}>
-				<img src={Phone} alt="" />
-				<p>
-					<a href={`tel:${task.client_phone}`}>{task.client_phone}</a>
-				</p>
-			</div>
 
 			{user.ID === task.customerID && task.status === 'Новая' ? (
 				<button className={`${styles.start_btn} ${styles.btn}`} onClick={() => startTask(task.id)}>

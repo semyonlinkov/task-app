@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ChangeInfo.module.scss';
 
 import Info from '../../../../img/icons8-info-50.png';
+import ExclMark from '../../../../img/exclamation-mark.png';
 import Phone from '../../../../img/icons8-phone-50.png';
 import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
@@ -77,22 +78,10 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 				<input type="date" value={task.date_deadline} />
 			</p> */}
 
-			{task.deffect_comment && (
-				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
-					<img src={Info} alt="" />
-					<textarea {...register('deffect_comment')} name="" id=""></textarea>
-				</div>
-			)}
-
 			<div className={styles.info_blocks}>
 				<img src={User} alt="client-name" />
 				<p>Имя Клиента:</p>
 				<input {...register('clinet_name')} type="text" />
-			</div>
-
-			<div className={styles.info_blocks}>
-				<img src={Info} alt="description" />
-				<textarea {...register('desc')}></textarea>
 			</div>
 
 			<div className={styles.info_blocks}>
@@ -104,6 +93,19 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 					</InputMask>
 				</p>
 			</div>
+
+			<div className={styles.info_blocks}>
+				<img src={Info} alt="description" />
+				<textarea {...register('desc')}></textarea>
+			</div>
+
+			{task.deffect_comment && (
+				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
+					<img src={ExclMark} alt="" />
+					<textarea {...register('deffect_comment')} name="" id=""></textarea>
+				</div>
+			)}
+
 			<button
 				className={styles.sub_btn}
 				style={{ backgroundImage: `url(${Done})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain' }}

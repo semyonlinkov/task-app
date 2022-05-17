@@ -7,13 +7,13 @@ export const TaskCard = ({ task }) => {
 
 	const putStatusMark = () => {
 		if (task.status === 'Новая') {
-			return styles.new;
+			return styles.new_mark;
 		} else if (task.status === 'В работе') {
-			return styles.in_progress;
+			return styles.in_progress_mark;
 		} else if (task.status === 'Выполнено') {
-			return styles.done;
+			return styles.done_mark;
 		} else if (task.status === 'Брак') {
-			return styles.defect;
+			return styles.defect_mark;
 		}
 	};
 
@@ -61,6 +61,7 @@ export const TaskCard = ({ task }) => {
 						Постановщик: <span>{getNormalName(task.creatorName)}</span>
 					</p>
 				)}
+
 				{task.client_phone || task.clinet_name ? (
 					<p>
 						Данные клиента:{' '}
