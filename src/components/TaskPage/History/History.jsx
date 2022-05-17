@@ -29,13 +29,13 @@ const History = () => {
 			setCheckpoints((prev) => [...prev, { title: task.title, status: false, date: task.timeStart }]);
 		}
 
-		if (task.status === 'В работе' || task.status === 'Выполнено') {
+		if (task.timeStart !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'В работе', status: true, date: task.timeStart }]);
 		} else {
 			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.timeStart }]);
 		}
 
-		if (task.status == 'Выполнено') {
+		if (task.timeEnd !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [
 				...prev,
 				{
@@ -55,8 +55,10 @@ const History = () => {
 			]);
 		}
 
-		if (task.status === 'Брак' || task.deffect_time !== '0000-00-00 00:00:00') {
+		if (task.deffect_time !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
+			setCheckpoints((prev) => [...prev, { title: 'Брак исправлен', status: task.deffect_completed !== '0000-00-00 00:00:00' , date: task.deffect_completed }]);
+
 		}
 	}, [task]);
 
