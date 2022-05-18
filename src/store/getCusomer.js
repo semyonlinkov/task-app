@@ -1,6 +1,5 @@
-import { createStore, createEffect } from 'effector';
+import { createStore, createEffect, combine } from 'effector';
 import { setIsLoading } from './loadingState';
-
 
 export const getCustomerByPhone = createEffect(async (phone) => {
 	try {
@@ -15,7 +14,7 @@ export const getCustomerByPhone = createEffect(async (phone) => {
 	}
 })
 
-export const $customers = createStore([]).on(
+export const $customers = createStore({}).on(
 	getCustomerByPhone.doneData,
 	(_, data) => data
 );

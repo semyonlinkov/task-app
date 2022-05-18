@@ -1,7 +1,7 @@
 import styles from './CreateTaskPage.module.scss';
 import { useForm } from 'react-hook-form';
 import { createTask } from '../../services-api/createTask';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useStore } from 'effector-react';
 import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,11 @@ import WorkerSelect from './WorkerSelect/WorkerSelect';
 import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
 import { $customers, getCustomerByPhone } from '../../store/getCusomer';
 import ChooseObjectPopUp from './ChooseObjectPopUp/ChooseObjectPopUp';
-import ObjectSelect from './ObjectSelect/ObjectSelect';
+import TypeTaskSelect from './TaskTypeSelect/TaskTypeSelect';
+// import { getAllObjects } from '../../services-api/getAllObjects';
+import ObjectNameSelect from './ObjectNameSelect/ObjectNameSelect';
+import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
+import { getAllObjects } from '../../store/getAllObjects';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -30,13 +34,11 @@ const CreateTaskPage = () => {
 	};
 	const files = getValues('files');
 
-	const [allWorkers, setAllWorkers] = useState([]);
 	// const [allObjects, setAllObjects] = useState([]);
-	// const [allAdresses, setAllAdresses] = useState([]);
-
+	const [allWorkers, setAllWorkers] = useState([]);
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
-	const [showObjectPopUp, setShowObjectPopUp] = useState(false);
+	const [showObjectsPopUp, setShowObjectsPopUp] = useState(false);
 
 	const allWorkersHandler = useMemo(() => {
 		let array = [];
@@ -45,45 +47,42 @@ const CreateTaskPage = () => {
 	}, [workers]);
 
 	useEffect(() => {
+		getAllObjects();
+	}, []);
+
+	useEffect(() => {
 		if (workers === 'loading') {
 			setIsLoading(true);
 		} else {
 			setIsLoading(false);
 			setAllWorkers(allWorkersHandler);
-			// setAllObjects();
 		}
 	}, [workers, allWorkersHandler]);
 
-	const [blockPhoneInput, setBlockPhoneInput] = useState(false);
-
 	// console.log(customers);
 	// console.log(tel);
+	// console.log(watch());
+	// console.log(allObjects);
+	// console.log('render');
 
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 				<label>
 					<p>Вид заявки</p>
-					<select {...register('type')}>
-						{typeTask.map((task) => (
-							<option key={task} value={task}>
-								{task}
-							</option>
-						))}
-					</select>
+					<TypeTaskSelect values={typeTask} setValue={(value) => setValue('type', value)} />
 				</label>
 				<label>
 					<p>Название объекта</p>
-					<input type="text" {...register('objectName')} />
-					{/* <ObjectSelect
-						setValue={(value) => setValue('objectName', value)}
-						allObjects={allObjects}
-						title={'Название объекта'}
-					/> */}
+					<ObjectNameSelect setValue={(value) => setValue('objectName', value)} />
+					{/* <CustomSelect values={typeTask} /> */}
+					{/* <input type="text" {...register('objectName')} /> */}
 				</label>
 				<label>
 					<p>Адресс объекта</p>
-					<input type="text" {...register('objectAdress')} />
+					{/* <ObjectAddressSelect allObjects={allObjects} setValue={(value) => setValue('objectAddress', value)} /> */}
+					{/* <CustomSelect values={typeTask} setValue={(value) => setValue('objectAdress', value)} /> */}
+					{/* <input type="text" {...register('objectAdress')} /> */}
 				</label>
 				<label>
 					<p>Телефон клиента</p>
@@ -93,15 +92,11 @@ const CreateTaskPage = () => {
 						value={tel}
 						onChange={(e) => {
 							setTel(e.target.value);
-							// console.log(e.target.value.length);
 
-							if (e.target.value.length == 15 && blockPhoneInput) {
+							if (e.target.value.length === 15) {
 								setIsLoading(true);
 								getCustomerByPhone(e.target.value);
-								setShowObjectPopUp(true);
-								setBlockPhoneInput(false);
-							} else {
-								setBlockPhoneInput(true);
+								setShowObjectsPopUp(true);
 							}
 						}}>
 						{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
@@ -150,10 +145,10 @@ const CreateTaskPage = () => {
 					/>
 				</label>
 			</form>
-			{showObjectPopUp && (
+			{showObjectsPopUp && (
 				<ChooseObjectPopUp
 					customers={customers}
-					setShowObjectPopUp={() => setShowObjectPopUp(false)}
+					setShowObjectsPopUp={() => setShowObjectsPopUp(false)}
 					setValue={setValue}
 				/>
 			)}
