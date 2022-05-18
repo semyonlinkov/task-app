@@ -17,23 +17,3 @@ export const $allObjects = createStore([]).on(
 	getAllObjects.doneData,
 	(_, data) => data
 );
-
-export const setSelectedValue = createEvent();
-
-export const $selectedValue = createStore('').on(
-	setSelectedValue, (_, payload) => payload
-);
-
-
-export const $objectStatus = combine(
-	$allObjects, $selectedValue,
-	(allObjects, input) => {
-		console.log(input);
-		if (input.length >= 3) {
-			return allObjects;
-		} else {
-			return [];
-		}
-	}
-)
-

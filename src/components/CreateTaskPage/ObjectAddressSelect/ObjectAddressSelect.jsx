@@ -1,27 +1,62 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
+import { useStore } from 'effector-react';
+import React, { useEffect, useState } from 'react';
+import { $allObjects } from '../../../store/getAllObjects';
+import styles from './ObjectAddressSelect.module.scss';
 
-const ObjectAddressSelect = ({ allObjects, setValue }) => {
-	const [selectedValue, setSelectedValue] = useState('');
+const ObjectAddressSelect = ({ setValue, watch }) => {
+	const allObjects = useStore($allObjects);
 
-	const handleChange = (e) => {
-		setSelectedValue(e.value);
-		setValue(e.value);
+	const [searchedObjectAddresses, setSearchedObjectAdresses] = useState([]);
+	const [searchedObjectAddress, setSearchedObjectAddress] = useState('');
+
+	const searchHandler = (str) => {
+		if (str.length > 3) {
+			if (str) {
+				setSearchedObjectAdresses(
+					[...allObjects].filter((object) => object.Address.toLowerCase().includes(str.toLowerCase())),
+				);
+			} else {
+				setSearchedObjectAdresses([]);
+			}
+		} else {
+			setSearchedObjectAdresses([]);
+		}
 	};
 
-	// console.log(selectedValue);
-	// console.log(allObjects);
+	useEffect(() => {
+		setSearchedObjectAddress(watch().objectAdress);
+	}, [watch().objectAdress]);
 
 	return (
-		<>
-			<Select
-				options={allObjects.map((obj) => ({ value: obj.Address, label: obj.Address }))}
-				value={allObjects
-					.map((obj) => ({ value: obj.Address, label: obj.Address }))
-					.find((obj) => obj.value === selectedValue)}
-				onChange={handleChange}
+		<label>
+			<input
+				type="text"
+				onChange={(e) => {
+					searchHandler(e.target.value);
+					setSearchedObjectAddress(e.target.value);
+				}}
+				value={searchedObjectAddress}
 			/>
-		</>
+			{searchedObjectAddresses && (
+				<ul className={styles.select_dropdown}>
+					{searchedObjectAddresses.map((obj) => (
+						<li
+							key={obj.ObjectID}
+							onClick={() => {
+								const number = +obj.ObjectNumber;
+
+								setValue('objectName', obj.Name);
+								setValue('objectAdress', obj.Address);
+								setValue('objectNumber', number.toString(16));
+								setSearchedObjectAddress(obj.Address);
+								setSearchedObjectAdresses([]);
+							}}>
+							{obj.Address}
+						</li>
+					))}
+				</ul>
+			)}
+		</label>
 	);
 };
 

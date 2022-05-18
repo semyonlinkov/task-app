@@ -13,10 +13,9 @@ import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmen
 import { $customers, getCustomerByPhone } from '../../store/getCusomer';
 import ChooseObjectPopUp from './ChooseObjectPopUp/ChooseObjectPopUp';
 import TypeTaskSelect from './TaskTypeSelect/TaskTypeSelect';
-// import { getAllObjects } from '../../services-api/getAllObjects';
+import { getAllObjects } from '../../store/getAllObjects';
 import ObjectNameSelect from './ObjectNameSelect/ObjectNameSelect';
 import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
-import { getAllObjects } from '../../store/getAllObjects';
 
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
@@ -61,7 +60,7 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(tel);
-	// console.log(watch());
+	console.log(watch());
 	// console.log(allObjects);
 	// console.log('render');
 
@@ -74,14 +73,12 @@ const CreateTaskPage = () => {
 				</label>
 				<label>
 					<p>Название объекта</p>
-					<ObjectNameSelect setValue={(value) => setValue('objectName', value)} />
-					{/* <CustomSelect values={typeTask} /> */}
+					<ObjectNameSelect setValue={setValue} watch={watch} />
 					{/* <input type="text" {...register('objectName')} /> */}
 				</label>
 				<label>
 					<p>Адресс объекта</p>
-					{/* <ObjectAddressSelect allObjects={allObjects} setValue={(value) => setValue('objectAddress', value)} /> */}
-					{/* <CustomSelect values={typeTask} setValue={(value) => setValue('objectAdress', value)} /> */}
+					<ObjectAddressSelect setValue={setValue} watch={watch} />
 					{/* <input type="text" {...register('objectAdress')} /> */}
 				</label>
 				<label>
