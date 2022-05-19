@@ -19,9 +19,12 @@ const ChooseObjectPopUp = ({ customers, setShowObjectsPopUp, setValue }) => {
 						className={styles.address_wrapper}
 						key={obj.ObjectNumber}
 						onClick={() => {
+							const number = +obj.ObjectNumber;
+
 							setValue('objectAdress', obj.Address);
 							setValue('objectName', obj.Name);
 							setValue('fullname', customers.CUST.find((cust) => obj.ObjectID === cust.ObjectID).ObjCustName);
+							setValue('objectNumber', number.toString(16));
 							setShowObjectsPopUp();
 						}}>
 						<p className={styles.number}>{i + 2}</p>

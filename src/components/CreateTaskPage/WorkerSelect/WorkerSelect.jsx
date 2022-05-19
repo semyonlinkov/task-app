@@ -14,6 +14,12 @@ const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy }) => {
 	};
 
 	useEffect(() => {
+		const close = (e) => setSearchedWorkers([]);
+		document.body.addEventListener('click', close);
+		return () => document.body.removeEventListener('click', close);
+	}, []);
+
+	useEffect(() => {
 		if (searchedWorker) {
 			setSearchBy('name');
 		} else {

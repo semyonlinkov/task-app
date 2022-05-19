@@ -10,7 +10,7 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 	const [searchedObjectName, setSearchedObjectName] = useState('');
 
 	const searchHandler = (str) => {
-		if (str.length > 3) {
+		if (str.length > 2) {
 			if (str) {
 				setSearchedObjectNames(
 					[...allObjects].filter((object) => object.Name.toLowerCase().includes(str.toLowerCase())),
@@ -24,7 +24,15 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 	};
 
 	useEffect(() => {
-		setSearchedObjectName(watch().objectName);
+		const close = (e) => setSearchedObjectNames([]);
+		document.body.addEventListener('click', close);
+		return () => document.body.removeEventListener('click', close);
+	}, []);
+
+	useEffect(() => {
+		if (watch()?.objectName) {
+			setSearchedObjectName(watch().objectName);
+		}
 	}, [watch().objectName]);
 
 	return (
@@ -32,8 +40,8 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 			<input
 				type="text"
 				onChange={(e) => {
-					searchHandler(e.target.value);
 					setSearchedObjectName(e.target.value);
+					searchHandler(e.target.value);
 				}}
 				value={searchedObjectName}
 			/>
@@ -42,7 +50,7 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 					{searchedObjectNames.map((obj) => (
 						<li
 							key={obj.ObjectID}
-							onClick={() => {
+							onClick={(e) => {
 								const number = +obj.ObjectNumber;
 
 								setValue('objectName', obj.Name);

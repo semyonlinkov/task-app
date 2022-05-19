@@ -10,7 +10,7 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 	const [searchedObjectAddress, setSearchedObjectAddress] = useState('');
 
 	const searchHandler = (str) => {
-		if (str.length > 3) {
+		if (str.length > 2) {
 			if (str) {
 				setSearchedObjectAdresses(
 					[...allObjects].filter((object) => object.Address.toLowerCase().includes(str.toLowerCase())),
@@ -24,7 +24,15 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 	};
 
 	useEffect(() => {
-		setSearchedObjectAddress(watch().objectAdress);
+		const close = (e) => setSearchedObjectAdresses([]);
+		document.body.addEventListener('click', close);
+		return () => document.body.removeEventListener('click', close);
+	}, []);
+
+	useEffect(() => {
+		if (watch()?.objectAdress) {
+			setSearchedObjectAddress(watch().objectAdress);
+		}
 	}, [watch().objectAdress]);
 
 	return (
@@ -32,8 +40,8 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 			<input
 				type="text"
 				onChange={(e) => {
-					searchHandler(e.target.value);
 					setSearchedObjectAddress(e.target.value);
+					searchHandler(e.target.value);
 				}}
 				value={searchedObjectAddress}
 			/>

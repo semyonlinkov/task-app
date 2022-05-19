@@ -31,9 +31,9 @@ const CreateTaskPage = () => {
 	const onSubmit = (data) => {
 		createTask(data, user, () => navigate('/'), tel);
 	};
+
 	const files = getValues('files');
 
-	// const [allObjects, setAllObjects] = useState([]);
 	const [allWorkers, setAllWorkers] = useState([]);
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
 
@@ -60,7 +60,7 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(tel);
-	console.log(watch());
+	// console.log(watch());
 	// console.log(allObjects);
 	// console.log('render');
 

@@ -1,4 +1,4 @@
-import { createStore, createEffect, combine } from 'effector';
+import { createStore, createEffect, combine, createEvent } from 'effector';
 import { setIsLoading } from './loadingState';
 
 export const getCustomerByPhone = createEffect(async (phone) => {
@@ -18,3 +18,18 @@ export const $customers = createStore({}).on(
 	getCustomerByPhone.doneData,
 	(_, data) => data
 );
+
+export const setIsSameNumber = createEvent();
+
+export const $isSameNumber = createStore(0).on(
+	setIsSameNumber, (prev, payload) => prev === payload
+);
+
+export const $customersStatus = combine($customers, $isSameNumber,
+	(customers, isSameNumber) => {
+		if (isSameNumber) {
+			return {}
+		} else {
+			return customers
+		}
+	})
