@@ -8,7 +8,6 @@ import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
 import { setReaded } from '../../../../services-api/setReaded';
 import { $singleTask, setSingleTask } from '../../../../store/selectedTask';
-import InputMask from 'react-input-mask';
 import { useForm } from 'react-hook-form';
 import { changeTask } from '../../../../services-api/changeTask';
 import User from '../../../../img/user.png';
@@ -18,12 +17,12 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
 
-	const [tel, setTel] = useState(task.client_phone);
+	const [phone, setPhone] = useState(task.client_phone);
 
 	// const { register, handleSubmit, watch, setValue, getValues } = useForm();
 	const { register, handleSubmit, setValue } = useForm();
 
-	const onSubmit = (data) => changeTask(data, tel, user, setIsMainInfo, setSingleTask);
+	const onSubmit = (data) => changeTask(data, phone, user, setIsMainInfo, setSingleTask);
 
 	useEffect(() => {
 		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
@@ -88,9 +87,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 				<img src={Phone} alt="phone-number" />
 				<p>Телефон:</p>
 				<p>
-					<InputMask mask="+7\ 999 999-99-99" maskChar={''} value={tel} onChange={(e) => setTel(e.target.value)}>
-						{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
-					</InputMask>
+					<input value={phone} onChange={(e) => setPhone(e.target.value)}></input>
 				</p>
 			</div>
 

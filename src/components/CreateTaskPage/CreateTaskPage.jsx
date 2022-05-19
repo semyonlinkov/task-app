@@ -7,7 +7,6 @@ import { $user } from '../../store/user';
 import { useNavigate } from 'react-router-dom';
 import { $workerStatus } from '../../store/workers';
 import { setIsLoading } from '../../store/loadingState';
-import InputMask from 'react-input-mask';
 import WorkerSelect from './WorkerSelect/WorkerSelect';
 import ChooseByDepartmentBlock from './ChooseByDepartmentBlock/ChooseByDepartmentBlock';
 import { $customers, getCustomerByPhone } from '../../store/getCusomer';
@@ -20,7 +19,7 @@ import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
 const CreateTaskPage = () => {
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, setValue, getValues } = useForm();
-	const [tel, setTel] = useState('');
+	const [phone, setPhone] = useState('');
 
 	const user = useStore($user);
 	const workers = useStore($workerStatus);
@@ -29,7 +28,7 @@ const CreateTaskPage = () => {
 	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
 
 	const onSubmit = (data) => {
-		createTask(data, user, () => navigate('/'), tel);
+		createTask(data, user, () => navigate('/'), phone);
 	};
 
 	const files = getValues('files');
@@ -59,10 +58,11 @@ const CreateTaskPage = () => {
 	}, [workers, allWorkersHandler]);
 
 	// console.log(customers);
-	// console.log(tel);
+	// console.log(phone);
 	// console.log(watch());
 	// console.log(allObjects);
 	// console.log('render');
+	// console.log(isSameNumber);
 
 	return (
 		<>
@@ -83,21 +83,17 @@ const CreateTaskPage = () => {
 				</label>
 				<label>
 					<p>Телефон клиента</p>
-					<InputMask
-						mask={'9 999 999-99-99'}
-						maskChar={''}
-						value={tel}
+					<input
 						onChange={(e) => {
-							setTel(e.target.value);
+							setPhone(e.target.value.replace(/[^\d]/g, ''));
 
-							if (e.target.value.length === 15) {
+							if (e.target.value.length === 11) {
 								setIsLoading(true);
 								getCustomerByPhone(e.target.value);
 								setShowObjectsPopUp(true);
 							}
-						}}>
-						{(inputProps) => <input {...inputProps} type="tel" disableunderline="true" />}
-					</InputMask>
+						}}
+						value={phone}></input>
 				</label>
 				<label>
 					<p>ФИО клиента</p>

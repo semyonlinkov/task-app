@@ -57,8 +57,17 @@ const History = () => {
 
 		if (task.deffect_time !== '0000-00-00 00:00:00') {
 			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
-			setCheckpoints((prev) => [...prev, { title: 'Брак исправлен', status: task.deffect_completed !== '0000-00-00 00:00:00' , date: task.deffect_completed }]);
+		}
 
+		if (task.deffect_completed !== '0000-00-00 00:00:00') {
+			setCheckpoints((prev) => [
+				...prev,
+				{
+					title: 'Брак исправлен',
+					status: task.deffect_completed !== '0000-00-00 00:00:00',
+					date: task.deffect_completed,
+				},
+			]);
 		}
 	}, [task]);
 
@@ -79,17 +88,16 @@ const History = () => {
 					/>
 				))}
 			</div>
-			{task.timeEnd !== '0000-00-00 00:00:00' ||
-				(task.deffect_completed !== '0000-00-00 00:00:00' && (
-					<Report
-						id={task.id}
-						title={task.title}
-						status={task.status}
-						comment={task.report_comment}
-						filesArr={task.report_files ? task.report_files.split(';') : false}
-						date={task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed}
-					/>
-				))}
+			{task.status === 'Выполнено' || task.status === 'Брак исправлен' ? (
+				<Report
+					id={task.id}
+					title={task.title}
+					status={task.status}
+					comment={task.report_comment}
+					filesArr={task.report_files ? task.report_files.split(';') : false}
+					date={task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed}
+				/>
+			) : null}
 		</div>
 	);
 };

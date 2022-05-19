@@ -1,6 +1,6 @@
 import { $linkServer } from "../$config";
 
-export function sendMessage(senderID, senderName, commentText, taskID, getAllMessage) {
+export function sendMessage(senderID, senderName, commentText, taskID, getAllMessages) {
 
 	const formData = new FormData();
 
@@ -16,7 +16,7 @@ export function sendMessage(senderID, senderName, commentText, taskID, getAllMes
 		.then(res => res.json())
 		.then(res => {
 			// console.log(res);
-			getAllMessage();
+			getAllMessages();
 		})
 		.catch(err => console.log(err))
 }

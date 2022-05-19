@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './TaskPageHeader.module.scss';
-import Info from '../../../img/icons8-info-50.png';
+import Info from '../../../img/info.png';
 import Files from '../../../img/icons8-cloud-file-40.png';
 import History from '../../../img/icons8-time-machine-40.png';
 import Chat from '../../../img/icons8-chat-40.png';
