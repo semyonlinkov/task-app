@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './MainInfo.module.scss';
 
 import Info from '../../../../img/icons8-info-50.png';
-import ExclMark from '../../../../img/exclamation-mark.png';
+import ImgExclMark from '../../../../img/exclMark32.png';
 import Phone from '../../../../img/icons8-phone-50.png';
-import User from '../../../../img/user.png';
+import ImgUser from '../../../../img/user32.png';
 import moment from 'moment';
 import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
@@ -67,7 +67,7 @@ const MainData = () => {
 			</p>
 
 			<div className={styles.info_blocks}>
-				<img src={User} alt="" />
+				<img src={ImgUser} alt="" />
 				<p>Имя клиента: {task.clinet_name}</p>
 			</div>
 
@@ -85,7 +85,7 @@ const MainData = () => {
 
 			{task.deffect_comment && (
 				<div className={`${styles.info_blocks} ${styles.defect_block}`}>
-					<img src={ExclMark} alt="" />
+					<img src={ImgExclMark} alt="" />
 					<p>{task.deffect_comment}</p>
 				</div>
 			)}

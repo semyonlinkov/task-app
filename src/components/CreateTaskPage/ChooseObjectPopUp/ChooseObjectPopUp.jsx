@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './ChooseObjectPopUp.module.scss';
-import Cross from '../../../img/cross-2.png';
+import ImgClose from '../../../img/closeRed64.png';
 
 const ChooseObjectPopUp = ({ customers, setShowObjectsPopUp, setValue }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.title}>
 				<p>Выберите адресс объекта</p>
-				<img onClick={setShowObjectsPopUp} src={Cross} alt="back" />
+				<img onClick={setShowObjectsPopUp} src={ImgClose} alt="back" />
 			</div>
 			<ol className={styles.list_wrapper}>
 				<li className={styles.address_wrapper} onClick={setShowObjectsPopUp}>

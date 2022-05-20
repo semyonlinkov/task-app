@@ -3,7 +3,7 @@ import { $singleTask } from '../../../store/selectedTask';
 import { $user } from '../../../store/user';
 import styles from './Chat.module.scss';
 import Message from './Message/Message';
-import Send from '../../../img/send-message.png';
+import Send from '../../../img/sendMessage64.png';
 import Avatar from './Avatar/Avatar';
 import { useStore } from 'effector-react';
 import { getAllMessages } from '../../../services-api/getAllMessages';

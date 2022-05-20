@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './TaskRaportForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { finishTask } from '../../../services-api/finishTask';
-import Exit from '../../../img/cross-1.png';
+import ImhExit from '../../../img/closeRed64.png';
 
 const TaskRaport = ({ id, timeStart, close, status }) => {
 	const navigate = useNavigate();
@@ -24,7 +24,7 @@ const TaskRaport = ({ id, timeStart, close, status }) => {
 		<div className={styles.wrapper}>
 			<header>
 				<p>Отчёт по задаче</p>
-				<img src={Exit} alt="" onClick={close} />
+				<img src={ImhExit} alt="" onClick={close} />
 			</header>
 			<div className={styles.form_wrapper}>
 				<label>

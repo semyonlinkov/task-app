@@ -1,24 +1,14 @@
-import React, { useCallback, useRef } from 'react';
-import QuickPinchZoom, { make3dTransformValue } from 'react-quick-pinch-zoom';
+import { useState } from 'react';
+
+import PopUpImage from './PopUpImage/PopUpImage';
 
 const ImageFile = ({ src }) => {
-	const imgRef = useRef();
-
-	const onUpdate = useCallback(({ x, y, scale }) => {
-		const { current: img } = imgRef;
-
-		if (img) {
-			const value = make3dTransformValue({ x, y, scale });
-
-			img.style.setProperty('transform', value);
-		}
-	}, []);
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div>
-			<QuickPinchZoom onUpdate={onUpdate}>
-				<img ref={imgRef} src={src} alt={src} />
-			</QuickPinchZoom>
+			<img onClick={() => setIsOpen(true)} src={src} alt={src} />
+			{isOpen && <PopUpImage src={src} alt={src} setIsOpen={() => setIsOpen(false)} />}
 		</div>
 	);
 };

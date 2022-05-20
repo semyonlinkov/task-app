@@ -1,6 +1,6 @@
 import React from 'react';
-import readedMark from '../../../../img/readed-mark.png';
-import notReadedMark from '../../../../img/not-readed-mark.png';
+import readedMark from '../../../../img/readedCheck32.png';
+import notReadedMark from '../../../../img/unreadedCheck32.png';
 import styles from './Message.module.scss';
 
 const Message = ({ readed, name, date, text }) => {

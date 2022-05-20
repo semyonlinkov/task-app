@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './FilesDropdown.module.scss';
-import eye from '../../../../img/eye.png';
-import trash from '../../../../img/trash.png';
+import ImgOpen from '../../../../img/openEye32.png';
+import ImgDelete from '../../../../img/deleteBin32.png';
 import { $singleTask } from '../../../../store/selectedTask';
 import { useStore } from 'effector-react';
 import { removeFile } from '../../../../services-api/removeFile';
@@ -28,11 +28,11 @@ const ImageDropdown = ({ typeFile, children, fileName }) => {
 						<input
 							className={styles.delete}
 							type="image"
-							src={trash}
+							src={ImgDelete}
 							onClick={() => removeFile(task.files, task.id, fileName)}
 						/>
 					)}
-					<input className={styles.show} type="image" src={eye} onClick={openToggle} />
+					<input className={styles.show} type="image" src={ImgOpen} onClick={openToggle} />
 				</div>
 			</div>
 			{typeFile === 'Фото' && isOpen && children}

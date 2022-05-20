@@ -85,12 +85,21 @@ const CreateTaskPage = () => {
 					<p>Телефон клиента</p>
 					<input
 						onChange={(e) => {
-							setPhone(e.target.value.replace(/[^\d]/g, ''));
+							let phoneNumber = e.target.value;
+							if (phoneNumber.length !== 12) {
+								let formatPhone = phoneNumber.replace('+7', '8').replace(/[^\d]/g, '');
 
-							if (e.target.value.length === 11) {
-								setIsLoading(true);
-								getCustomerByPhone(e.target.value);
-								setShowObjectsPopUp(true);
+								let eleven = formatPhone.substring(0, 11);
+								console.log(eleven);
+
+								if (formatPhone.length - 1 < 11) {
+									setPhone(formatPhone);
+									if (eleven.length === 11) {
+										setIsLoading(true);
+										getCustomerByPhone(eleven);
+										setShowObjectsPopUp(true);
+									}
+								}
 							}
 						}}
 						value={phone}></input>

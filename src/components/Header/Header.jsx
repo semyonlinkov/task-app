@@ -3,8 +3,8 @@ import { useStore } from 'effector-react';
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 import { $toggleValue } from '../../store/taskToggleState';
 import { useLocation, useNavigate } from 'react-router-dom';
-import create from '../../img/create-task-3.png';
-import cross from '../../img/cross-2.png';
+import AddImg from '../../img/add64.png';
+import CloseImg from '../../img/closeRed64.png';
 import { $singleTask } from '../../store/selectedTask';
 
 const Header = () => {
@@ -18,7 +18,7 @@ const Header = () => {
 			<input
 				className={styles.task_img}
 				type="image"
-				src={pathname === '/' ? create : cross}
+				src={pathname === '/' ? AddImg : CloseImg}
 				onClick={() => (pathname === '/' ? navigate('/create_task') : navigate('/'))}
 			/>
 			{pathname === '/create_task' && <p className={styles.title_weight}>Создать задачу</p>}

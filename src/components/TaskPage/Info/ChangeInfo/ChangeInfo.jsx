@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ChangeInfo.module.scss';
 
 import Info from '../../../../img/icons8-info-50.png';
-import ExclMark from '../../../../img/exclamation-mark.png';
+import ExclMark from '../../../../img/exclMark32.png';
 import Phone from '../../../../img/icons8-phone-50.png';
 import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
@@ -10,8 +10,8 @@ import { setReaded } from '../../../../services-api/setReaded';
 import { $singleTask, setSingleTask } from '../../../../store/selectedTask';
 import { useForm } from 'react-hook-form';
 import { changeTask } from '../../../../services-api/changeTask';
-import User from '../../../../img/user.png';
-import Done from '../../../../img/checkBlue.png';
+import ImgUser from '../../../../img/user32.png';
+import ImgDone from '../../../../img/checkBlue32.png';
 
 const ChangeInfo = ({ setIsMainInfo }) => {
 	const task = useStore($singleTask);
@@ -78,7 +78,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 			</p> */}
 
 			<div className={styles.info_blocks}>
-				<img src={User} alt="client-name" />
+				<img src={ImgUser} alt="client-name" />
 				<p>Имя Клиента:</p>
 				<input {...register('clinet_name')} type="text" />
 			</div>
@@ -86,9 +86,17 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 			<div className={styles.info_blocks}>
 				<img src={Phone} alt="phone-number" />
 				<p>Телефон:</p>
-				<p>
-					<input value={phone} onChange={(e) => setPhone(e.target.value)}></input>
-				</p>
+				<input
+					value={phone}
+					onChange={(e) => {
+						let phoneNumber = e.target.value;
+						if (phoneNumber.length !== 12) {
+							let formatPhone = phoneNumber.replace('+7', '8').replace(/[^\d]/g, '');
+							if (formatPhone.length - 1 < 11) {
+								setPhone(formatPhone);
+							}
+						}
+					}}></input>
 			</div>
 
 			<div className={styles.info_blocks}>
@@ -105,7 +113,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 
 			<button
 				className={styles.sub_btn}
-				style={{ backgroundImage: `url(${Done})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain' }}
+				style={{ backgroundImage: `url(${ImgDone})`, backgroundRepeat: 'no-repeat', backgroundSize: 'contain' }}
 				type="submit"
 			/>
 		</form>

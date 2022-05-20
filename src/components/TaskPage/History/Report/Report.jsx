@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './Report.module.scss';
 import moment from 'moment';
 import { $linkServer } from '../../../../$config';
-import chevron from '../../../../img/chevron-down.png';
+import chevron from '../../../../img/chevronDown32.png';
 
 const Report = ({ id, title, status, comment, date, filesArr }) => {
 	const [imageFiles, setImageFiles] = useState([]);

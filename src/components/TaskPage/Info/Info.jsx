@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Info.module.scss';
 
-import edit from '../../../img/edit.png';
-import cross from '../../../img/cross-1.png';
+import ImgEdit from '../../../img/edit32.png';
+import ImgClose from '../../../img/closeRedCircle32.png';
 
 import MainInfo from './MainInfo/MainInfo';
 import ChangeInfo from './ChangeInfo/ChangeInfo';
@@ -22,7 +22,7 @@ const MainData = () => {
 					alt={isMainInfo ? 'edit' : 'cross'}
 					type="image"
 					className={isMainInfo ? styles.cross : styles.edit}
-					src={isMainInfo ? edit : cross}
+					src={isMainInfo ? ImgEdit : ImgClose}
 					onClick={() => setIsMainInfo((prev) => !prev)}
 				/>
 			)}

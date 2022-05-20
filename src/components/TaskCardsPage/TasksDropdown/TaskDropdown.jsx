@@ -3,7 +3,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { $taskStatus } from '../../../store/tasks';
 import { TaskCard } from '../TaskCard/TaskCard';
 import styles from './TaskDropdown.module.scss';
-import chevron from '../../../img/chevron-down.png';
+import ImgChevron from '../../../img/chevronDown32.png';
 
 const TaskDropdown = ({ name }) => {
 	const tasks = useStore($taskStatus);
@@ -40,7 +40,7 @@ const TaskDropdown = ({ name }) => {
 					className={`${styles.chevron} ${isOpen ? styles.open : null}`}
 					type="image"
 					alt="chevron"
-					src={chevron}
+					src={ImgChevron}
 				/>
 				<p className={styles.title}>
 					{shortName()} - {filteredTasks.length} {numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}

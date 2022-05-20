@@ -19,8 +19,8 @@ function App() {
 				})
 			)
 		} else {
-			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
-			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
+			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 		}
 
 		getWorkers();
@@ -38,7 +38,7 @@ function App() {
 						<Route path="/" element={<TaskCardsPage />} />
 						<Route path="/create_task" element={<CreateTaskPage />} />
 						<Route path="/tasks/:id" element={<TaskPage />} />
-						<Route path="*" element={<h1>404</h1>} />
+						{/* <Route path="*" element={<h1>404</h1>} /> */}
 					</Routes>
 				</div>
 			</BrowserRouter>

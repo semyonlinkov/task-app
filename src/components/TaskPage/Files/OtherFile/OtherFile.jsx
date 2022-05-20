@@ -1,6 +1,5 @@
 import { useStore } from 'effector-react';
-import React from 'react';
-import trash from '../../../../img/trash.png';
+import ImgDelete from '../../../../img/deleteBin32.png';
 import { removeFile } from '../../../../services-api/removeFile';
 import { $singleTask } from '../../../../store/selectedTask';
 import { $user } from '../../../../store/user';
@@ -16,7 +15,7 @@ const OtherFile = ({ src, fileName }) => {
 				{fileName}
 			</a>
 			{task.creatorID === user.ID && (
-				<input type="image" src={trash} onClick={() => removeFile(task.files, task.id, fileName)} />
+				<input type="image" src={ImgDelete} onClick={() => removeFile(task.files, task.id, fileName)} />
 			)}
 		</div>
 	);

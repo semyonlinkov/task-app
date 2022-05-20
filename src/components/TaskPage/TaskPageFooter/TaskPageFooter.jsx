@@ -1,8 +1,8 @@
 import { useStore } from 'effector-react';
 import React from 'react';
-import Trash from '../../../img/trash.png';
-import Check from '../../../img/check.png';
-import Arrow from '../../../img/red-arrow.png';
+import ImgDelete from '../../../img/deleteBin64.png';
+import ImgCheck from '../../../img/check64.png';
+import ImgArrow from '../../../img/rightArrow64.png';
 import styles from './TaskPageFooter.module.scss';
 import { deleteTask } from '../../../services-api/deleteTask';
 import { useNavigate } from 'react-router-dom';
@@ -20,17 +20,17 @@ const TaskPageFooter = () => {
 		<ul className={styles.wrapper}>
 			{task.customerID !== user.ID && (
 				<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
-					<img src={Trash} alt="trash" />
+					<img src={ImgDelete} alt="trash" />
 				</li>
 			)}
 			{task.status !== 'Брак' && task.creatorID === user.ID && (
 				<>
 					<li onClick={() => deffectTask(task.id, () => navigate('/'), setSingleTask)}>
-						<img src={Arrow} alt="defect" />
+						<img src={ImgArrow} alt="defect" />
 					</li>
 					{task.status === 'Выполнено' && (
 						<li>
-							<img src={Check} alt="get_job" />
+							<img src={ImgCheck} alt="get_job" />
 						</li>
 					)}
 				</>
