@@ -1,14 +1,18 @@
-.select_dropdown {
-	position: absolute;
-	width: 95vw;
-	max-height: 150px;
-	background-color: #f1f1f1;
-	overflow: auto;
+.wrapper {
+	position: relative;
 
-	li {
-		padding: 6px 3px;
-		border-bottom: 1px solid #aaaaaa;
-		border-left: 1px solid #aaaaaa;
-		border-right: 1px solid #aaaaaa;
+	.select_dropdown {
+		position: absolute;
+		width: 95vw;
+		max-height: 150px;
+		background-color: #f1f1f1;
+		overflow: auto;
+
+		li {
+			padding: 6px 3px;
+			border-bottom: 1px solid #aaaaaa;
+			border-left: 1px solid #aaaaaa;
+			border-right: 1px solid #aaaaaa;
+		}
 	}
 }

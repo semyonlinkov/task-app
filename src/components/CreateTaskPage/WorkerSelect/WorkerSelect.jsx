@@ -28,7 +28,7 @@ const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy }) => {
 	}, [searchedWorker]);
 
 	return (
-		<label>
+		<label className={styles.wrapper}>
 			<p>{title}</p>
 			<input
 				type="text"

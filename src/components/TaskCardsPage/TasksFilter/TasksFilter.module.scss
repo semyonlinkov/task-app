@@ -10,14 +10,18 @@
 	}
 
 	li {
-		font-size: 0.9rem;
 		display: flex;
+		font-size: 0.9rem;
 		align-items: center;
 		margin: 4px 3px 5px 3px;
 		padding: 2px 4px;
+		overflow: hidden;
 	}
 
 	p {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		margin-top: 2px;
 	}
 

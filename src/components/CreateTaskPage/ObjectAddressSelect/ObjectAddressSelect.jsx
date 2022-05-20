@@ -36,7 +36,7 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 	}, [watch().objectAdress]);
 
 	return (
-		<label>
+		<label className={styles.wrapper}>
 			<input
 				type="text"
 				onChange={(e) => {

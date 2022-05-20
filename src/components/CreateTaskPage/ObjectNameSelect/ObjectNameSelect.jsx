@@ -36,7 +36,7 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 	}, [watch().objectName]);
 
 	return (
-		<label>
+		<label className={styles.wrapper}>
 			<input
 				type="text"
 				onChange={(e) => {
