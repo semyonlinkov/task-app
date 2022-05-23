@@ -7,7 +7,7 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearch
 		} else {
 			setSearchBy('none');
 		}
-	}, [watch().department]);
+	}, [watch()]);
 
 	return (
 		<>

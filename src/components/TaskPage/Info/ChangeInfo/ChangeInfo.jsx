@@ -63,14 +63,14 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 				<p>Задача {task.status}</p>
 			</div>
 			<p className={styles.title}>{task.title}</p>
-			<p>
+			<div className={styles.object_name}>
 				<span>Название объекта:</span>
 				<input {...register('object_name')} type="text" />
-			</p>
-			<p>
+			</div>
+			<div className={styles.object_address}>
 				<span>Адрес объекта:</span>
 				<input {...register('object_address')} type="text" />
-			</p>
+			</div>
 			{/* <p>
 				<span>Срок выполнения</span>
 				<span style={{ fontWeight: 500 }}>{moment(task.date_deadline).format('DD.MM HH:mm')}</span>

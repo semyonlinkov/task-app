@@ -25,8 +25,6 @@ const CreateTaskPage = () => {
 	const workers = useStore($workerStatus);
 	const customers = useStore($customers);
 
-	const typeTask = ['Позвонить', 'Сделать договор', 'Другое'];
-
 	const onSubmit = (data) => {
 		createTask(data, user, () => navigate('/'), phone);
 	};
@@ -59,7 +57,7 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(phone);
-	// console.log(watch());
+	console.log(watch());
 	// console.log('render');
 
 	return (
@@ -67,7 +65,7 @@ const CreateTaskPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 				<label>
 					<p>Вид заявки</p>
-					<TypeTaskSelect values={typeTask} setValue={(value) => setValue('type', value)} />
+					<TypeTaskSelect setValue={setValue} workers={workers} />
 				</label>
 				<label>
 					<p>Название объекта</p>
@@ -141,7 +139,7 @@ const CreateTaskPage = () => {
 						className={styles.btn_sub}
 						type="submit"
 						value="Создать заявку"
-						onClick={() => console.log(watch('files'))}
+						// onClick={() => console.log(watch('files'))}
 					/>
 				</label>
 			</form>
