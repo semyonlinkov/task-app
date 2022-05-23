@@ -33,8 +33,16 @@ export const TaskCard = ({ task }) => {
 			<div className={styles.task_data}>
 				<div className={styles.flex_div}>
 					<div>
-						{task.object_name && <p style={{ fontSize: 14 }}>{task.object_name}</p>}
-						{task.object_address && <p style={{ fontSize: 14 }}>{task.object_address}</p>}
+						{task.object_address && (
+							<p>
+								<span>Адресс объекта:</span> {task.object_address}
+							</p>
+						)}
+						{task.object_name && (
+							<p>
+								<span>Название объекта:</span> {task.object_name}
+							</p>
+						)}
 					</div>
 					{task.readed !== '0000-00-00 00:00:00' && (
 						<div className={styles.readed}>
@@ -58,25 +66,27 @@ export const TaskCard = ({ task }) => {
 
 				{task.creatorName && (
 					<p>
-						Постановщик: <span>{getNormalName(task.creatorName)}</span>
+						<span>Постановщик: </span>
+						{getNormalName(task.creatorName)}
 					</p>
 				)}
 
 				{task.client_phone || task.clinet_name ? (
 					<p>
-						Данные клиента:{' '}
-						<span>
-							{task.client_phone} - {task.clinet_name}
-						</span>
+						<span>Данные клиента:</span> {task.client_phone} - {task.clinet_name}
 					</p>
 				) : null}
-				{task.date_deadline !== '0000-00-00 00:00:00' ? (
+				{task.date_deadline !== '0000-00-00 00:00:00' && (
 					<p>
-						Выполнить до: <span>{moment(task.date_deadline).format('DD.MM.YYYY')}</span>
+						<span>Выполнить до:</span> {moment(task.date_deadline).format('DD.MM.YYYY')}
 					</p>
-				) : null}
+				)}
 
-				{task.date_create && <p className={styles.date}>{moment(task.date_create).format('DD.MM.YYYY hh:mm')}</p>}
+				{task.date_create && (
+					<p className={styles.date}>
+						<span>{moment(task.date_create).format('DD.MM.YYYY hh:mm')}</span>
+					</p>
+				)}
 			</div>
 		</div>
 	);

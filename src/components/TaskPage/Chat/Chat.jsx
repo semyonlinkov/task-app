@@ -3,7 +3,7 @@ import { $singleTask } from '../../../store/selectedTask';
 import { $user } from '../../../store/user';
 import styles from './Chat.module.scss';
 import Message from './Message/Message';
-import Send from '../../../img/sendMessage64.png';
+import ImgSend from '../../../img/sendMessage64.png';
 import Avatar from './Avatar/Avatar';
 import { useStore } from 'effector-react';
 import { getAllMessages } from '../../../services-api/getAllMessages';
@@ -86,7 +86,7 @@ const Chat = () => {
 					}}
 					onChange={(e) => setMessage(e.target.value)}
 					value={message}></textarea>
-				<input onClick={sendMessageHandler} type="image" alt="send" src={Send} />
+				<input onClick={sendMessageHandler} type="image" alt="send" src={ImgSend} />
 			</div>
 		</div>
 	);

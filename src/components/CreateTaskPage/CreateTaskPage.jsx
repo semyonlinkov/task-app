@@ -60,9 +60,7 @@ const CreateTaskPage = () => {
 	// console.log(customers);
 	// console.log(phone);
 	// console.log(watch());
-	// console.log(allObjects);
 	// console.log('render');
-	// console.log(isSameNumber);
 
 	return (
 		<>
