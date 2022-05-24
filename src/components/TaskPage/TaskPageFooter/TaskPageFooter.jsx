@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { $singleTask, setSingleTask } from '../../../store/selectedTask';
 import { $user } from '../../../store/user';
 import { deffectTask } from '../../../services-api/deffectTask';
+import { setFinishTask } from '../../../services-api/setFinishTask';
 
 const TaskPageFooter = () => {
 	const navigate = useNavigate();
@@ -30,7 +31,11 @@ const TaskPageFooter = () => {
 					</li>
 					{task.status === 'Выполнено' && (
 						<li>
-							<img src={ImgCheck} alt="get_job" />
+							<img
+								src={ImgCheck}
+								alt="get_job"
+								onClick={() => setFinishTask(task.id, () => navigate('/'), setSingleTask)}
+							/>
 						</li>
 					)}
 				</>

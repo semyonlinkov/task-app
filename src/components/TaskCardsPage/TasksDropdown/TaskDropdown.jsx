@@ -33,6 +33,8 @@ const TaskDropdown = ({ name }) => {
 		return words[2];
 	};
 
+	console.log(filteredTasks);
+
 	return (
 		<>
 			<div className={styles.dropdown} onClick={tasksHandler}>
@@ -46,7 +48,11 @@ const TaskDropdown = ({ name }) => {
 					{shortName()} - {filteredTasks.length} {numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
 				</p>
 			</div>
-			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
+			{isOpen
+				? filteredTasks
+						.filter((task) => task.completed !== '1')
+						.map((task) => <TaskCard task={task} key={task.id} />)
+				: null}
 		</>
 	);
 };
