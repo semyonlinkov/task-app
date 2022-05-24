@@ -1,5 +1,5 @@
 import { useStore } from 'effector-react';
-import React, { useState, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { $taskStatus } from '../../../store/tasks';
 import { TaskCard } from '../TaskCard/TaskCard';
 import styles from './TaskDropdown.module.scss';
@@ -10,12 +10,12 @@ const TaskDropdown = ({ name }) => {
 	const [filteredTasks, setFilteredTasks] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
 
-	useLayoutEffect(() => {
-		setFilteredTasks(tasks.filter((task) => task.customer === name));
+	useEffect(() => {
+		setFilteredTasks(tasks.filter((task) => task.customer === name && task.completed !== '1'));
 	}, [name, tasks]);
 
 	const tasksHandler = () => {
-		setFilteredTasks(tasks.filter((task) => task.customer === name));
+		setFilteredTasks(tasks.filter((task) => task.customer === name && task.completed !== '1'));
 		setIsOpen((prev) => !prev);
 	};
 
@@ -33,8 +33,6 @@ const TaskDropdown = ({ name }) => {
 		return words[2];
 	};
 
-	console.log(filteredTasks);
-
 	return (
 		<>
 			<div className={styles.dropdown} onClick={tasksHandler}>
@@ -48,11 +46,7 @@ const TaskDropdown = ({ name }) => {
 					{shortName()} - {filteredTasks.length} {numWord(filteredTasks.length, ['Задача', 'Задачи', 'Задач'])}
 				</p>
 			</div>
-			{isOpen
-				? filteredTasks
-						.filter((task) => task.completed !== '1')
-						.map((task) => <TaskCard task={task} key={task.id} />)
-				: null}
+			{isOpen ? filteredTasks.map((task) => <TaskCard task={task} key={task.id} />) : null}
 		</>
 	);
 };
