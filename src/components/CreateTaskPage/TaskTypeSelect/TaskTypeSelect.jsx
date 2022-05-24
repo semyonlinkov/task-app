@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const TypeTaskSelect = ({ setValue, workers }) => {
+const TypeTaskSelect = ({ setValue, workers, watch }) => {
 	const values = [
 		'Другое',
 		'Позвонить',
@@ -18,11 +18,11 @@ const TypeTaskSelect = ({ setValue, workers }) => {
 		'Исключить ключ',
 		'Установить сторожок',
 		'Перенести оборудование',
+		'Клиент запрашивает стоимость услуг',
 		'Приостановить/Возобновить договор на охрану',
 		'Расторжение договора',
 		'Клиент запрашивает стоимость физ охраны',
 		'Клиент запрашивает возможность сопровождения',
-		'Клиент запрашивает стоимость услуг',
 	];
 
 	const [selectedValue, setSelectedValue] = useState('');
@@ -62,23 +62,24 @@ const TypeTaskSelect = ({ setValue, workers }) => {
 			//* Тех отдел
 			setDepartmentAndEmployees('Инженерный');
 		} else if (e.value === 'Сделать MyAlarm') {
-			//* Инженерный
 			setDepartmentAndEmployees('Инженерный');
 		} else if (
 			e.value === 'Приостановить/Возобновить договор на охрану' ||
 			e.value === 'Расторжение договора' ||
 			e.value === 'Клиент запрашивает стоимость услуг'
 		) {
-			//* Маркетинг
 			setDepartmentAndEmployees('Маркетинг');
 		} else if (
 			e.value === 'Клиент запрашивает стоимость физ охраны' ||
-			e.vlaue === 'Клиент запрашивает возможность сопровождения'
+			e.value === 'Клиент запрашивает возможность сопровождения'
 		) {
-			//* Физ охрана
 			setDepartmentAndEmployees('Физ охрана');
 		}
 	};
+
+	useEffect(() => {
+		watch(); //! без watch не меняется value и не происходит ререндер
+	}, [selectedValue]);
 
 	return (
 		<Select

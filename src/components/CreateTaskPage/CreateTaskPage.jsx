@@ -58,6 +58,7 @@ const CreateTaskPage = () => {
 	// console.log(customers);
 	// console.log(phone);
 	// console.log(watch());
+	// console.log(getValues());
 	// console.log('render');
 
 	return (
@@ -65,7 +66,7 @@ const CreateTaskPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 				<label>
 					<p>Вид заявки</p>
-					<TypeTaskSelect setValue={setValue} workers={workers} />
+					<TypeTaskSelect setValue={setValue} workers={workers} watch={watch} />
 				</label>
 				<label>
 					<p>Название объекта</p>
