@@ -57,7 +57,8 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(phone);
-	console.log(watch());
+	// console.log(watch());
+	// console.log(watch());
 	// console.log('render');
 
 	return (
@@ -125,6 +126,10 @@ const CreateTaskPage = () => {
 				<label>
 					<p>Выбрать дату</p>
 					<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
+				</label>
+				<label className={styles.checkbox}>
+					<input type="checkbox" {...register('banChangeExecuter')} />
+					<p>Запретить передавать задачу</p>
 				</label>
 				<label>
 					<p>Комментарий</p>

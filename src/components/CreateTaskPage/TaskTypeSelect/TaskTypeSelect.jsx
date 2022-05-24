@@ -3,6 +3,7 @@ import Select from 'react-select';
 
 const TypeTaskSelect = ({ setValue, workers }) => {
 	const values = [
+		'Другое',
 		'Позвонить',
 		'Сделать договор',
 		'Заявка',
@@ -22,7 +23,6 @@ const TypeTaskSelect = ({ setValue, workers }) => {
 		'Клиент запрашивает стоимость физ охраны',
 		'Клиент запрашивает возможность сопровождения',
 		'Клиент запрашивает стоимость услуг',
-		'Другое',
 	];
 
 	const [selectedValue, setSelectedValue] = useState('');
@@ -31,7 +31,21 @@ const TypeTaskSelect = ({ setValue, workers }) => {
 		setSelectedValue(e.value);
 		setValue('type', e.value);
 
-		if (e.value === 'Позвонить' || e.value === 'Сделать договор') {
+		const setDepartmentAndEmployees = (department) => {
+			if (department) {
+				setValue('department', department);
+				setValue('executor', `${workers[department][0].ID}:${workers[department][0].NAME}`);
+				setValue('coexecutor', `${workers[department][0].ID}:${workers[department][0].NAME}`);
+			} else {
+				setValue('department', '');
+				setValue('executor', '');
+				setValue('coexecutor', '');
+			}
+		};
+
+		if (e.value === 'Позвонить' || e.value === 'Сделать договор' || e.value === 'Другое') {
+			//* Без отдела
+			setDepartmentAndEmployees();
 		} else if (
 			e.value === 'Заявка' ||
 			e.value === 'Претензия' ||
@@ -40,30 +54,31 @@ const TypeTaskSelect = ({ setValue, workers }) => {
 			e.value === 'Демонтаж' ||
 			e.value === 'Монтаж' ||
 			e.value === 'Нет контрольного события' ||
-			e.value === 'Сделать MyAlarm' ||
+			e.value === 'Исключить ключ' ||
 			e.value === 'Прошить/Сделать ключ' ||
-			e.value === 'Исключить ключ'
+			e.value === 'Установить сторожок' ||
+			e.value === 'Перенести оборудование'
 		) {
-			setValue('department', 'Инженерный');
-			setValue('executor', `${workers['Инженерный'][0].ID}:${workers['Инженерный'][0].NAME}`);
-			setValue('coexecutor', `${workers['Инженерный'][0].ID}:${workers['Инженерный'][0].NAME}`);
-		} else if (e.value === 'Установить сторожок') {
-		} else if (e.value === 'Перенести оборудование') {
+			//* Тех отдел
+			setDepartmentAndEmployees('Инженерный');
+		} else if (e.value === 'Сделать MyAlarm') {
+			//* Инженерный
+			setDepartmentAndEmployees('Инженерный');
 		} else if (
 			e.value === 'Приостановить/Возобновить договор на охрану' ||
 			e.value === 'Расторжение договора' ||
 			e.value === 'Клиент запрашивает стоимость услуг'
 		) {
-			setValue('department', 'Маркетинг');
-			setValue('executor', `${workers['Маркетинг'][0].ID}:${workers['Маркетинг'][0].NAME}`);
-			setValue('coexecutor', `${workers['Маркетинг'][0].ID}:${workers['Маркетинг'][0].NAME}`);
-		} else if (e.value === 'Клиент запрашивает стоимость физ охраны') {
-		} else if (e.value === 'Клиент запрашивает возможность сопровождения') {
-		} else if (e.value === 'Другое') {
+			//* Маркетинг
+			setDepartmentAndEmployees('Маркетинг');
+		} else if (
+			e.value === 'Клиент запрашивает стоимость физ охраны' ||
+			e.vlaue === 'Клиент запрашивает возможность сопровождения'
+		) {
+			//* Физ охрана
+			setDepartmentAndEmployees('Физ охрана');
 		}
 	};
-
-	console.log(workers);
 
 	return (
 		<Select

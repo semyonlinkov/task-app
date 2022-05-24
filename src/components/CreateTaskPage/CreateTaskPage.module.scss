@@ -84,15 +84,13 @@
 	}
 }
 
-.checkbox_flex {
+.checkbox {
 	display: flex;
-	flex-direction: row-reverse;
-	margin: 15px 0;
+	margin: 7px 0 0 0;
 	align-items: center;
-	justify-content: flex-start;
 	input {
 		width: 20px;
 		height: 20px;
-		margin-left: 20px;
+		margin: 0 5px 0 0;
 	}
 }

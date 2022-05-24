@@ -24,37 +24,34 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearch
 							setValue('department', '');
 						}
 					}}>
-					{workers !== 'loading'
-						? Object.keys(workers).map((department) => (
-								<option key={department} value={department}>
-									{department}
-								</option>
-						  ))
-						: null}
+					{workers !== 'loading' &&
+						Object.keys(workers).map((department) => (
+							<option key={department} value={department}>
+								{department}
+							</option>
+						))}
 				</select>
 			</label>
 			<label>
 				<p>Выбрать исполнителя</p>
 				<select {...register('executor')}>
-					{watch().department
-						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
-						: null}
+					{watch().department &&
+						Object.values(workers[watch().department]).map((person) => (
+							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+								{person.NAME}
+							</option>
+						))}
 				</select>
 			</label>
 			<label>
 				<p>Выбрать наблюдателя</p>
 				<select {...register('coexecutor')}>
-					{watch().department
-						? Object.values(workers[watch().department]).map((person) => (
-								<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-									{person.NAME}
-								</option>
-						  ))
-						: null}
+					{watch().department &&
+						Object.values(workers[watch().department]).map((person) => (
+							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
+								{person.NAME}
+							</option>
+						))}
 				</select>
 			</label>
 		</>
