@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { $allObjects } from '../../../store/getAllObjects';
 import styles from './ObjectAddressSelect.module.scss';
 
-const ObjectAddressSelect = ({ setValue, watch }) => {
+const ObjectAddressSelect = ({ setValue, getValues }) => {
 	const allObjects = useStore($allObjects);
 
 	const [searchedObjectAddresses, setSearchedObjectAdresses] = useState([]);
@@ -30,10 +30,10 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 	}, []);
 
 	useEffect(() => {
-		if (watch()?.objectAdress) {
-			setSearchedObjectAddress(watch().objectAdress);
+		if (getValues()?.objectAdress) {
+			setSearchedObjectAddress(getValues().objectAdress);
 		}
-	}, [watch().objectAdress]);
+	}, [getValues().objectAdress]);
 
 	return (
 		<label className={styles.wrapper}>
@@ -42,6 +42,7 @@ const ObjectAddressSelect = ({ setValue, watch }) => {
 				onChange={(e) => {
 					setSearchedObjectAddress(e.target.value);
 					searchHandler(e.target.value);
+					setValue('objectAdress', e.target.value);
 				}}
 				value={searchedObjectAddress}
 			/>

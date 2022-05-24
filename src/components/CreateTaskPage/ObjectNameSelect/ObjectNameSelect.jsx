@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { $allObjects } from '../../../store/getAllObjects';
 import styles from './ObjectNameSelect.module.scss';
 
-const ObjectNameSelect = ({ setValue, watch }) => {
+const ObjectNameSelect = ({ setValue, getValues }) => {
 	const allObjects = useStore($allObjects);
 
 	const [searchedObjectNames, setSearchedObjectNames] = useState([]);
@@ -30,10 +30,10 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 	}, []);
 
 	useEffect(() => {
-		if (watch()?.objectName) {
-			setSearchedObjectName(watch().objectName);
+		if (getValues()?.objectName) {
+			setSearchedObjectName(getValues().objectName);
 		}
-	}, [watch().objectName]);
+	}, [getValues().objectName]);
 
 	return (
 		<label className={styles.wrapper}>
@@ -42,6 +42,7 @@ const ObjectNameSelect = ({ setValue, watch }) => {
 				onChange={(e) => {
 					setSearchedObjectName(e.target.value);
 					searchHandler(e.target.value);
+					setValue('objectName', e.target.value);
 				}}
 				value={searchedObjectName}
 			/>

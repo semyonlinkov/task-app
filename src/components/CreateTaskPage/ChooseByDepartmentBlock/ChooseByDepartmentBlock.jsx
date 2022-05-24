@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
-const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearchBy }) => {
+const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, getValues }) => {
 	useEffect(() => {
-		if (watch().department) {
+		if (getValues().department) {
 			setSearchBy('department');
 		} else {
 			setSearchBy('none');
 		}
-	}, [watch()]);
+	}, [getValues()]);
 
 	return (
 		<>
@@ -22,6 +22,8 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearch
 							setValue('coexecutor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
 						} else {
 							setValue('department', '');
+							setValue('executor', '');
+							setValue('coexecutor', '');
 						}
 					}}>
 					{workers !== 'loading' &&
@@ -35,8 +37,8 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearch
 			<label>
 				<p>Выбрать исполнителя</p>
 				<select {...register('executor')}>
-					{watch().department &&
-						Object.values(workers[watch().department]).map((person) => (
+					{getValues().department &&
+						Object.values(workers[getValues().department]).map((person) => (
 							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
 								{person.NAME}
 							</option>
@@ -46,8 +48,8 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, watch, setSearch
 			<label>
 				<p>Выбрать наблюдателя</p>
 				<select {...register('coexecutor')}>
-					{watch().department &&
-						Object.values(workers[watch().department]).map((person) => (
+					{getValues().department &&
+						Object.values(workers[getValues().department]).map((person) => (
 							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
 								{person.NAME}
 							</option>

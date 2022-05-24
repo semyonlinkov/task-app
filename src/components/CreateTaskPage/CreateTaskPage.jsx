@@ -57,8 +57,7 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(phone);
-	// console.log(watch());
-	// console.log(watch());
+	console.log(watch());
 	// console.log('render');
 
 	return (
@@ -70,12 +69,12 @@ const CreateTaskPage = () => {
 				</label>
 				<label>
 					<p>Название объекта</p>
-					<ObjectNameSelect setValue={setValue} watch={watch} />
+					<ObjectNameSelect setValue={setValue} getValues={getValues} />
 					{/* <input type="text" {...register('objectName')} /> */}
 				</label>
 				<label>
 					<p>Адресс объекта</p>
-					<ObjectAddressSelect setValue={setValue} watch={watch} />
+					<ObjectAddressSelect setValue={setValue} getValues={getValues} />
 					{/* <input type="text" {...register('objectAdress')} /> */}
 				</label>
 				<label>
@@ -87,7 +86,6 @@ const CreateTaskPage = () => {
 								let formatPhone = phoneNumber.replace('+7', '8').replace(/[^\d]/g, '');
 
 								let eleven = formatPhone.substring(0, 11);
-								console.log(eleven);
 
 								if (formatPhone.length - 1 < 11) {
 									setPhone(formatPhone);
@@ -110,14 +108,14 @@ const CreateTaskPage = () => {
 					<ChooseByDepartmentBlock
 						register={register}
 						setValue={setValue}
+						getValues={getValues}
 						workers={workers}
-						watch={watch}
 						setSearchBy={(value) => setSearchBy(value)}
 					/>
 				)}
 				{searchBy !== 'department' && (
 					<WorkerSelect
-						setValue={(value) => setValue('executor', value)}
+						setValue={setValue}
 						allWorkers={allWorkers}
 						title={'Выбрать исполнителя по имени'}
 						setSearchBy={(value) => setSearchBy(value)}
