@@ -10,7 +10,6 @@ import TaskCardsPage from './components/TaskCardsPage/TaskCardsPage';
 import TaskPage from './components/TaskPage/TaskPage';
 
 function App() {
-
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -21,7 +20,7 @@ function App() {
 			)
 		} else {
 			setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
-			//	 setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 		}
 
 		getWorkers();
