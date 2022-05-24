@@ -46,12 +46,7 @@ const History = () => {
 								type = `Прочитана`
 							}
 
-							if (el.type === 'view') {
-								return <>
-									<HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
-									{el2.filter(el => el.type === 'call').length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]}/>}
-								</>
-							} else if (el.type !== 'deffect') {
+						if (el.type !== 'deffect') {
 								return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
 
 							}
@@ -85,15 +80,9 @@ const History = () => {
 					} else if (el.type === 'view') {
 						type = `Прочитана`
 					}
-					if (type === 'Прочитана') {
-						return <>
-							<HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
-							{history2.filter(el => el.type === 'call').length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]}/>}
-						</>
-					} else {
+
 						return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
 
-					}
 				})}
 
 				{history2.filter(el => el.type === 'start').length === 0 && <HistoryItem title={'В работе'} withLine={true} active={[]}/>}

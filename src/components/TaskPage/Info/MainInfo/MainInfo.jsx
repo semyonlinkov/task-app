@@ -22,14 +22,13 @@ const MainData = () => {
 
 	useEffect(() => {
 
-
 		if (task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
 
 			setHistory(task.id, 'view', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, (a) => mutateTask({readed: a}));
 			setReaded(task.id);
 		}
 
-	}, [task, user.ID]);
+	}, []);
 
 	const putStatusMark = () => {
 		if (task.status === 'Новая') {
