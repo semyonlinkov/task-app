@@ -57,7 +57,7 @@ const CreateTaskPage = () => {
 
 	// console.log(customers);
 	// console.log(phone);
-	console.log(watch());
+	// console.log(watch());
 	// console.log('render');
 
 	return (
