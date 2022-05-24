@@ -25,7 +25,7 @@ const TaskPageFooter = () => {
 			)}
 			{task.status !== 'Брак' && task.creatorID === user.ID && (
 				<>
-					<li onClick={() => deffectTask(task.id, () => navigate('/'), setSingleTask)}>
+					<li onClick={() => deffectTask(task.id)}>
 						<img src={ImgArrow} alt="defect" />
 					</li>
 					{task.status === 'Выполнено' && (

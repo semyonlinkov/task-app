@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { changeTask } from '../../../../services-api/changeTask';
 import ImgUser from '../../../../img/user32.png';
 import ImgDone from '../../../../img/checkBlue32.png';
+import {setHistory} from "../../../../services-api/setHistory";
 
 const ChangeInfo = ({ setIsMainInfo }) => {
 	const task = useStore($singleTask);
@@ -25,9 +26,7 @@ const ChangeInfo = ({ setIsMainInfo }) => {
 	const onSubmit = (data) => changeTask(data, phone, user, setIsMainInfo, setSingleTask);
 
 	useEffect(() => {
-		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
-			setReaded(task.id);
-		}
+
 
 		if (task.deffect_comment) {
 			setValue('deffect_comment', task.deffect_comment);

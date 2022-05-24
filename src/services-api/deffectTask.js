@@ -1,6 +1,7 @@
 import { $linkServer } from "../$config";
+import {mutateTask} from "../store/selectedTask";
 
-export const deffectTask = (id, historyChange, setSingleTask) => {
+export const deffectTask = (id) => {
 	let deffectComment = window.prompt('Укажите причину брака');
 
 	if (!deffectComment) {
@@ -21,8 +22,7 @@ export const deffectTask = (id, historyChange, setSingleTask) => {
 			.then(res => res.json())
 			.then(res => {
 				if (res) {
-					setSingleTask(res[0]);
-					historyChange();
+					mutateTask({historyJSON: JSON.stringify(res)})
 				} else {
 					alert('Произошла ошибка при отправке задачи в брак!');
 				}

@@ -10,8 +10,9 @@ import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
 import { setReaded } from '../../../../services-api/setReaded';
 import { startTask } from '../../../../services-api/startTask';
-import { $singleTask } from '../../../../store/selectedTask';
+import {$singleTask, mutateTask} from '../../../../store/selectedTask';
 import TaskRaportForm from '../../TaskRaportForm/TaskRaportForm';
+import {setHistory} from "../../../../services-api/setHistory";
 
 const MainData = () => {
 	const task = useStore($singleTask);
@@ -20,9 +21,14 @@ const MainData = () => {
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
-		if (task.id && task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
+
+
+		if (task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
+
+			setHistory(task.id, 'view', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, (a) => mutateTask({readed: a}));
 			setReaded(task.id);
 		}
+
 	}, [task, user.ID]);
 
 	const putStatusMark = () => {
@@ -89,22 +95,35 @@ const MainData = () => {
 					<p>{task.deffect_comment}</p>
 				</div>
 			)}
+			<div className={styles.flex_box}>
+				{user.ID === task.customerID && task.status === 'Новая' ? (
+					<button className={`${styles.start_btn} ${styles.btn}`} onClick={() => {
+						setHistory(task.id, 'start', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
+						startTask(task.id)
+					}}>
+						Взять в работу
+					</button>
+				) : null}
+				{user.ID === task.customerID && task.status === 'В работе' ? (
+					<button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
+						Завершить работу
+					</button>
+				) : null}
+				{user.ID === task.customerID && task.status === 'Брак' ? (
+					<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
+						Изменить отчёт
+					</button>
+				) : null}
+				<button className={`${styles.orange_block} ${styles.btn}`} onClick={() => {
 
-			{user.ID === task.customerID && task.status === 'Новая' ? (
-				<button className={`${styles.start_btn} ${styles.btn}`} onClick={() => startTask(task.id)}>
-					Взять в работу
+					const answer = prompt('Введите примечание');
+					setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () => alert('Примечание добавлено успешно'));
+
+
+				}}>
+					Добавить примечание
 				</button>
-			) : null}
-			{user.ID === task.customerID && task.status === 'В работе' ? (
-				<button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
-					Завершить работу
-				</button>
-			) : null}
-			{user.ID === task.customerID && task.status === 'Брак' ? (
-				<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
-					Изменить отчёт
-				</button>
-			) : null}
+			</div>
 
 			{showForm && (
 				<TaskRaportForm

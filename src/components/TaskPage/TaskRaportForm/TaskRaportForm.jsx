@@ -3,6 +3,7 @@ import styles from './TaskRaportForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { finishTask } from '../../../services-api/finishTask';
 import ImhExit from '../../../img/closeRed64.png';
+import {setHistory} from "../../../services-api/setHistory";
 
 const TaskRaport = ({ id, timeStart, close, status }) => {
 	const navigate = useNavigate();
@@ -13,6 +14,11 @@ const TaskRaport = ({ id, timeStart, close, status }) => {
 	});
 
 	const handleSubmit = (form, taskType) => {
+		if (status === 'Брак') {
+			setHistory(id, 'start', '');
+		}
+		setHistory(id, 'finish', form.comment);
+
 		if (taskType === 'finish') {
 			finishTask(form, id, timeStart, status === 'Брак' ? true : false, () => navigate('/'));
 		} else if (taskType === 'changeDepartment') {
@@ -52,11 +58,11 @@ const TaskRaport = ({ id, timeStart, close, status }) => {
 						Завершить и отправить отчёт
 					</button>
 
-					<button
-						className={`${styles.btn} ${styles.sub_btn}`}
-						onClick={() => handleSubmit(form, 'changeDepartment')}>
-						Завершить и направить в другой отдел
-					</button>
+					{/*<button*/}
+					{/*	className={`${styles.btn} ${styles.sub_btn}`}*/}
+					{/*	onClick={() => handleSubmit(form, 'changeDepartment')}>*/}
+					{/*	Завершить и направить в другой отдел*/}
+					{/*</button>*/}
 				</div>
 			</div>
 		</div>

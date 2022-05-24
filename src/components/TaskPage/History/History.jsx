@@ -5,100 +5,102 @@ import styles from './History.module.scss';
 import { $singleTask } from '../../../store/selectedTask';
 import Point from './Point/Point';
 import Report from './Report/Report';
+import HistoryItem from "./HistoryItem";
 
 const History = () => {
 	const task = useStore($singleTask);
-	const [checkpoints, setCheckpoints] = useState([]);
+	const [history2, setHistory2] = useState([]);
+
 
 	useEffect(() => {
-		setCheckpoints([]);
-
-		if (task.date_create && task.date_create !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: 'Поставлена', status: true, date: task.date_create }]);
+		if (task.historyJSON &&  JSON.parse(task.historyJSON)) {
+			setHistory2(JSON.parse(task.historyJSON))
 		}
-
-		if (task.readed && task.readed !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: 'Прочитана', status: true, date: task.readed }]);
-		} else {
-			setCheckpoints((prev) => [...prev, { title: 'Прочитана', status: false, date: task.readed }]);
-		}
-
-		if (task.timeStart && task.timeStart !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: task.title, status: true, date: task.timeStart }]);
-		} else {
-			setCheckpoints((prev) => [...prev, { title: task.title, status: false, date: task.timeStart }]);
-		}
-
-		if (task.timeStart !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: true, date: task.timeStart }]);
-		} else {
-			setCheckpoints((prev) => [...prev, { title: 'В работе', status: false, date: task.timeStart }]);
-		}
-
-		if (task.timeEnd !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [
-				...prev,
-				{
-					title: 'Выполнена',
-					status: true,
-					date: task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed,
-				},
-			]);
-		} else {
-			setCheckpoints((prev) => [
-				...prev,
-				{
-					title: 'Выполнена',
-					status: false,
-					date: task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed,
-				},
-			]);
-		}
-
-		if (task.deffect_time !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [...prev, { title: 'Брак', status: true, date: task.deffect_time }]);
-		}
-
-		if (task.deffect_completed !== '0000-00-00 00:00:00') {
-			setCheckpoints((prev) => [
-				...prev,
-				{
-					title: 'Брак исправлен',
-					status: task.deffect_completed !== '0000-00-00 00:00:00',
-					date: task.deffect_completed,
-				},
-			]);
-		}
-	}, [task]);
-
-	// console.log(checkpoints);
-	// console.log(task);
+	}, [task])
 
 	return (
-		<div className={styles.wrapper}>
-			<div className={styles.points_wrapper}>
-				{checkpoints.map((point, i) => (
-					<Point
-						key={point.title + point.date}
-						title={point.title}
-						status={point.status}
-						date={point.date}
-						defect={point.defect}
-						last={checkpoints.length - 1 === i}
-					/>
-				))}
-			</div>
-			{task.status === 'Выполнено' || task.status === 'Брак исправлен' ? (
-				<Report
-					id={task.id}
-					title={task.title}
-					status={task.status}
-					comment={task.report_comment}
-					filesArr={task.report_files ? task.report_files.split(';') : false}
-					date={task.timeEnd !== '0000-00-00 00:00:00' ? task.timeEnd : task.deffect_completed}
-				/>
-			) : null}
+
+		<div className={styles.processTracker}>
+
+			<HistoryItem title={'Поставлена'} active={[0, task.date_create]} />
+			{Array.isArray(history2[0]) ? <>
+
+				{history2.map(el2 => {
+					return <div className={styles.deffect_block}>
+						{el2.filter(el => el.type === 'view').length === 0 && <HistoryItem title={'Прочитана'} withLine={true} active={[]}/>}
+
+						{el2.map(el => {
+							let type = '';
+
+							if (el.type === 'call') {
+								type = 'Созвонился'
+							} else if (el.type === 'start') {
+								type = 'В работе'
+							} else if (el.type === 'comment') {
+								type = `Примечание от ${el.user.split(' ')[0]}`
+							}  else if (el.type === 'finish') {
+								type = 'Завершил работу'
+							} else if (el.type === 'changeTech') {
+								type = `Смена исполнителя`
+							} else if (el.type === 'view') {
+								type = `Прочитана`
+							}
+
+							if (el.type === 'view') {
+								return <>
+									<HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
+									{el2.filter(el => el.type === 'call').length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]}/>}
+								</>
+							} else if (el.type !== 'deffect') {
+								return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
+
+							}
+
+						})}
+
+						{el2.filter(el => el.type === 'start').length === 0 && <HistoryItem title={'В работе'} withLine={true} active={[]}/>}
+						{el2.filter(el => el.type === 'finish').length === 0 && <HistoryItem title={'Завершил работу'} withLine={true} active={[]}/>}
+						{el2.filter(el => el.type === 'deffect').length === 1 && <HistoryItem title={'Брак'} withLine={true} active={[0, el2.filter(el => el.type === 'deffect')[0].date]} activeText={el2.filter(el => el.type === 'deffect')[0].value} failed={true}/>}
+					</div>
+
+				})}
+
+			</> : <>
+
+				{history2.filter(el => el.type === 'view').length === 0 && <HistoryItem title={'Прочитана'} withLine={true} active={[]}/>}
+				{history2.length === 0 &&  <HistoryItem title={'Созвонился'} withLine={true} active={[]}/>}
+				{history2.map(el => {
+					let type = '';
+
+					if (el.type === 'call') {
+						type = 'Созвонился'
+					} else if (el.type === 'start') {
+						type = 'В работе'
+					} else if (el.type === 'comment') {
+						type = `Примечание от ${el.user.split(' ')[0]}`
+					}  else if (el.type === 'finish') {
+						type = 'Завершил работу'
+					} else if (el.type === 'changeTech') {
+						type = `Смена исполнителя`
+					} else if (el.type === 'view') {
+						type = `Прочитана`
+					}
+					if (type === 'Прочитана') {
+						return <>
+							<HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
+							{history2.filter(el => el.type === 'call').length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]}/>}
+						</>
+					} else {
+						return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
+
+					}
+				})}
+
+				{history2.filter(el => el.type === 'start').length === 0 && <HistoryItem title={'В работе'} withLine={true} active={[]}/>}
+				{history2.filter(el => el.type === 'finish').length === 0 && <HistoryItem title={'Завершил работу'} withLine={true} active={[]}/>}</>}
+
 		</div>
+
 	);
 };
 

@@ -45,17 +45,17 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, get
 						))}
 				</select>
 			</label>
-			<label>
-				<p>Выбрать наблюдателя</p>
-				<select {...register('coexecutor')}>
-					{getValues().department &&
-						Object.values(workers[getValues().department]).map((person) => (
-							<option key={person.ID} value={`${person.ID}:${person.NAME}`}>
-								{person.NAME}
-							</option>
-						))}
-				</select>
-			</label>
+			{/*<label>*/}
+			{/*	<p>Выбрать наблюдателя</p>*/}
+			{/*	<select {...register('coexecutor')}>*/}
+			{/*		{getValues().department &&*/}
+			{/*			Object.values(workers[getValues().department]).map((person) => (*/}
+			{/*				<option key={person.ID} value={`${person.ID}:${person.NAME}`}>*/}
+			{/*					{person.NAME}*/}
+			{/*				</option>*/}
+			{/*			))}*/}
+			{/*	</select>*/}
+			{/*</label>*/}
 		</>
 	);
 };
