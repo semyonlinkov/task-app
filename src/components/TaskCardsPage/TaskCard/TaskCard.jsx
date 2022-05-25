@@ -26,55 +26,50 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
-
 	const getHistory = () => {
-		const historyArr = task.historyJSON &&  JSON.parse(task.historyJSON) ? JSON.parse(task.historyJSON) : []
+		const historyArr = task.historyJSON && JSON.parse(task.historyJSON) ? JSON.parse(task.historyJSON) : [];
 		let type;
 
-		 if (Array.isArray(historyArr[0])) {
-		 	const len = historyArr.length - 1;
-		 	const last = historyArr[len];
-		 	const lastlen = last.length - 1
+		if (Array.isArray(historyArr[0])) {
+			const len = historyArr.length - 1;
+			const last = historyArr[len];
+			const lastlen = last.length - 1;
 			const lastItem = last[lastlen];
 
+			if (lastItem.type === 'call') {
+				type = 'Созвонился';
+			} else if (lastItem?.type === 'start') {
+				type = 'В работе';
+			} else if (lastItem?.type === 'comment') {
+				type = `Примечание от ${lastItem?.user.split(' ')[0]}`;
+			} else if (lastItem?.type === 'finish') {
+				type = 'Завершил работу';
+			} else if (lastItem?.type === 'changeTech') {
+				type = `Смена исполнителя`;
+			} else if (lastItem?.type === 'view') {
+				type = `Прочитана`;
+			}
 
-			 if (lastItem.type === 'call') {
-				 type = 'Созвонился'
-			 } else if (lastItem.type === 'start') {
-				 type = 'В работе'
-			 } else if (lastItem.type === 'comment') {
-				 type = `Примечание от ${lastItem.user.split(' ')[0]}`
-			 }  else if (lastItem.type === 'finish') {
-				 type = 'Завершил работу'
-			 } else if (lastItem.type === 'changeTech') {
-				 type = `Смена исполнителя`
-			 } else if (lastItem.type === 'view') {
-				 type = `Прочитана`
-			 }
+			return type;
+		} else {
+			const lastItem = historyArr[historyArr.length - 1];
+			if (lastItem?.type === 'call') {
+				type = 'Созвонился';
+			} else if (lastItem?.type === 'start') {
+				type = 'В работе';
+			} else if (lastItem?.type === 'comment') {
+				type = `Примечание от ${lastItem?.user.split(' ')[0]}`;
+			} else if (lastItem?.type === 'finish') {
+				type = 'Завершил работу';
+			} else if (lastItem?.type === 'changeTech') {
+				type = `Смена исполнителя`;
+			} else if (lastItem?.type === 'view') {
+				type = `Прочитана`;
+			}
 
-			 return type
-
-
-		 } else {
-
-		 	const lastItem = historyArr[historyArr.length-1];
-			 if (lastItem.type === 'call') {
-				 type = 'Созвонился'
-			 } else if (lastItem.type === 'start') {
-				 type = 'В работе'
-			 } else if (lastItem.type === 'comment') {
-				 type = `Примечание от ${lastItem.user.split(' ')[0]}`
-			 }  else if (lastItem.type === 'finish') {
-				 type = 'Завершил работу'
-			 } else if (lastItem.type === 'changeTech') {
-				 type = `Смена исполнителя`
-			 } else if (lastItem.type === 'view') {
-				 type = `Прочитана`
-			 }
-
-			 return type
-		 }
-	}
+			return type;
+		}
+	};
 
 	return (
 		<div className={`${styles.wrapper} `} onClick={() => navigate(`/tasks/${task.id}`)}>
@@ -82,9 +77,7 @@ export const TaskCard = ({ task }) => {
 			{task.status === 'Брак' && <div className={styles.brack_shtamp}>Брак</div>}
 
 			<div className={styles.task_data}>
-				<p className={styles.status}>
-					{getHistory()}
-				</p>
+				<p className={styles.status}>{getHistory()}</p>
 				<div className={styles.flex_div}>
 					<div>
 						{task.object_address && (
