@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import PopUpImage from './PopUpImage/PopUpImage';
+import PopUpImage from '../../../PopUpImage/PopUpImage';
 
 const ImageFile = ({ src }) => {
 	const [isOpen, setIsOpen] = useState(false);

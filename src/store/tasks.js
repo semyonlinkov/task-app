@@ -45,17 +45,17 @@ export const $taskStatus = combine(
 			}
 			if (toggle === 'takenTasks') {
 				if (dataFilter === 'Новая') {
-					return data.filter(task => task.status === 'Новая').filter(task => task.customerID !== user.ID);
+					return data.filter(task => task.status === 'Новая').filter(task => task.customerID !== user.ID && task.completed !== '1');
 				} else if (dataFilter === 'В работе') {
-					return data.filter(task => task.status === 'В работе').filter(task => task.customerID !== user.ID)
+					return data.filter(task => task.status === 'В работе').filter(task => task.customerID !== user.ID && task.completed !== '1')
 				} else if (dataFilter === 'Выполнено') {
-					return data.filter(task => task.status === 'Выполнено').filter(task => task.customerID !== user.ID)
+					return data.filter(task => task.status === 'Выполнено').filter(task => task.customerID !== user.ID && task.completed !== '1')
 				} else if (dataFilter === 'Брак') {
-					return data.filter(task => task.status === 'Брак').filter(task => task.customerID !== user.ID)
+					return data.filter(task => task.status === 'Брак').filter(task => task.customerID !== user.ID && task.completed !== '1')
 				} else if (dataFilter === 'Все') {
-					return data.filter(task => task.customerID !== user.ID)
+					return data.filter(task => task.customerID !== user.ID && task.completed !== '1')
 				} else {
-					return data.filter(task => task.customerID !== user.ID)
+					return data.filter(task => task.customerID !== user.ID && task.completed !== '1')
 				}
 			}
 		}
@@ -70,7 +70,7 @@ export const $customersStatus = combine(
 		} else {
 			if (toggle === 'takenTasks') {
 				let customers = [];
-				const newData = data.filter(task => task.creatorID == user.ID);
+				const newData = data.filter(task => task.creatorID == user.ID && task.completed !== '1');
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
 						customers.push(el.customer);

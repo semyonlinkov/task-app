@@ -16,7 +16,7 @@ const History = () => {
 		}
 	}, [task]);
 
-	console.log(task);
+	// console.log(task);
 
 	return (
 		<div className={styles.wrapper}>

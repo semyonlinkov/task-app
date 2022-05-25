@@ -11,11 +11,11 @@ const TaskDropdown = ({ name }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	useEffect(() => {
-		setFilteredTasks(tasks.filter((task) => task.customer === name && task.completed !== '1'));
+		setFilteredTasks(tasks.filter((task) => task.customer === name));
 	}, [name, tasks]);
 
 	const tasksHandler = () => {
-		setFilteredTasks(tasks.filter((task) => task.customer === name && task.completed !== '1'));
+		setFilteredTasks(tasks.filter((task) => task.customer === name));
 		setIsOpen((prev) => !prev);
 	};
 

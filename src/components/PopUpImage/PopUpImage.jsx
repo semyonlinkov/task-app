@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import QuickPinchZoom, { make3dTransformValue } from 'react-quick-pinch-zoom';
 import styles from './PopUpImage.module.scss';
-import Close from '../../../../../img/close128.png';
+import Close from '../../img/close128.png';
 
 const PopUpImage = ({ src, setIsOpen }) => {
 	const imgRef = useRef();
