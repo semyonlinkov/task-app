@@ -8,10 +8,8 @@ import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import CreateTaskPage from './components/CreateTaskPage/CreateTaskPage';
 import TaskCardsPage from './components/TaskCardsPage/TaskCardsPage';
 import TaskPage from './components/TaskPage/TaskPage';
-import { sendNotification } from "./services-api/sendNot";
 
 function App() {
-
 	useEffect(() => {
 		if (window.bx24) {
 			const bx24 = window.bx24;
@@ -21,9 +19,10 @@ function App() {
 				})
 			)
 		} else {
-			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
-			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
+			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 		}
+
 		getWorkers();
 	}, []);
 
@@ -36,7 +35,7 @@ function App() {
 				</div>
 				<div className='app-content'>
 					<Routes>
-						<Route path="/" element={<TaskCardsPage />} />
+						<Route path="*" element={<TaskCardsPage />} />
 						<Route path="/create_task" element={<CreateTaskPage />} />
 						<Route path="/tasks/:id" element={<TaskPage />} />
 						{/* <Route path="*" element={<h1>404</h1>} /> */}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './History.module.scss';
 
 import { $singleTask } from '../../../store/selectedTask';
-import HistoryItem from "./HistoryItem/HistoryItem";
+import HistoryItem from "./HistoryItem";
 
 const History = () => {
 	const task = useStore($singleTask);
