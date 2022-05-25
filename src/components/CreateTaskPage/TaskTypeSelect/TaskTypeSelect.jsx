@@ -27,11 +27,11 @@ const TypeTaskSelect = ({ setValue, workers, watch }) => {
 			if (department) {
 				setValue('department', department);
 				setValue('executor', `${workers[department][0].ID}:${workers[department][0].NAME}`);
-				setValue('coexecutor', `${workers[department][0].ID}:${workers[department][0].NAME}`);
+				// setValue('coexecutor', `${workers[department][0].ID}:${workers[department][0].NAME}`);
 			} else {
 				setValue('department', '');
 				setValue('executor', '');
-				setValue('coexecutor', '');
+				// setValue('coexecutor', '');
 			}
 		};
 

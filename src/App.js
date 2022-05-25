@@ -35,7 +35,7 @@ function App() {
 				</div>
 				<div className='app-content'>
 					<Routes>
-						<Route path="/" element={<TaskCardsPage />} />
+						<Route path="*" element={<TaskCardsPage />} />
 						<Route path="/create_task" element={<CreateTaskPage />} />
 						<Route path="/tasks/:id" element={<TaskPage />} />
 						{/* <Route path="*" element={<h1>404</h1>} /> */}

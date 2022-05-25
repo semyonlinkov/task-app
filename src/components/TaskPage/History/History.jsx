@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './History.module.scss';
 
 import { $singleTask } from '../../../store/selectedTask';
-import Point from './Point/Point';
-import Report from './Report/Report';
-import HistoryItem from "./HistoryItem";
+import HistoryItem from "./HistoryItem/HistoryItem";
 
 const History = () => {
 	const task = useStore($singleTask);
