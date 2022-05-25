@@ -23,7 +23,6 @@ export const createTask = (form, user, changeHisory, tel) => {
 			}
 		}
 	}
-
 	fetch(`${$linkServer}/createTask.php`, {
 		method: "POST",
 		body: formData
@@ -31,7 +30,7 @@ export const createTask = (form, user, changeHisory, tel) => {
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
-				sendNotification(form.customerID, '[URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]');
+				sendNotification(form.executor.split(':')[0], `Вам поставлена новая задача "${form.type}" от ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
 				alert('Задача создана!');
 				changeHisory();
 			}

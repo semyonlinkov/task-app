@@ -17,7 +17,6 @@ import { setHistory } from '../../../../services-api/setHistory';
 const MainData = () => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
-
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
@@ -41,7 +40,6 @@ const MainData = () => {
 		}
 	};
 
-	// console.log(task);
 
 	return (
 		<div className={styles.wrapper}>
