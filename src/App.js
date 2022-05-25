@@ -8,6 +8,7 @@ import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import CreateTaskPage from './components/CreateTaskPage/CreateTaskPage';
 import TaskCardsPage from './components/TaskCardsPage/TaskCardsPage';
 import TaskPage from './components/TaskPage/TaskPage';
+import {sendNotification} from "./services-api/sendNot";
 
 function App() {
 	useEffect(() => {
@@ -19,10 +20,9 @@ function App() {
 				})
 			)
 		} else {
-			setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
-			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
+			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 		}
-
 		getWorkers();
 	}, []);
 

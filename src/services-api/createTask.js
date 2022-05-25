@@ -1,4 +1,5 @@
 import { $linkServer } from "../$config";
+import {sendNotification} from "./sendNot";
 
 export const createTask = (form, user, changeHisory, tel) => {
 
@@ -30,6 +31,7 @@ export const createTask = (form, user, changeHisory, tel) => {
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
+				sendNotification(form.customerID, '[URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]');
 				alert('Задача создана!');
 				changeHisory();
 			}

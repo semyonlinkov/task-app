@@ -80,7 +80,7 @@ const History = () => {
 					} else if (el.type === 'view') {
 						type = `Прочитана`
 					}
-
+					console.log(el)
 						return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value}/>
 
 				})}
