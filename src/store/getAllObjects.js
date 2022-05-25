@@ -1,5 +1,4 @@
 import { createStore, createEffect, combine, createEvent } from 'effector';
-// import { setIsLoading } from './loadingState';
 
 export const getAllObjects = createEffect(async () => {
 	try {

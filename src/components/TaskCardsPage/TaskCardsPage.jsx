@@ -19,12 +19,12 @@ const TaskCardsPage = () => {
 
 	useEffect(() => {
 		if (user.ID === 0) {
-			setIsLoading(true);
+			// setIsLoading(true);
 		}
 
 		if (user.ID !== 0) {
 			getTasks(user.ID);
-			setIsLoading(false);
+			// setIsLoading(false);
 		}
 	}, [user, dataFilter]);
 
