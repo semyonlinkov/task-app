@@ -40,7 +40,6 @@ const MainData = () => {
 		}
 	};
 
-
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.status}>
@@ -124,14 +123,7 @@ const MainData = () => {
 				</button>
 			</div>
 
-			{showForm && (
-				<TaskRaportForm
-					close={() => setShowForm(false)}
-					id={task.id}
-					timeStart={task.timeStart}
-					status={task.status}
-				/>
-			)}
+			{showForm && <TaskRaportForm close={() => setShowForm(false)} task={task} user={user} />}
 		</div>
 	);
 };

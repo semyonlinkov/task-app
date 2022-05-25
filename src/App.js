@@ -21,8 +21,9 @@ function App() {
 				})
 			)
 		} else {
+			setUser({ ID: "3353", NAME: 'Семён', LAST_NAME: 'Линьков', SECOND_NAME: 'Эдуардович' });
 			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
-			setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 		}
 		getWorkers();
 	}, []);

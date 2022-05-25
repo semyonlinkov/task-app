@@ -36,7 +36,7 @@ export const TaskCard = ({ task }) => {
 			const lastlen = last.length - 1;
 			const lastItem = last[lastlen];
 
-			if (lastItem.type === 'call') {
+			if (lastItem?.type === 'call') {
 				type = 'Созвонился';
 			} else if (lastItem?.type === 'start') {
 				type = 'В работе';

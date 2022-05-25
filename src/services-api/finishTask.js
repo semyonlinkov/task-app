@@ -1,10 +1,11 @@
 import { $linkServer } from "../$config";
+import { sendNotification } from "./sendNot";
 
-export const finishTask = (form, id, timeStart, deffect, changeHistory) => {
+export const finishTask = (form, task, user, deffect, changeHistory) => {
 	let formData = new FormData();
 
-	formData.append('firstTime', timeStart)
-	formData.append('id', id)
+	formData.append('firstTime', task.timeStart)
+	formData.append('id', task.id)
 	formData.append('deffect', deffect)
 
 	for (let key in form) {
@@ -17,6 +18,10 @@ export const finishTask = (form, id, timeStart, deffect, changeHistory) => {
 		}
 	}
 
+	console.log(task);
+	console.log(user);
+
+
 	fetch(`${$linkServer}/finishTask.php`, {
 		method: "POST",
 		body: formData
@@ -24,11 +29,10 @@ export const finishTask = (form, id, timeStart, deffect, changeHistory) => {
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
-				console.log(res);
 
+				sendNotification(task.creatorID, `Ваша поставленная задача "${task.title}" была выполнена ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
 				alert('Отчёт отправлен!');
 				changeHistory();
-
 			}
 		})
 		.catch(err => console.log(err));
