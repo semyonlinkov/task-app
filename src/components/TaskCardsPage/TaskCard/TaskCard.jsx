@@ -30,31 +30,27 @@ export const TaskCard = ({ task }) => {
 		const historyArr = task.historyJSON && JSON.parse(task.historyJSON) ? JSON.parse(task.historyJSON) : [];
 		let type;
 
-		if (Array.isArray(historyArr[1])) {
+		if (Array.isArray(historyArr[0])) {
 			const len = historyArr.length - 1;
 			const last = historyArr[len];
-			if (last.length) {
-				const lastlen = last.length - 1;
-				const lastItem = last[lastlen];
-				if (lastItem.type === 'call') {
-					type = 'Созвонился';
-				} else if (lastItem?.type === 'start') {
-					type = 'В работе';
-				} else if (lastItem?.type === 'comment') {
-					type = `Примечание от ${lastItem?.user.split(' ')[0]}`;
-				} else if (lastItem?.type === 'finish') {
-					type = 'Завершил работу';
-				} else if (lastItem?.type === 'changeTech') {
-					type = `Смена исполнителя`;
-				} else if (lastItem?.type === 'view') {
-					type = `Прочитана`;
-				}
+			const lastlen = last.length - 1;
+			const lastItem = last[lastlen];
 
-				return type;
-			} else {
-				return 'Брак'
+			if (lastItem.type === 'call') {
+				type = 'Созвонился';
+			} else if (lastItem?.type === 'start') {
+				type = 'В работе';
+			} else if (lastItem?.type === 'comment') {
+				type = `Примечание от ${lastItem?.user.split(' ')[0]}`;
+			} else if (lastItem?.type === 'finish') {
+				type = 'Завершил работу';
+			} else if (lastItem?.type === 'changeTech') {
+				type = `Смена исполнителя`;
+			} else if (lastItem?.type === 'view') {
+				type = `Прочитана`;
 			}
 
+			return type;
 		} else {
 			const lastItem = historyArr[historyArr.length - 1];
 			if (lastItem?.type === 'call') {

@@ -3,9 +3,9 @@ import styles from './TaskRaportForm.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { finishTask } from '../../../services-api/finishTask';
 import ImhExit from '../../../img/closeRed64.png';
-import {setHistory} from "../../../services-api/setHistory";
+import { setHistory } from '../../../services-api/setHistory';
 
-const TaskRaport = ({ id, timeStart, close, status }) => {
+const TaskRaport = ({ task, user, close }) => {
 	const navigate = useNavigate();
 
 	const [form, setForm] = useState({
@@ -14,13 +14,13 @@ const TaskRaport = ({ id, timeStart, close, status }) => {
 	});
 
 	const handleSubmit = (form, taskType) => {
-		if (status === 'Брак') {
-			setHistory(id, 'start', '');
+		if (task.status === 'Брак') {
+			setHistory(task.id, 'start', '');
 		}
-		setHistory(id, 'finish', form.comment);
+		setHistory(task.id, 'finish', form.comment);
 
 		if (taskType === 'finish') {
-			finishTask(form, id, timeStart, status === 'Брак' ? true : false, () => navigate('/'));
+			finishTask(form, task, user, task.status === 'Брак' ? true : false, () => navigate('/'));
 		} else if (taskType === 'changeDepartment') {
 			// changeDepartment();
 		}

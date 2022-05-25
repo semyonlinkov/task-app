@@ -2,7 +2,7 @@ import { $linkServer } from "../$config";
 import { mutateTask } from "../store/selectedTask";
 import { sendNotification } from "./sendNot";
 
-export const deffectTask = (id) => {
+export const deffectTask = (task, user) => {
 	let deffectComment = window.prompt('Укажите причину брака');
 
 	if (!deffectComment) {
@@ -12,8 +12,11 @@ export const deffectTask = (id) => {
 
 	const formData = new FormData();
 
-	formData.append('id', id);
+	formData.append('id', task.id);
 	formData.append('comment', deffectComment);
+
+	console.log(task, 'task');
+	console.log(user, 'user');
 
 
 	if (deffectComment) {
@@ -24,7 +27,7 @@ export const deffectTask = (id) => {
 			.then(res => res.json())
 			.then(res => {
 				if (res) {
-					// sendNotification(res[0].customerID, `Ваша задача "${res.title}" была изменена  от ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
+					sendNotification(task.customerID, `Ваша задача "${task.title}" была добавленна в брак от ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
 					mutateTask({ historyJSON: JSON.stringify(res) })
 				} else {
 					alert('Произошла ошибка при отправке задачи в брак!');
