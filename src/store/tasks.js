@@ -66,10 +66,8 @@ export const $customersStatus = combine(
 	$tasks, getTasks.pending, $toggleValue, $user,
 	(data, isLoading, toggle, user) => {
 		if (isLoading) {
-			// setIsLoading(true);
 			return []
 		} else {
-			// setIsLoading(false);
 			if (toggle === 'takenTasks') {
 				let customers = [];
 				const newData = data.filter(task => task.creatorID == user.ID);

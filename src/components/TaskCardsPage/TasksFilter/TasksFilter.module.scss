@@ -1,6 +1,6 @@
 .wrapper {
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
 	height: 30px;
 	border-bottom: 1px solid #aaaaaa;
@@ -16,7 +16,7 @@
 		padding: 1px 3px;
 		overflow: hidden;
 		border-radius: 3px;
-		max-width: 20vw;
+		max-width: 25vw;
 	}
 
 	p {
