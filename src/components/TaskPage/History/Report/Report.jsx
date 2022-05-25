@@ -4,8 +4,9 @@ import styles from './Report.module.scss';
 import moment from 'moment';
 import { $linkServer } from '../../../../$config';
 import chevron from '../../../../img/chevronDown32.png';
+import ImageFile from '../../Files/ImageFile/ImageFile';
 
-const Report = ({ id, title, status, comment, date, filesArr }) => {
+const Report = ({ task, filesArr, date }) => {
 	const [imageFiles, setImageFiles] = useState([]);
 	const [videoFiles, setVideoFiles] = useState([]);
 	const [otherFiles, setOtherFiles] = useState([]);
@@ -32,15 +33,13 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 		}
 	}, [filesArr]);
 
-	// console.log('render');
-
 	return (
 		<div className={`${styles.wrapper} ${styles.report}`}>
 			<p className={styles.title}>Oтчёт по выполненной задаче</p>
-			<p className={styles.task_name}>Задача: {title}</p>
-			<p className={styles.status}>Статус: {status}</p>
+			<p className={styles.task_name}>Задача: {task.title}</p>
+			<p className={styles.status}>Статус: {task.status}</p>
 			<p className={styles.status}>Отчет:</p>
-			{comment && <p className={styles.comment}>{comment}</p>}
+			{task.report_comment && <p className={styles.comment}>{task.report_comment}</p>}
 			<p className={styles.date}>{moment(date).format('DD.MM.YYYY')}</p>
 			{filesArr && (
 				<div className={styles.show_files_btn} onClick={() => setShowFiles((prev) => !prev)}>
@@ -52,16 +51,14 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 				<>
 					<div className={styles.images_wrapper}>
 						{imageFiles &&
-							imageFiles.map((file) => (
-								<img key={file} src={`${$linkServer}/raportFiles/${id}/${file}`} alt={file} />
-							))}
+							imageFiles.map((file) => <ImageFile src={`${$linkServer}/raportFiles/${task.id}/${file}`} />)}
 					</div>
 
 					<div className={styles.videos_wrapper}>
 						{videoFiles &&
 							videoFiles.map((file) => (
 								<video key={file} controls muted className={styles.video}>
-									<source src={`${$linkServer}/raportFiles/${id}/${file}`} type="video/mp4" />
+									<source src={`${$linkServer}/raportFiles/${task}/${file}`} type="video/mp4" />
 								</video>
 							))}
 					</div>
@@ -73,7 +70,7 @@ const Report = ({ id, title, status, comment, date, filesArr }) => {
 									key={file}
 									target="_blank"
 									rel="noreferrer"
-									download={`${$linkServer}/raportFiles/${id}/${file}`}
+									download={`${$linkServer}/raportFiles/${task}/${file}`}
 									href={file}>
 									{file}
 								</a>
