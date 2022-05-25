@@ -19,7 +19,7 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, get
 						if (e.target.value) {
 							setValue('department', e.target.value);
 							setValue('executor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
-							setValue('coexecutor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
+							// setValue('coexecutor', `${workers[e.target.value][0].ID}:${workers[e.target.value][0].NAME}`);
 						} else {
 							setValue('department', '');
 							setValue('executor', '');

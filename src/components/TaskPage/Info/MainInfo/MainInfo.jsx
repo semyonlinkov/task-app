@@ -10,9 +10,9 @@ import { useStore } from 'effector-react';
 import { $user } from '../../../../store/user';
 import { setReaded } from '../../../../services-api/setReaded';
 import { startTask } from '../../../../services-api/startTask';
-import {$singleTask, mutateTask} from '../../../../store/selectedTask';
+import { $singleTask, mutateTask } from '../../../../store/selectedTask';
 import TaskRaportForm from '../../TaskRaportForm/TaskRaportForm';
-import {setHistory} from "../../../../services-api/setHistory";
+import { setHistory } from '../../../../services-api/setHistory';
 
 const MainData = () => {
 	const task = useStore($singleTask);
@@ -21,13 +21,12 @@ const MainData = () => {
 	const [showForm, setShowForm] = useState(false);
 
 	useEffect(() => {
-
 		if (task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
-
-			setHistory(task.id, 'view', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, (a) => mutateTask({readed: a}));
+			setHistory(task.id, 'view', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, (a) =>
+				mutateTask({ readed: a }),
+			);
 			setReaded(task.id);
 		}
-
 	}, []);
 
 	const putStatusMark = () => {
@@ -96,10 +95,12 @@ const MainData = () => {
 			)}
 			<div className={styles.flex_box}>
 				{user.ID === task.customerID && task.status === 'Новая' ? (
-					<button className={`${styles.start_btn} ${styles.btn}`} onClick={() => {
-						setHistory(task.id, 'start', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
-						startTask(task.id)
-					}}>
+					<button
+						className={`${styles.start_btn} ${styles.btn}`}
+						onClick={() => {
+							setHistory(task.id, 'start', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
+							startTask(task.id);
+						}}>
 						Взять в работу
 					</button>
 				) : null}
@@ -113,13 +114,14 @@ const MainData = () => {
 						Изменить отчёт
 					</button>
 				) : null}
-				<button className={`${styles.orange_block} ${styles.btn}`} onClick={() => {
-
-					const answer = prompt('Введите примечание');
-					setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () => alert('Примечание добавлено успешно'));
-
-
-				}}>
+				<button
+					className={`${styles.orange_block} ${styles.btn}`}
+					onClick={() => {
+						const answer = prompt('Введите примечание');
+						setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () =>
+							alert('Примечание добавлено успешно'),
+						);
+					}}>
 					Добавить примечание
 				</button>
 			</div>

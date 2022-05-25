@@ -13,8 +13,8 @@
 		display: flex;
 		font-size: 0.9rem;
 		align-items: center;
-		margin: 4px 3px 5px 3px;
-		padding: 2px 4px;
+		// margin: 4px 3px 5px 3px;
+		padding: 1px 4px;
 		overflow: hidden;
 	}
 
@@ -29,7 +29,11 @@
 		width: 16px;
 		height: 16px;
 		border-radius: 1000px;
-		margin-right: 5px;
+		margin-right: 3px;
+	}
+
+	.all {
+		background-color: var(--task-all);
 	}
 
 	.new {

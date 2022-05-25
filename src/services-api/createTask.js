@@ -2,7 +2,7 @@ import { $linkServer } from "../$config";
 
 export const createTask = (form, user, changeHisory, tel) => {
 
-	if (form.executor.split(':')[0] === user.ID || form.coexecutor.split(':')[0] === user.ID) {
+	if (form?.executor.split(':')[0] === user.ID || form.coexecutor?.split(':')[0] === user.ID) {
 		alert('Нельзя поставить задачу самому себе!');
 		return;
 	}
