@@ -1,6 +1,6 @@
 .wrapper {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	align-items: center;
 	height: 30px;
 	border-bottom: 1px solid #aaaaaa;
@@ -16,6 +16,7 @@
 		padding: 1px 3px;
 		overflow: hidden;
 		border-radius: 3px;
+		max-width: 20vw;
 	}
 
 	p {
@@ -26,7 +27,7 @@
 	}
 
 	.task_mark {
-		width: 16px;
+		min-width: 16px;
 		height: 16px;
 		border-radius: 1000px;
 		margin-right: 3px;
