@@ -26,8 +26,6 @@ function App() {
 		getWorkers();
 	}, []);
 
-	console.log(window.location.href);
-
 	return (
 		<div className="app">
 			<BrowserRouter >
