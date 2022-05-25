@@ -3,7 +3,7 @@ import styles from "./MyTasksItem.module.scss";
 import Moment from "react-moment";
 
 const HistoryItem = ({title,  withLine, active = [], failed, activeText = []}) => {
-
+    console.log(activeText)
     return (
         <div className={`${styles.processItem} ${active.length || activeText.length ? styles.activeProcess : null} ${failed ? styles.failedProcess : null}`}>
             {withLine ? <div className={styles.line}></div> : null}

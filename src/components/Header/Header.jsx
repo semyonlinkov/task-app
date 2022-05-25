@@ -18,19 +18,19 @@ const Header = () => {
 			<input
 				className={styles.task_img}
 				type="image"
-				src={pathname === '/' ? AddImg : CloseImg}
-				onClick={() => (pathname === '/' ? navigate('/create_task') : navigate('/'))}
+				src={pathname === '/' || pathname.indexOf('index.html') !== -1 ? AddImg : CloseImg}
+				onClick={() => (pathname === '/' || pathname.indexOf('index.html') !== -1 ? navigate('/create_task') : navigate('/'))}
 			/>
 			{pathname === '/create_task' && <p className={styles.title_weight}>Создать задачу</p>}
 			{pathname.includes('tasks') && <p className={styles.title_weight}>Задача: {task?.title}</p>}
-			{pathname === '/' && (
+			{pathname === '/' || pathname.indexOf('index.html') !== -1 ? (
 				<div className={styles.toggle_switch}>
 					<ToggleSwitch />
 					<p className={styles.title_weight}>
 						{toggleValue === 'gettedTasks' ? 'Задачи поставленные мне' : 'Задачи поставленные мной'}
 					</p>
 				</div>
-			)}
+			) : null}
 		</div>
 	);
 };
