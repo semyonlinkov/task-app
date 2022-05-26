@@ -26,10 +26,10 @@ const TaskCardsPage = () => {
 		<div className={styles.wrapper}>
 			{toggleValue === 'takenTasks' && <TasksFilter />}
 			{!tasks?.length && toggleValue === 'gettedTasks' && (
-				<p className={styles.not_tasks}>У вас нет поставленных задач</p>
+				<p className={styles.not_tasks}>Нет поставленных вам задач</p>
 			)}
 			{!customers?.length && toggleValue === 'takenTasks' && (
-				<p className={styles.not_tasks}>Вы еще не поставили задачу</p>
+				<p className={styles.not_tasks}>Нет поставленных вами задач</p>
 			)}
 			{toggleValue === 'gettedTasks'
 				? tasks.map((task) => <TaskCard task={task} key={task.id} />)

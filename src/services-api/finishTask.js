@@ -18,8 +18,8 @@ export const finishTask = (form, task, user, deffect, changeHistory) => {
 		}
 	}
 
-	console.log(task);
-	console.log(user);
+	// console.log(task);
+	// console.log(user);
 
 
 	fetch(`${$linkServer}/finishTask.php`, {

@@ -9,7 +9,7 @@ const TasksFilter = () => {
 	return (
 		<ul className={styles.wrapper}>
 			<li className={dataFilter === 'Все' ? styles.choosen : null} onClick={() => setDataFilter('Все')}>
-				<p>Все</p>
+				<p style={{ fontWeight: 500 }}>Все</p>
 			</li>
 			<li className={dataFilter === 'Новая' ? styles.choosen : null} onClick={() => setDataFilter('Новая')}>
 				<div className={`${styles.task_mark} ${styles.new}`}></div>

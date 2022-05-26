@@ -63,14 +63,14 @@ export const $taskStatus = combine(
 )
 
 export const $customersStatus = combine(
-	$tasks, getTasks.pending, $toggleValue, $user,
-	(data, isLoading, toggle, user) => {
+	$tasks, getTasks.pending, $toggleValue, $user, $dataFilter,
+	(data, isLoading, toggle, user, filter) => {
 		if (isLoading) {
 			return []
 		} else {
 			if (toggle === 'takenTasks') {
 				let customers = [];
-				const newData = data.filter(task => task.creatorID == user.ID && task.completed !== '1');
+				const newData = data.filter(task => task.creatorID == user.ID && task.completed !== '1' && (task.status === filter || filter === 'Все'));
 				newData.forEach(el => {
 					if (customers.indexOf(el.customer) === -1) {
 						customers.push(el.customer);
