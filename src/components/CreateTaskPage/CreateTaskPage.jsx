@@ -18,15 +18,15 @@ import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
 
 const CreateTaskPage = () => {
 	const typeTaskValues = [
-		'Другое', //! Не изменять захаркодено!
-		'Позвонить', //! Не изменять захаркодено!
-		'Сделать договор', //! Не изменять захаркодено!
-		'Сделать MyAlarm',
-		'Клиент запрашивает стоимость услуг',
-		'Приостановить/Возобновить договор на охрану',
-		'Расторжение договора',
-		'Клиент запрашивает стоимость физ охраны',
-		'Клиент запрашивает возможность сопровождения',
+		{ taskType: 'Другое', departments: ['Все'] }, //! Не изменять захаркодено!
+		{ taskType: 'Позвонить', departments: ['Все'] }, //! Не изменять захаркодено!
+		{ taskType: 'Сделать MyAlarm', departments: ['Инженерный'] },
+		{ taskType: 'Сделать договор', departments: ['Маркетинг'] },
+		{ taskType: 'Клиент запрашивает стоимость услуг', departments: ['Маркетинг'] },
+		{ taskType: 'Приостановить/Возобновить договор на охрану', departments: ['Маркетинг'] },
+		{ taskType: 'Расторжение договора', departments: ['Маркетинг'] },
+		{ taskType: 'Клиент запрашивает стоимость физ охраны', departments: ['Физ охрана'] },
+		{ taskType: 'Клиент запрашивает возможность сопровождения', departments: ['Физ охрана'] },
 	];
 
 	const navigate = useNavigate();
@@ -70,7 +70,7 @@ const CreateTaskPage = () => {
 	// console.log(customers);
 	// console.log(phone);
 	// console.log(watch());
-	// console.log(getValues());
+	console.log(getValues());
 	// console.log('render');
 
 	return (
@@ -78,7 +78,13 @@ const CreateTaskPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 				<label>
 					<p>Вид заявки</p>
-					<TypeTaskSelect setValue={setValue} workers={workers} watch={watch} values={typeTaskValues} />
+					<TypeTaskSelect
+						setValue={setValue}
+						workers={workers}
+						watch={watch}
+						values={typeTaskValues}
+						getValues={getValues}
+					/>
 				</label>
 				<label>
 					<p>Название объекта</p>

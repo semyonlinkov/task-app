@@ -32,8 +32,7 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, get
 								(department) =>
 									getValues().department === department ||
 									getValues().type === 'Другое' ||
-									getValues().type === 'Позвонить' ||
-									getValues().type === 'Сделать договор',
+									getValues().type === 'Позвонить',
 							)
 							.map((department) => (
 								<option key={department} value={department}>
