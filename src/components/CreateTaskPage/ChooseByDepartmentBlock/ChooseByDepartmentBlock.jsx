@@ -23,15 +23,23 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, get
 						} else {
 							setValue('department', '');
 							setValue('executor', '');
-							setValue('coexecutor', '');
+							// setValue('coexecutor', '');
 						}
 					}}>
 					{workers !== 'loading' &&
-						Object.keys(workers).map((department) => (
-							<option key={department} value={department}>
-								{department}
-							</option>
-						))}
+						Object.keys(workers)
+							.filter(
+								(department) =>
+									getValues().department === department ||
+									getValues().type === 'Другое' ||
+									getValues().type === 'Позвонить' ||
+									getValues().type === 'Сделать договор',
+							)
+							.map((department) => (
+								<option key={department} value={department}>
+									{department}
+								</option>
+							))}
 				</select>
 			</label>
 			<label>

@@ -17,6 +17,18 @@ import ObjectNameSelect from './ObjectNameSelect/ObjectNameSelect';
 import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
 
 const CreateTaskPage = () => {
+	const typeTaskValues = [
+		'Другое', //! Не изменять захаркодено!
+		'Позвонить', //! Не изменять захаркодено!
+		'Сделать договор', //! Не изменять захаркодено!
+		'Сделать MyAlarm',
+		'Клиент запрашивает стоимость услуг',
+		'Приостановить/Возобновить договор на охрану',
+		'Расторжение договора',
+		'Клиент запрашивает стоимость физ охраны',
+		'Клиент запрашивает возможность сопровождения',
+	];
+
 	const navigate = useNavigate();
 	const { register, handleSubmit, watch, setValue, getValues } = useForm();
 	const [phone, setPhone] = useState('');
@@ -66,7 +78,7 @@ const CreateTaskPage = () => {
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.wrapper}>
 				<label>
 					<p>Вид заявки</p>
-					<TypeTaskSelect setValue={setValue} workers={workers} watch={watch} />
+					<TypeTaskSelect setValue={setValue} workers={workers} watch={watch} values={typeTaskValues} />
 				</label>
 				<label>
 					<p>Название объекта</p>
@@ -127,7 +139,7 @@ const CreateTaskPage = () => {
 					<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
 				</label>
 				<label className={styles.checkbox}>
-					<input type="checkbox" {...register('banChangeExecuter')} />
+					<input type="checkbox" {...register('banChangeExecutor')} />
 					<p>Запретить передавать задачу</p>
 				</label>
 				<label>

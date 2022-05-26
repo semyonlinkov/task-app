@@ -1,23 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const TypeTaskSelect = ({ setValue, workers, watch }) => {
-	const values = [
-		'Другое',
-		'Позвонить',
-		'Сделать договор',
-		'Сделать MyAlarm',
-
-		'Установить сторожок',
-
-		'Клиент запрашивает стоимость услуг',
-		'Приостановить/Возобновить договор на охрану',
-		'Расторжение договора',
-		'Клиент запрашивает стоимость физ охраны',
-		'Клиент запрашивает возможность сопровождения',
-	];
-
-	const [selectedValue, setSelectedValue] = useState('');
+const TypeTaskSelect = ({ setValue, workers, watch, values }) => {
+	const [selectedValue, setSelectedValue] = useState('Другое');
 
 	const handleChange = (e) => {
 		setSelectedValue(e.value);
@@ -72,6 +57,10 @@ const TypeTaskSelect = ({ setValue, workers, watch }) => {
 	useEffect(() => {
 		watch(); //! без watch не меняется value и не происходит ререндер
 	}, [selectedValue]);
+
+	useEffect(() => {
+		setValue('type', values[0]);
+	}, []);
 
 	return (
 		<Select
