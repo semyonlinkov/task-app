@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import styles from './TaskCard.module.scss';
+import ImgExclMark from '../../../img/exclMarkYellow16.png';
 
 export const TaskCard = ({ task }) => {
 	const navigate = useNavigate();
@@ -54,9 +55,8 @@ export const TaskCard = ({ task }) => {
 
 				return type;
 			} else {
-				return 'Брак'
+				return 'Брак';
 			}
-
 		} else {
 			const lastItem = historyArr[historyArr.length - 1];
 			if (lastItem?.type === 'call') {
@@ -76,6 +76,8 @@ export const TaskCard = ({ task }) => {
 			return type;
 		}
 	};
+
+	console.log(task.files !== '');
 
 	return (
 		<div className={`${styles.wrapper} `} onClick={() => navigate(`/tasks/${task.id}`)}>
@@ -109,6 +111,13 @@ export const TaskCard = ({ task }) => {
 					<p className={styles.desc}>
 						<span>Описание:</span> {task.desc}
 					</p>
+				)}
+
+				{task.files !== '' && (
+					<div className={styles.has_files}>
+						<img src={ImgExclMark} alt="exclamation-mark" />
+						<p>Есть прикрепленные файлы</p>
+					</div>
 				)}
 
 				{task.deffect_comment && (

@@ -74,6 +74,18 @@
 		text-align: right;
 		font-weight: 500;
 	}
+
+	.has_files {
+		display: flex;
+		flex-direction: row;
+		img {
+			width: 16px;
+			height: 16px;
+		}
+		p {
+			font-weight: 500;
+		}
+	}
 }
 
 .brack_shtamp {

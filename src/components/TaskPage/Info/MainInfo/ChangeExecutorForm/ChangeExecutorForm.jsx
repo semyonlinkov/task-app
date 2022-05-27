@@ -14,8 +14,16 @@ const ChangeExecutorForm = ({ close, task, user }) => {
 	const handleSubmit = (form) => {
 		if (form.id === 0) {
 			alert('Выберите нового исполнителя!');
+		} else if (task.customerID === user.ID) {
+			alert('Нельзя сменить исполнителя на себя!');
 		}
-		changeCustomer(form);
+
+		// else if (task.customerID === user.ID) {
+		// 	alert('Нельзя сменить исполнителя на себя!');
+		// }
+		else {
+			changeCustomer(form);
+		}
 	};
 
 	useEffect(() => {
