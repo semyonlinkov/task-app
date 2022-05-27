@@ -11,13 +11,16 @@ import { $user } from '../../../../store/user';
 import { setReaded } from '../../../../services-api/setReaded';
 import { startTask } from '../../../../services-api/startTask';
 import { $singleTask, mutateTask } from '../../../../store/selectedTask';
-import TaskRaportForm from '../../TaskRaportForm/TaskRaportForm';
+import TaskRaportForm from './TaskRaportForm/TaskRaportForm';
 import { setHistory } from '../../../../services-api/setHistory';
+import ChangeExecutorForm from './ChangeExecutorForm/ChangeExecutorForm';
 
 const MainData = () => {
 	const task = useStore($singleTask);
 	const user = useStore($user);
-	const [showForm, setShowForm] = useState(false);
+
+	const [showRaportForm, setShowRaportForm] = useState(false);
+	const [showChangeExecutorForm, setShowChangeExecutorForm] = useState(false);
 
 	useEffect(() => {
 		if (task.readed === '0000-00-00 00:00:00' && user.ID === task.customerID) {
@@ -46,23 +49,28 @@ const MainData = () => {
 				<div className={`${styles.circleStatus} ${putStatusMark()}`}></div>
 				<p>Задача {task.status}</p>
 			</div>
+
 			<p className={styles.title}>{task.title}</p>
+
 			{task.object_name && (
 				<p>
 					<span>Название объекта:</span> {task.object_name}
 				</p>
 			)}
+
 			{task.object_address && (
 				<p>
 					<span>Адрес объекта:</span> {task.object_address}
 				</p>
 			)}
+
 			{task.date_deadline !== '0000-00-00 00:00:00' && (
 				<p>
 					<span>Срок выполнения</span> до{' '}
 					<span style={{ fontWeight: 500 }}>{moment(task.date_deadline).format('DD.MM HH:mm')}</span>
 				</p>
 			)}
+
 			<p>
 				<span>Постановщик:</span> {task.creatorName}
 			</p>
@@ -90,7 +98,8 @@ const MainData = () => {
 					<p>{task.deffect_comment}</p>
 				</div>
 			)}
-			<div className={styles.flex_box}>
+
+			<div className={styles.btns_group}>
 				{user.ID === task.customerID && task.status === 'Новая' ? (
 					<button
 						className={`${styles.start_btn} ${styles.btn}`}
@@ -102,17 +111,17 @@ const MainData = () => {
 					</button>
 				) : null}
 				{user.ID === task.customerID && task.status === 'В работе' ? (
-					<button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
+					<button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowRaportForm(true)}>
 						Завершить работу
 					</button>
 				) : null}
 				{user.ID === task.customerID && task.status === 'Брак' ? (
-					<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowForm(true)}>
+					<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowRaportForm(true)}>
 						Изменить отчёт
 					</button>
 				) : null}
 				<button
-					className={`${styles.orange_block} ${styles.btn}`}
+					className={`${styles.add_note_btn} ${styles.btn}`}
 					onClick={() => {
 						const answer = prompt('Введите примечание');
 						setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () =>
@@ -121,9 +130,21 @@ const MainData = () => {
 					}}>
 					Добавить примечание
 				</button>
+				{true && (
+					<button
+						className={`${styles.change_executer_btn} ${styles.btn}`}
+						onClick={() => {
+							setShowChangeExecutorForm(true);
+						}}>
+						Сменить исполнителя
+					</button>
+				)}
 			</div>
 
-			{showForm && <TaskRaportForm close={() => setShowForm(false)} task={task} user={user} />}
+			{showRaportForm && <TaskRaportForm close={() => setShowRaportForm(false)} task={task} user={user} />}
+			{showChangeExecutorForm && (
+				<ChangeExecutorForm close={() => setShowChangeExecutorForm(false)} task={task} user={user} />
+			)}
 		</div>
 	);
 };

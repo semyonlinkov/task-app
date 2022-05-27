@@ -18,29 +18,29 @@ const TaskPageFooter = () => {
 	const task = useStore($singleTask);
 
 	return (
-		<ul className={styles.wrapper}>
-			{task.customerID !== user.ID && (
+		task.customerID !== user.ID && (
+			<ul className={styles.wrapper}>
 				<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
 					<img src={ImgDelete} alt="trash" />
 				</li>
-			)}
-			{task.status !== 'Брак' && task.creatorID === user.ID && (
-				<>
-					<li onClick={() => deffectTask(task, user)}>
-						<img src={ImgArrow} alt="defect" />
-					</li>
-					{task.status === 'Выполнено' && (
-						<li>
-							<img
-								src={ImgCheck}
-								alt="get_job"
-								onClick={() => setFinishTask(task.id, () => navigate('/'), setSingleTask)}
-							/>
+				{task.status !== 'Брак' && task.creatorID === user.ID && (
+					<>
+						<li onClick={() => deffectTask(task, user)}>
+							<img src={ImgArrow} alt="defect" />
 						</li>
-					)}
-				</>
-			)}
-		</ul>
+						{task.status === 'Выполнено' && (
+							<li>
+								<img
+									src={ImgCheck}
+									alt="get_job"
+									onClick={() => setFinishTask(task.id, () => navigate('/'), setSingleTask)}
+								/>
+							</li>
+						)}
+					</>
+				)}
+			</ul>
+		)
 	);
 };
 

@@ -70,7 +70,7 @@ const CreateTaskPage = () => {
 	// console.log(customers);
 	// console.log(phone);
 	// console.log(watch());
-	console.log(getValues());
+	// console.log(getValues());
 	// console.log('render');
 
 	return (

@@ -1,5 +1,5 @@
 .wrapper {
-	padding: 10px 20px;
+	padding: 10px 15px;
 
 	p {
 		padding: 5px 0;
@@ -54,6 +54,13 @@
 		background: var(--task-defect);
 	}
 
+	.btns_group {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 5px;
+	}
+
 	.start_btn {
 		background: #ff0000;
 	}
@@ -64,6 +71,14 @@
 
 	.defect_btn {
 		background: #ff0000;
+	}
+
+	.add_note_btn {
+		background: #0041d2;
+	}
+
+	.change_executer_btn {
+		background: rgb(74, 140, 201);
 	}
 
 	.btn {
@@ -98,16 +113,4 @@
 		border-top: 1px solid #db1919;
 		border-bottom: 1px solid #db1919;
 	}
-
-	.orange_block {
-		background: #0041d2;
-	}
-}
-
-
-.flex_box {
-	display: flex;
-	align-items: flex-start;
-	align-content: flex-start;
-	justify-content: space-between;
 }

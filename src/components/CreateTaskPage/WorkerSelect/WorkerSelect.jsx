@@ -46,6 +46,7 @@ const WorkerSelect = ({ setValue, allWorkers, title, setSearchBy }) => {
 							onClick={() => {
 								setValue('executor', `${person.ID}:${person.NAME}`);
 								setValue('coexecutor', '');
+								setValue('department', person.DEPARTAMENT);
 								setSearchedWorker(person.NAME);
 								setSearchedWorkers([]);
 							}}>

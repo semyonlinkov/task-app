@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './TaskRaportForm.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { finishTask } from '../../../services-api/finishTask';
-import ImhExit from '../../../img/closeRed64.png';
-import { setHistory } from '../../../services-api/setHistory';
+import { finishTask } from '../../../../../services-api/finishTask';
+import { setHistory } from '../../../../../services-api/setHistory';
+import ImhExit from '../../../../../img/closeRed64.png';
 
 const TaskRaport = ({ task, user, close }) => {
 	const navigate = useNavigate();
@@ -33,16 +33,18 @@ const TaskRaport = ({ task, user, close }) => {
 				<img src={ImhExit} alt="" onClick={close} />
 			</header>
 			<div className={styles.form_wrapper}>
-				<label>
-					<p>Комментарий</p>
-					<textarea
-						type="text"
-						className={styles.input_text}
-						value={form.comment}
-						onChange={(e) => setForm((prevState) => ({ ...prevState, comment: e.target.value }))}
-					/>
-				</label>
-				<div className={styles.right_block}>
+				<div className={styles.input_form}>
+					<label>
+						<p>Комментарий</p>
+						<textarea
+							type="text"
+							className={styles.input_text}
+							value={form.comment}
+							onChange={(e) => setForm((prevState) => ({ ...prevState, comment: e.target.value }))}
+						/>
+					</label>
+				</div>
+				<div className={styles.btns_block}>
 					<label className={styles.btn_file}>
 						<input
 							type="file"

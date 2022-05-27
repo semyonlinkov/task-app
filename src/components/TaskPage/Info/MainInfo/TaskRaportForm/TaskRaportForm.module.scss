@@ -9,17 +9,28 @@
 
 	header {
 		display: flex;
-		padding: 10px 20px;
+		padding: 5px 10px;
 		justify-content: space-between;
-		border-bottom: 1px solid black;
+		align-items: center;
+		border-bottom: 1px solid #aaaaaa;
+
+		p {
+			font-weight: 500;
+		}
+
 		img {
-			width: 30px;
-			height: 30px;
+			width: 40px;
+			height: 40px;
 		}
 	}
 
 	.form_wrapper {
 		padding: 5px 7px;
+
+		.input_form {
+			margin-bottom: 5px;
+		}
+
 		.input_text {
 			width: 100%;
 			height: 50px;
@@ -29,20 +40,21 @@
 			padding: 5px 10px;
 			outline: none;
 		}
+
 		label {
+			font-size: 14px;
 			p {
 				padding-bottom: 0;
 				font-weight: 500;
 			}
-			font-size: 14px;
 		}
+
 		.btn {
 			padding: 10px 20px;
 			text-align: center;
 			border: none;
 			outline: none;
 			margin-bottom: 10px;
-			margin-top: 10px;
 			border-radius: 4px;
 			font-weight: 500;
 			font-size: 15px;
@@ -62,7 +74,7 @@
 			display: none;
 		}
 
-		.right_block {
+		.btns_block {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-end;
