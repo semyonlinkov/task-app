@@ -130,13 +130,15 @@ const MainData = () => {
 					}}>
 					Добавить примечание
 				</button>
-				{/* <button
-					className={`${styles.change_executer_btn} ${styles.btn}`}
-					onClick={() => {
-						setShowChangeExecutorForm(true);
-					}}>
-					Сменить исполнителя
-				</button> */}
+				{/* {user.ID === task.customerID ? (
+					<button
+						className={`${styles.change_executer_btn} ${styles.btn}`}
+						onClick={() => {
+							setShowChangeExecutorForm(true);
+						}}>
+						Сменить исполнителя
+					</button>
+				) : null} */}
 			</div>
 
 			{showRaportForm && <TaskRaportForm close={() => setShowRaportForm(false)} task={task} user={user} />}

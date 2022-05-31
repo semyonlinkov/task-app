@@ -1,9 +1,14 @@
+/**
+ * @id - id задачи
+ * @type - 'comment', 'change',
+ * @value - для коммента
+ * @user - имя
+ */
 export const setHistory = (id, type, value, user, func = () => { }) => {
 	let formData = new FormData();
 
-
-	formData.append('id', id);
-	formData.append('type', type);
+	formData.append('id', id); //* id задвчи
+	formData.append('type', type); //* комментарий
 	formData.append('value', value);
 	formData.append('user', user);
 

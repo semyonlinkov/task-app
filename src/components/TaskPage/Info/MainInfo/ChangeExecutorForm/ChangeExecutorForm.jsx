@@ -5,8 +5,9 @@ import { $workerStatus } from '../../../../../store/workers';
 import { useStore } from 'effector-react';
 import { setIsLoading } from '../../../../../store/loadingState';
 import { changeCustomer } from '../../../../../services-api/changeCustomer';
+import { setHistory } from '../../../../../services-api/setHistory';
 
-const ChangeExecutorForm = ({ close, task, user }) => {
+const ChangeExecutorForm = ({ task, user, close }) => {
 	const workers = useStore($workerStatus);
 
 	const [form, setForm] = useState({ id: 0, so_customer: '' });
@@ -14,7 +15,7 @@ const ChangeExecutorForm = ({ close, task, user }) => {
 	const handleSubmit = (form) => {
 		if (form.id === 0) {
 			alert('Выберите нового исполнителя!');
-		} else if (task.customerID === user.ID) {
+		} else if (task.creatorID === user.ID) {
 			alert('Нельзя сменить исполнителя на себя!');
 		}
 
@@ -22,7 +23,14 @@ const ChangeExecutorForm = ({ close, task, user }) => {
 		// 	alert('Нельзя сменить исполнителя на себя!');
 		// }
 		else {
-			changeCustomer(form);
+			changeCustomer(form, close);
+			setHistory(
+				task.id,
+				'change',
+				`Задача переданна к: ${form.so_customer.split(':')[1]}`,
+				`${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`,
+				() => alert('Задача передана другому исполнителю!'),
+			);
 		}
 	};
 

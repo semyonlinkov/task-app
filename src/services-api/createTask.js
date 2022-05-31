@@ -2,7 +2,7 @@ import { $linkServer } from "../$config";
 import { sendNotification } from "./sendNot";
 
 export const createTask = (form, user, changeHisory, tel) => {
-	if (!form.fullname) {
+	if (!form.executor) {
 		alert('Нужно обязательно указать исполнителя')
 		return
 	}

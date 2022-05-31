@@ -77,8 +77,6 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
-	console.log(task.files !== '');
-
 	return (
 		<div className={`${styles.wrapper} `} onClick={() => navigate(`/tasks/${task.id}`)}>
 			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
