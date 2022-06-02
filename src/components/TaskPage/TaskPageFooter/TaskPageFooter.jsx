@@ -18,7 +18,8 @@ const TaskPageFooter = () => {
 	const task = useStore($singleTask);
 
 	return (
-		task.customerID !== user.ID && (
+		task.customerID !== user.ID &&
+		task.so_customerID !== user.ID && (
 			<ul className={styles.wrapper}>
 				<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
 					<img src={ImgDelete} alt="trash" />

@@ -84,6 +84,7 @@ export const TaskCard = ({ task }) => {
 
 			<div className={styles.task_data}>
 				<p className={styles.status}>{getHistory()}</p>
+
 				<div className={styles.flex_div}>
 					<div>
 						{task.object_address && (
@@ -128,6 +129,15 @@ export const TaskCard = ({ task }) => {
 					<p>
 						<span>Постановщик: </span>
 						{getNormalName(task.creatorName)}
+					</p>
+				)}
+
+				{task.so_customer && (
+					<p>
+						<span style={{ fontWeight: 500, color: '#c95368' }}>Задача передана от: </span>
+						{getNormalName(task.customer)}
+						<span style={{ fontWeight: 500, color: '#c95368' }}> к </span>
+						{getNormalName(task.so_customer)}
 					</p>
 				)}
 

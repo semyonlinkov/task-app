@@ -16,10 +16,9 @@ export const changeCustomer = (form, close) => {
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
-				console.log(res);
+				// console.log(res);
 
-				// sendNotification(res[0].customerID, `Ваша задача "${res[0].title}" была изменена от ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
-				// setIsMainInfo();
+				sendNotification(res[0].so_customerID, `Вам передана задача "${res[0].title}" от ${res[0].customer} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
 				setSingleTask(res[0]);
 				close();
 			}

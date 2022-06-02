@@ -36,12 +36,14 @@ export const $taskStatus = combine(
 		if (isLoading) {
 			return []
 		} else {
+			console.log(data);
+
 			if (toggle === 'gettedTasks') {
 				const defectFirstData = [
 					...[...data].filter(task => task.status === 'Брак'),
 					...[...data].filter(task => task.status !== 'Брак')
 				];
-				return defectFirstData.filter(task => task.customerID == user.ID && task.status !== 'Выполнено');
+				return defectFirstData.filter(task => (task.customerID === user.ID || task.so_customerID === user.ID) && task.status !== 'Выполнено');
 			}
 			if (toggle === 'takenTasks') {
 				if (dataFilter === 'Новая') {

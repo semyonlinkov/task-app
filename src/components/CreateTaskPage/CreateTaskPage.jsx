@@ -72,6 +72,7 @@ const CreateTaskPage = () => {
 	// console.log(watch());
 	// console.log(getValues());
 	// console.log('render');
+	// console.log(workers);
 
 	return (
 		<>
@@ -141,7 +142,7 @@ const CreateTaskPage = () => {
 					/>
 				)}
 				<label>
-					<p>Выбрать дату</p>
+					<p>Выбрать срок исполнения</p>
 					<input className="datepicker" type="datetime-local" {...register('dateDeadline')} />
 				</label>
 				<label className={styles.checkbox}>

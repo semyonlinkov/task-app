@@ -100,7 +100,7 @@ const MainData = () => {
 			)}
 
 			<div className={styles.btns_group}>
-				{user.ID === task.customerID && task.status === 'Новая' ? (
+				{(user.ID === task.customerID || task.so_customerID === user.ID) && task.status === 'Новая' ? (
 					<button
 						className={`${styles.start_btn} ${styles.btn}`}
 						onClick={() => {
@@ -110,12 +110,12 @@ const MainData = () => {
 						Взять в работу
 					</button>
 				) : null}
-				{user.ID === task.customerID && task.status === 'В работе' ? (
+				{(user.ID === task.customerID || task.so_customerID === user.ID) && task.status === 'В работе' ? (
 					<button className={`${styles.finish_btn} ${styles.btn}`} onClick={() => setShowRaportForm(true)}>
 						Завершить работу
 					</button>
 				) : null}
-				{user.ID === task.customerID && task.status === 'Брак' ? (
+				{(user.ID === task.customerID || task.so_customerID === user.ID) && task.status === 'Брак' ? (
 					<button className={`${styles.defect_btn} ${styles.btn}`} onClick={() => setShowRaportForm(true)}>
 						Изменить отчёт
 					</button>
@@ -130,7 +130,7 @@ const MainData = () => {
 					}}>
 					Добавить примечание
 				</button>
-				{/* {user.ID === task.customerID ? (
+				{user.ID === task.customerID ? (
 					<button
 						className={`${styles.change_executer_btn} ${styles.btn}`}
 						onClick={() => {
@@ -138,7 +138,7 @@ const MainData = () => {
 						}}>
 						Сменить исполнителя
 					</button>
-				) : null} */}
+				) : null}
 			</div>
 
 			{showRaportForm && <TaskRaportForm close={() => setShowRaportForm(false)} task={task} user={user} />}
