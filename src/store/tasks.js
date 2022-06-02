@@ -36,7 +36,7 @@ export const $taskStatus = combine(
 		if (isLoading) {
 			return []
 		} else {
-			console.log(data);
+			// console.log(data);
 
 			if (toggle === 'gettedTasks') {
 				const defectFirstData = [

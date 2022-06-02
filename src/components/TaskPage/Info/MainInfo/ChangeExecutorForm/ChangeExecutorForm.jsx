@@ -45,20 +45,20 @@ const ChangeExecutorForm = ({ task, user, close }) => {
 		}
 	}, [workers]);
 
-	console.log(task);
+	// console.log(task);
 	// console.log(user);
-	console.log(form);
+	// console.log(form);
 	// console.log(workers);
 
 	return (
 		<div className={styles.wrapper}>
 			<header>
-				<p>Сменить исполнителя</p>
+				<p>Добавить исполнителя</p>
 				<img src={ImhExit} alt="" onClick={close} />
 			</header>
 			<div className={styles.form_wrapper}>
 				<label>
-					<p>Выбрать нового исполнителя</p>
+					<p>Добавить исполнителя из своего отдела</p>
 					<select
 						onChange={(e) =>
 							setForm((prev) => ({
@@ -81,7 +81,7 @@ const ChangeExecutorForm = ({ task, user, close }) => {
 			</div>
 			<div className={styles.btns_block}>
 				<button className={`${styles.btn} ${styles.sub_btn}`} onClick={() => handleSubmit(form)}>
-					Сменить исполнителя
+					Добвить исполнителя
 				</button>
 			</div>
 		</div>

@@ -136,7 +136,7 @@ const MainData = () => {
 						onClick={() => {
 							setShowChangeExecutorForm(true);
 						}}>
-						Сменить исполнителя
+						Добавить исполнителя
 					</button>
 				) : null}
 			</div>
