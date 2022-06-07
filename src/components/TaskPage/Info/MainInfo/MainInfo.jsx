@@ -14,6 +14,7 @@ import { $singleTask, mutateTask } from '../../../../store/selectedTask';
 import TaskRaportForm from './TaskRaportForm/TaskRaportForm';
 import { setHistory } from '../../../../services-api/setHistory';
 import ChangeExecutorForm from './ChangeExecutorForm/ChangeExecutorForm';
+import { sendNotification } from '../../../../services-api/sendNot';
 
 const MainData = () => {
 	const task = useStore($singleTask);
@@ -75,17 +76,21 @@ const MainData = () => {
 				<span>Постановщик:</span> {task.creatorName}
 			</p>
 
-			<div className={styles.info_blocks}>
-				<img src={ImgUser} alt="" />
-				<p>Имя клиента: {task.clinet_name}</p>
-			</div>
+			{task.clinet_name && (
+				<div className={styles.info_blocks}>
+					<img src={ImgUser} alt="" />
+					<p>Имя клиента: {task.clinet_name}</p>
+				</div>
+			)}
 
-			<div className={styles.info_blocks}>
-				<img src={Phone} alt="" />
-				<p>
-					<a href={`tel:${task.client_phone}`}>{task.client_phone}</a>
-				</p>
-			</div>
+			{task.client_phone && (
+				<div className={styles.info_blocks}>
+					<img src={Phone} alt="" />
+					<p>
+						<a href={`tel:${task.client_phone}`}>{task.client_phone}</a>
+					</p>
+				</div>
+			)}
 
 			<div className={styles.info_blocks}>
 				<img src={Info} alt="" />
@@ -124,9 +129,11 @@ const MainData = () => {
 					className={`${styles.add_note_btn} ${styles.btn}`}
 					onClick={() => {
 						const answer = prompt('Введите примечание');
-						setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () =>
-							alert('Примечание добавлено успешно'),
-						);
+						if (answer) {
+							setHistory(task.id, 'comment', answer, `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`, () =>
+								alert('Примечание добавлено успешно'),
+							);
+						}
 					}}>
 					Добавить примечание
 				</button>

@@ -1,12 +1,15 @@
 import { createStore, createEffect, combine, createEvent } from 'effector';
-import { setIsLoading } from './loadingState';
 
-export const getCustomerByPhone = createEffect(async (phone) => {
+export const getCustomerByPhone = createEffect(async ({ phone, setShowObjectsPopUp, setIsLoading }) => {
 	try {
 		const url = `getCustByPhone.php/?phone=${phone}`;
 		const base = 'https://volga24bot.com/andromeda';
 		const req = await fetch(`${base}/${url}`);
-		return req.json();
+		const json = await req.json();
+
+		if (json.OBJ.length) setShowObjectsPopUp(true);
+
+		return json;
 	} catch (err) {
 		console.log(err);
 	} finally {

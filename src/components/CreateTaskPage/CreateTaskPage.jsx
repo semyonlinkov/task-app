@@ -45,6 +45,7 @@ const CreateTaskPage = () => {
 
 	const [allWorkers, setAllWorkers] = useState([]);
 	const [searchBy, setSearchBy] = useState('none'); //* department/name/none
+	const [whosePhoneName, setWhosePhoneName] = useState('Телефон хоз-органа');
 
 	const [showObjectsPopUp, setShowObjectsPopUp] = useState(false);
 
@@ -98,7 +99,7 @@ const CreateTaskPage = () => {
 					{/* <input type="text" {...register('objectAdress')} /> */}
 				</label>
 				<label>
-					<p>Телефон клиента</p>
+					<p>{whosePhoneName}</p>
 					<input
 						onChange={(e) => {
 							let phoneNumber = e.target.value;
@@ -111,8 +112,7 @@ const CreateTaskPage = () => {
 									setPhone(formatPhone);
 									if (eleven.length === 11) {
 										setIsLoading(true);
-										getCustomerByPhone(eleven);
-										setShowObjectsPopUp(true);
+										getCustomerByPhone({ phone: eleven, setShowObjectsPopUp, setIsLoading });
 									}
 								}
 							}
@@ -171,6 +171,7 @@ const CreateTaskPage = () => {
 					customers={customers}
 					setShowObjectsPopUp={() => setShowObjectsPopUp(false)}
 					setValue={setValue}
+					setWhosePhoneName={() => setWhosePhoneName('Телефон клиента')}
 				/>
 			)}
 		</>

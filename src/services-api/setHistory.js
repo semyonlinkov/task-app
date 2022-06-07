@@ -4,7 +4,7 @@
  * @value - для коммента
  * @user - имя
  */
-export const setHistory = (id, type, value, user, func = () => { }) => {
+export const setHistory = (id, type, value, user, alert) => {
 	let formData = new FormData();
 
 	formData.append('id', id); //* id задвчи
@@ -19,7 +19,7 @@ export const setHistory = (id, type, value, user, func = () => { }) => {
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
-				func(res)
+				alert();
 			}
 		})
 }

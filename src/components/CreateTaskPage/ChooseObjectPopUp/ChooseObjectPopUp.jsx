@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './ChooseObjectPopUp.module.scss';
 import ImgClose from '../../../img/closeRed64.png';
 
-const ChooseObjectPopUp = ({ customers, setShowObjectsPopUp, setValue }) => {
+const ChooseObjectPopUp = ({ customers, setValue, setShowObjectsPopUp, setWhosePhoneName }) => {
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.title}>
@@ -10,10 +10,10 @@ const ChooseObjectPopUp = ({ customers, setShowObjectsPopUp, setValue }) => {
 				<img onClick={setShowObjectsPopUp} src={ImgClose} alt="back" />
 			</div>
 			<ol className={styles.list_wrapper}>
-				<li className={styles.address_wrapper} onClick={setShowObjectsPopUp}>
+				{/* <li className={styles.address_wrapper} onClick={setShowObjectsPopUp}>
 					<p className={styles.number}>1</p>
 					<p className={styles.address}>Без объекта</p>
-				</li>
+				</li> */}
 				{customers.OBJ?.map((obj, i) => (
 					<li
 						className={styles.address_wrapper}
@@ -25,9 +25,10 @@ const ChooseObjectPopUp = ({ customers, setShowObjectsPopUp, setValue }) => {
 							setValue('objectName', obj.Name);
 							setValue('fullname', customers.CUST.find((cust) => obj.ObjectID === cust.ObjectID).ObjCustName);
 							setValue('objectNumber', number.toString(16));
+							setWhosePhoneName();
 							setShowObjectsPopUp();
 						}}>
-						<p className={styles.number}>{i + 2}</p>
+						<p className={styles.number}>{i + 1}</p>
 						<p className={styles.address}>{obj.Address}</p>
 					</li>
 				))}
