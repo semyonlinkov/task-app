@@ -11,12 +11,16 @@ const History = () => {
 	const [history2, setHistory2] = useState([]);
 
 	useEffect(() => {
-		if (task.historyJSON && JSON.parse(task.historyJSON)) {
-			setHistory2(JSON.parse(task.historyJSON));
+		if (
+			task.historyJSON &&
+			JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f'))
+		) {
+			setHistory2(JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f')));
 		}
 	}, [task]);
 
 	// console.log(task);
+	console.log(history2);
 
 	return (
 		<div className={styles.wrapper}>
@@ -46,6 +50,8 @@ const History = () => {
 											type = `Смена исполнителя`;
 										} else if (el.type === 'view') {
 											type = `Прочитана`;
+										} else if (el.type === 'chat') {
+											type = `Новое сообщение в чате`;
 										}
 
 										if (el.type !== 'deffect') {
@@ -81,11 +87,11 @@ const History = () => {
 					</>
 				) : (
 					<>
-						{history2.filter((el) => el.type === 'view').length === 0 && (
+						{history2?.filter((el) => el.type === 'view').length === 0 && (
 							<HistoryItem title={'Прочитана'} withLine={true} active={[]} />
 						)}
-						{history2.length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]} />}
-						{history2.map((el) => {
+						{history2?.length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]} />}
+						{history2?.map((el) => {
 							let type = '';
 
 							if (el.type === 'call') {
@@ -100,15 +106,17 @@ const History = () => {
 								type = `Смена исполнителя`;
 							} else if (el.type === 'view') {
 								type = `Прочитана`;
+							} else if (el.type === 'chat') {
+								type = `Новое сообщение в чате`;
 							}
 							// console.log(el);
 							return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value} />;
 						})}
 
-						{history2.filter((el) => el.type === 'start').length === 0 && (
+						{history2?.filter((el) => el.type === 'start').length === 0 && (
 							<HistoryItem title={'В работе'} withLine={true} active={[]} />
 						)}
-						{history2.filter((el) => el.type === 'finish').length === 0 && (
+						{history2?.filter((el) => el.type === 'finish').length === 0 && (
 							<HistoryItem title={'Завершил работу'} withLine={true} active={[]} />
 						)}
 					</>

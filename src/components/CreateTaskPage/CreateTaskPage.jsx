@@ -15,11 +15,13 @@ import TypeTaskSelect from './TaskTypeSelect/TaskTypeSelect';
 import { getAllObjects } from '../../store/getAllObjects';
 import ObjectNameSelect from './ObjectNameSelect/ObjectNameSelect';
 import ObjectAddressSelect from './ObjectAddressSelect/ObjectAddressSelect';
+import { createTechTask } from '../../services-api/createTechTask';
 
 const CreateTaskPage = () => {
 	const typeTaskValues = [
 		{ taskType: 'Другое', departments: ['Все'] }, //! Не изменять захаркодено!
 		{ taskType: 'Позвонить', departments: ['Все'] }, //! Не изменять захаркодено!
+		// { taskType: 'Замена ключей', departments: ['Технический'] },
 		{ taskType: 'Сделать MyAlarm', departments: ['Инженерный'] },
 		{ taskType: 'Сделать договор', departments: ['Маркетинг'] },
 		{ taskType: 'Клиент запрашивает стоимость услуг', departments: ['Маркетинг'] },
@@ -38,7 +40,11 @@ const CreateTaskPage = () => {
 	const customers = useStore($customers);
 
 	const onSubmit = (data) => {
-		createTask(data, user, () => navigate('/'), phone);
+		if (getValues().department === 'Технический') {
+			createTechTask(data, user, () => navigate('/'), phone);
+		} else {
+			createTask(data, user, () => navigate('/'), phone);
+		}
 	};
 
 	const files = getValues('files');
@@ -74,6 +80,7 @@ const CreateTaskPage = () => {
 	// console.log(getValues());
 	// console.log('render');
 	// console.log(workers);
+	console.log(user);
 
 	return (
 		<>
@@ -84,7 +91,7 @@ const CreateTaskPage = () => {
 						setValue={setValue}
 						workers={workers}
 						watch={watch}
-						values={typeTaskValues}
+						typeTaskValues={typeTaskValues}
 						getValues={getValues}
 					/>
 				</label>
@@ -126,6 +133,7 @@ const CreateTaskPage = () => {
 
 				{searchBy !== 'name' && (
 					<ChooseByDepartmentBlock
+						typeTaskValues={typeTaskValues}
 						register={register}
 						setValue={setValue}
 						getValues={getValues}

@@ -26,6 +26,8 @@ const TaskRaport = ({ task, user, close }) => {
 		}
 	};
 
+	// console.log(task);
+
 	return (
 		<div className={styles.wrapper}>
 			<header>
@@ -33,6 +35,11 @@ const TaskRaport = ({ task, user, close }) => {
 				<img src={ImhExit} alt="" onClick={close} />
 			</header>
 			<div className={styles.form_wrapper}>
+				<div className={styles.task_info}>
+					<p>Задача: {task.title}</p>
+					<p>Описание: {task.desc}</p>
+					<p>Постановщик: {task.customer}</p>
+				</div>
 				<div className={styles.input_form}>
 					<label>
 						<p>Комментарий</p>

@@ -1,0 +1,52 @@
+.wrapper {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 30px;
+	border-bottom: 1px solid #aaaaaa;
+
+	.choosen {
+		background-color: #d6d6d6;
+	}
+
+	li {
+		display: flex;
+		font-size: 0.9rem;
+		align-items: center;
+		padding: 1px 3px;
+		overflow: hidden;
+		border-radius: 3px;
+		max-width: 45vw;
+	}
+
+	p {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-top: 1px;
+		font-weight: 500;
+	}
+
+	.task_mark {
+		min-width: 16px;
+		height: 16px;
+		border-radius: 1000px;
+		margin-right: 3px;
+	}
+
+	.new {
+		background-color: var(--task-new);
+	}
+
+	.in_progress {
+		background-color: var(--task-in-progress);
+	}
+
+	.done {
+		background-color: var(--task-done);
+	}
+
+	.defect {
+		background-color: var(--task-defect);
+	}
+}

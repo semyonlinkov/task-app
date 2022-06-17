@@ -33,6 +33,7 @@ export const $dataFilter = createStore('Все').on(
 export const $taskStatus = combine(
 	$tasks, getTasks.pending, $toggleValue, $user, $dataFilter,
 	(data, isLoading, toggle, user, dataFilter) => {
+
 		if (isLoading) {
 			return []
 		} else {

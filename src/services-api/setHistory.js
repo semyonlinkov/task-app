@@ -3,12 +3,13 @@
  * @type - 'comment', 'change',
  * @value - для коммента
  * @user - имя
+ * @alert - функция алерта если нужно
  */
-export const setHistory = (id, type, value, user, alert) => {
+export const setHistory = (id, type, value, user, alert = () => { }) => {
 	let formData = new FormData();
 
 	formData.append('id', id); //* id задвчи
-	formData.append('type', type); //* комментарий
+	formData.append('type', type);
 	formData.append('value', value);
 	formData.append('user', user);
 

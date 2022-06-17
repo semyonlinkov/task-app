@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-const TypeTaskSelect = ({ setValue, workers, watch, values, getValues }) => {
+const TypeTaskSelect = ({ setValue, workers, watch, typeTaskValues, getValues }) => {
 	const [selectedValue, setSelectedValue] = useState('Другое');
 
 	const handleChange = (e) => {
@@ -9,10 +9,10 @@ const TypeTaskSelect = ({ setValue, workers, watch, values, getValues }) => {
 		setValue('type', e.value);
 
 		// console.log(
-		// 	values.filter((task) => task.departments.includes(getValues().department) || task.departments[0] === 'Все'),
+		// 	typeTaskValues.filter((task) => task.departments.includes(getValues().department) || task.departments[0] === 'Все'),
 		// );
 
-		values
+		typeTaskValues
 			.filter(
 				(task) =>
 					task.departments.includes(getValues().department) ||
@@ -81,12 +81,12 @@ const TypeTaskSelect = ({ setValue, workers, watch, values, getValues }) => {
 	}, [selectedValue]);
 
 	useEffect(() => {
-		setValue('type', values[0].taskType);
+		setValue('type', typeTaskValues[0].taskType);
 	}, []);
 
 	return (
 		<Select
-			options={values
+			options={typeTaskValues
 				.filter(
 					(task) =>
 						task.departments.includes(getValues().department) ||
@@ -94,7 +94,7 @@ const TypeTaskSelect = ({ setValue, workers, watch, values, getValues }) => {
 						getValues().department === '',
 				)
 				.map((task) => ({ value: task.taskType, label: task.taskType }))}
-			value={values
+			value={typeTaskValues
 				.filter(
 					(task) =>
 						task.departments.includes(getValues().department) ||

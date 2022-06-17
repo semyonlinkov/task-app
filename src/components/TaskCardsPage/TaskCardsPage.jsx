@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TaskCard } from './TaskCard/TaskCard';
 
 import styles from './TaskCardsPage.module.scss';
@@ -8,6 +8,7 @@ import { $toggleValue } from '../../store/taskToggleState';
 import { useStore } from 'effector-react';
 import TaskDropdown from './TasksDropdown/TaskDropdown';
 import TasksFilter from './TasksFilter/TasksFilter';
+import GettedTasksFilter from './GettedTasksFilter/GettedTasksFilter';
 
 const TaskCardsPage = () => {
 	const user = useStore($user);
@@ -15,6 +16,7 @@ const TaskCardsPage = () => {
 	const customers = useStore($customersStatus);
 	const toggleValue = useStore($toggleValue);
 	const dataFilter = useStore($dataFilter);
+	const [gettedTasksType, setGettedTasksType] = useState('personal'); //* personal/common
 
 	useEffect(() => {
 		if (user.ID !== 0) {
@@ -24,16 +26,37 @@ const TaskCardsPage = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			{toggleValue === 'takenTasks' && <TasksFilter />}
-			{!tasks?.length && toggleValue === 'gettedTasks' && (
-				<p className={styles.not_tasks}>Нет поставленных вам задач</p>
-			)}
-			{!customers?.length && toggleValue === 'takenTasks' && (
-				<p className={styles.not_tasks}>Нет поставленных вами задач</p>
-			)}
-			{toggleValue === 'gettedTasks'
-				? tasks.map((task) => <TaskCard task={task} key={task.id} />)
-				: customers.map((name) => <TaskDropdown name={name} key={name} />)}
+			<div className={styles.filters_block}>
+				{toggleValue === 'takenTasks' && <TasksFilter />}
+
+				{toggleValue === 'gettedTasks' && (
+					<GettedTasksFilter setGettedTasksType={setGettedTasksType} gettedTasksType={gettedTasksType} />
+				)}
+			</div>
+
+			<div className={styles.tasks_block}>
+				{!tasks?.length && toggleValue === 'gettedTasks' && gettedTasksType === 'personal' && (
+					<p className={styles.not_tasks}>Нет поставленных вам задач</p>
+				)}
+
+				{/* {!tasks?.length && toggleValue === 'gettedTasks' && gettedTasksType === 'common' && (
+					<p className={styles.not_tasks}>Нет поставленных вашему отделу задач</p>
+				)} */}
+
+				{!customers?.length && toggleValue === 'takenTasks' && (
+					<p className={styles.not_tasks}>Нет поставленных вами задач</p>
+				)}
+
+				{toggleValue === 'gettedTasks' && gettedTasksType === 'personal'
+					? tasks.map((task) => <TaskCard task={task} key={task.id} />)
+					: null}
+
+				{toggleValue === 'gettedTasks' && gettedTasksType === 'common' ? (
+					<h1 style={{ textAlign: 'center', paddingTop: '20px' }}>ЗДЕСЬ БУДУТ ЗАДАЧИ ДЛЯ ВСЕГО ОТДЕЛА</h1>
+				) : null}
+
+				{toggleValue === 'takenTasks' ? customers.map((name) => <TaskDropdown name={name} key={name} />) : null}
+			</div>
 		</div>
 	);
 };

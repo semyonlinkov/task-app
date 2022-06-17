@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, getValues }) => {
+const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, getValues, typeTaskValues }) => {
 	useEffect(() => {
 		if (getValues().department) {
 			setSearchBy('department');
@@ -35,7 +35,10 @@ const ChooseByDepartmentBlock = ({ register, setValue, workers, setSearchBy, get
 									getValues().type === 'Позвонить',
 							)
 							.map((department) => (
-								<option key={department} value={department}>
+								<option
+									disabled={department === 'Технический' ? true : false}
+									key={department}
+									value={department}>
 									{department}
 								</option>
 							))}

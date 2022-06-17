@@ -1,7 +1,6 @@
-import { $linkServer } from "../$config";
-import { sendNotification } from "./sendNot";
+import { createTask } from "./createTask";
 
-export const createTask = (form, user, changeHisory, tel, id = 0, sub_dep = '') => {
+export const createTechTask = (form, user, changeHisory, tel) => {
 	if (!form.executor) {
 		alert('Нужно обязательно указать исполнителя')
 		return
@@ -14,11 +13,16 @@ export const createTask = (form, user, changeHisory, tel, id = 0, sub_dep = '') 
 
 	let formData = new FormData();
 
-	formData.append('creatorID', user.ID);
-	formData.append('clientPhoneNumber', tel);
+
+	formData.append('customer', form.executor.split(':')[1]);
+	formData.append('problem', form.comment);
+	formData.append('creator', user.ID);
 	formData.append('creatorName', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
-	formData.append('sub_dep', sub_dep);
-	formData.append('sub_task', id);
+	formData.append('datePlane', form.dateDeadline);
+	formData.append('typeTask', 'Заявка'); //* в зависимости от типа задачи
+	formData.append('clientFio', form.fullname);
+	formData.append('clientPhone', tel);
+
 
 	for (let key in form) {
 		if (key !== 'files') {
@@ -30,16 +34,20 @@ export const createTask = (form, user, changeHisory, tel, id = 0, sub_dep = '') 
 		}
 	}
 
-	fetch(`${$linkServer}/createTask.php`, {
+	fetch(`https://volga24bot.com/kartoteka/api/tech/createTechTask.php`, {
 		method: "POST",
 		body: formData
 	})
 		.then(res => res.json())
 		.then(res => {
 			if (res) {
-				sendNotification(form.executor.split(':')[0], `Вам поставлена новая задача "${form.type}" от ${user.LAST_NAME} [URL=https://volga-shield.bitrix24.ru/marketplace/app/181/]Ссылка[/URL]`);
-				alert('Задача создана!');
-				changeHisory();
+				let sub_dep = '';
+
+				if (form.type === 'Замена ключей') {
+					sub_dep = 'Бухгалтерия,Склад';
+				}
+
+				createTask(form, user, changeHisory, tel, res, sub_dep);
 			}
 		})
 		.catch(err => console.log(err));

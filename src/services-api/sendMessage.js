@@ -1,4 +1,5 @@
 import { $linkServer } from "../$config";
+import { setHistory } from "./setHistory";
 
 export function sendMessage(senderID, senderName, commentText, taskID, getAllMessages) {
 
@@ -17,6 +18,7 @@ export function sendMessage(senderID, senderName, commentText, taskID, getAllMes
 		.then(res => {
 			// console.log(res);
 			getAllMessages();
+			setHistory(taskID, 'chat', commentText, senderName);
 		})
 		.catch(err => console.log(err))
 }

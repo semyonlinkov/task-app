@@ -9,6 +9,12 @@
 		padding: 2px;
 	}
 
+	.title {
+		display: flex;
+		margin-top: 3px;
+		font-weight: 500;
+	}
+
 	.indication_mark {
 		height: 16px;
 		min-width: 16px;
@@ -107,7 +113,6 @@
 }
 
 .status {
-	margin-top: 3px;
 	color: blue;
 	font-weight: 500;
 }

@@ -27,9 +27,17 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
+	// console.log(task.historyJSON);
+
 	const getHistory = () => {
-		const historyArr = task.historyJSON && JSON.parse(task.historyJSON) ? JSON.parse(task.historyJSON) : [];
+		const historyArr =
+			task.historyJSON &&
+			JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f'))
+				? JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f'))
+				: [];
 		let type;
+
+		console.log(historyArr);
 
 		if (Array.isArray(historyArr[0])) {
 			const len = historyArr.length - 1;
@@ -51,6 +59,8 @@ export const TaskCard = ({ task }) => {
 					type = `Смена исполнителя`;
 				} else if (lastItem?.type === 'view') {
 					type = `Прочитана`;
+				} else if (lastItem?.type === 'chat') {
+					type = 'Новое сообщение в чате';
 				}
 
 				return type;
@@ -71,6 +81,8 @@ export const TaskCard = ({ task }) => {
 				type = `Смена исполнителя`;
 			} else if (lastItem?.type === 'view') {
 				type = `Прочитана`;
+			} else if (lastItem?.type === 'chat') {
+				type = 'Новое сообщение в чате';
 			}
 
 			return type;
@@ -83,7 +95,10 @@ export const TaskCard = ({ task }) => {
 			{task.status === 'Брак' && <div className={styles.brack_shtamp}>Брак</div>}
 
 			<div className={styles.task_data}>
-				<p className={styles.status}>{getHistory()}</p>
+				<div className={styles.title}>
+					<p className={styles.status}>{getHistory()}</p>
+					{task?.title && <p>{task.title}</p>}
+				</div>
 
 				<div className={styles.flex_div}>
 					<div>

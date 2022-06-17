@@ -44,6 +44,8 @@ const MainData = () => {
 		}
 	};
 
+	// console.log(task);
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.status}>

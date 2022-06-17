@@ -27,6 +27,7 @@ const TaskPage = () => {
 		return () => setTaskPageNav('info');
 	}, [id, tasks]);
 
+
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.header}>

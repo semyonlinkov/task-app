@@ -15,15 +15,36 @@ function App() {
 			const bx24 = window.bx24;
 			bx24.init(
 				window.bx24.callMethod('user.current', {}, function (res) {
-					setUser(res.data());
+					let department = [];
+
+					res.data().UF_DEPARTMENT.forEach(dep => {
+						if (dep === 1) department.push('Руководители');
+						else if (dep === 3) department.push('Бухгалтерия');
+						else if (dep === 15) department.push('Инженерный');
+						else if (dep === 47) department.push('ГБР');
+						else if (dep === 29) department.push('Дежурная часть');
+						else if (dep === 33) department.push('Кадровый');
+						else if (dep === 15) department.push('Маркетинг');
+						else if (dep === 21) department.push('Учебный центр');
+						else if (dep === 23) department.push('Физ охрана');
+						else if (dep === 35) department.push('Юридический');
+						else if (dep === 13) department.push('Склад');
+						else if (dep === 5) department.push('Технический');
+					});
+
+					setUser({ ...res.data(), DEPARTMENT: department });
 				})
 			)
 		} else {
-			// setUser({ ID: "3353", NAME: 'Семён', LAST_NAME: 'Линьков', SECOND_NAME: 'Эдуардович' });
-			// setUser({ ID: "3503", NAME: 'Наим', LAST_NAME: 'Шабутдинов', SECOND_NAME: '' });
-			setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
+			setUser({ ID: "3353", NAME: 'Семён', LAST_NAME: 'Линьков', SECOND_NAME: 'Эдуардович', DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
+			// setUser({ ID: "3503", NAME: 'Наим', LAST_NAME: 'Шабутдинов', SECOND_NAME: '', , DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
+			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович', , DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
 			// setUser({ ID: "257", NAME: 'Мухамедов', LAST_NAME: 'Даниял', SECOND_NAME: 'Даниялович' });
 			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
+			// setUser({ ID: "87", NAME: 'Кисилев', LAST_NAME: 'Кирилл', SECOND_NAME: 'Владимирович' });
+			// setUser({ ID: "59", NAME: 'Ратиева', LAST_NAME: 'Евгения', SECOND_NAME: 'Васильевна' });
+			// setUser({ ID: "319", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
+			// setUser({ ID: "61", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович' });
 		}
 
 		getWorkers();
