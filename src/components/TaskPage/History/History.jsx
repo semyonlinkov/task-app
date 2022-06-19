@@ -1,126 +1,74 @@
 import { useStore } from 'effector-react';
-import React, { useEffect, useState } from 'react';
 import styles from './History.module.scss';
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
 
 import { $singleTask } from '../../../store/selectedTask';
-import HistoryItem from './HistoryItem';
 import Report from './Report/Report';
+import moment from 'moment';
 
 const History = () => {
 	const task = useStore($singleTask);
-	const [history2, setHistory2] = useState([]);
 
-	useEffect(() => {
-		if (
-			task.historyJSON &&
-			JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f'))
-		) {
-			setHistory2(JSON.parse(task.historyJSON.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\f/g, '\\f')));
-		}
-	}, [task]);
-
-	// console.log(task);
-	console.log(history2);
+	console.log(task);
+	console.log(JSON.parse(task.historyJSON).flat());
+	// console.log(JSON.parse(task.historyJSON));
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.path}>
-				<HistoryItem title={'Поставлена'} active={[0, task.date_create]} />
-				{Array.isArray(history2[0]) ? (
-					<>
-						{history2.map((el2) => {
-							return (
-								<div className={styles.deffect_block}>
-									{el2.filter((el) => el.type === 'view').length === 0 && (
-										<HistoryItem title={'Прочитана'} withLine={true} active={[]} />
-									)}
-
-									{el2.map((el) => {
-										let type = '';
-
-										if (el.type === 'call') {
-											type = 'Созвонился';
-										} else if (el.type === 'start') {
-											type = 'В работе';
-										} else if (el.type === 'comment') {
-											type = `Примечание от ${el.user.split(' ')[0]}`;
-										} else if (el.type === 'finish') {
-											type = 'Завершил работу';
-										} else if (el.type === 'changeTech') {
-											type = `Смена исполнителя`;
-										} else if (el.type === 'view') {
-											type = `Прочитана`;
-										} else if (el.type === 'chat') {
-											type = `Новое сообщение в чате`;
-										}
-
-										if (el.type !== 'deffect') {
-											return (
-												<HistoryItem
-													title={type}
-													withLine={true}
-													active={[0, el.date]}
-													activeText={el.value}
-												/>
-											);
-										}
-									})}
-
-									{el2.filter((el) => el.type === 'start').length === 0 && (
-										<HistoryItem title={'В работе'} withLine={true} active={[]} />
-									)}
-									{el2.filter((el) => el.type === 'finish').length === 0 && (
-										<HistoryItem title={'Завершил работу'} withLine={true} active={[]} />
-									)}
-									{el2.filter((el) => el.type === 'deffect').length === 1 && (
-										<HistoryItem
-											title={'Брак'}
-											withLine={true}
-											active={[0, el2.filter((el) => el.type === 'deffect')[0].date]}
-											activeText={el2.filter((el) => el.type === 'deffect')[0].value}
-											failed={true}
-										/>
-									)}
-								</div>
-							);
-						})}
-					</>
-				) : (
-					<>
-						{history2?.filter((el) => el.type === 'view').length === 0 && (
-							<HistoryItem title={'Прочитана'} withLine={true} active={[]} />
-						)}
-						{history2?.length === 0 && <HistoryItem title={'Созвонился'} withLine={true} active={[]} />}
-						{history2?.map((el) => {
-							let type = '';
-
-							if (el.type === 'call') {
-								type = 'Созвонился';
-							} else if (el.type === 'start') {
-								type = 'В работе';
-							} else if (el.type === 'comment') {
-								type = `Примечание от ${el.user.split(' ')[0]}`;
-							} else if (el.type === 'finish') {
-								type = 'Завершил работу';
-							} else if (el.type === 'changeTech') {
-								type = `Смена исполнителя`;
-							} else if (el.type === 'view') {
-								type = `Прочитана`;
-							} else if (el.type === 'chat') {
-								type = `Новое сообщение в чате`;
+				{JSON.parse(task.historyJSON)
+					.filter((arr) => Array.isArray(arr))
+					.flat()
+					.filter((el, i, arr) => !(el.type === 'view' && arr[i + 1].type === 'view')) //* Удаляем дубли view
+					.map(({ type, date, value }) => {
+						const setMarkColorAndTitle = () => {
+							if (type === 'deffect') {
+								return { title: 'Брак', color: 'Tomato' };
+							} else if (type === 'finish') {
+								return { title: 'Задача Завершена', color: 'LimeGreen' };
+							} else if (type === 'chat') {
+								return { title: 'Новое сообщение в чате', color: 'SkyBlue' };
+							} else if (type === 'start') {
+								return { title: 'Задача взята в работу', color: 'SkyBlue' };
+							} else if (type === 'view') {
+								return { title: 'Просмотрена', color: 'SkyBlue' };
+							} else {
+								return { title: null, color: 'SkyBlue' };
 							}
-							// console.log(el);
-							return <HistoryItem title={type} withLine={true} active={[0, el.date]} activeText={el.value} />;
-						})}
+						};
 
-						{history2?.filter((el) => el.type === 'start').length === 0 && (
-							<HistoryItem title={'В работе'} withLine={true} active={[]} />
-						)}
-						{history2?.filter((el) => el.type === 'finish').length === 0 && (
-							<HistoryItem title={'Завершил работу'} withLine={true} active={[]} />
-						)}
-					</>
-				)}
+						return (
+							<VerticalTimeline lineColor="#aaaaaa" className={styles.timeline_root} layout={'1-column-left'}>
+								<VerticalTimelineElement
+									className="vertical-timeline-element--work"
+									contentStyle={{
+										padding: '5px 15px 0 15px',
+										marginLeft: '50px',
+										background: '#e3e3e3',
+										color: 'black',
+									}}
+									dateClassName={styles.timeline_date}
+									contentArrowStyle={{ borderRight: '7px solid  #e3e3e3' }}
+									iconStyle={{
+										background: setMarkColorAndTitle().color,
+										color: '#fff',
+										marginLeft: '10px',
+										marginTop: '10px',
+										width: '20px',
+										height: '20px',
+									}}
+									// icon={<WorkIcon />}
+								>
+									<div className={styles.timeline_info}>
+										<p>{setMarkColorAndTitle().title}</p>
+										<p>{moment(date).format('DD.MM.YYYY HH:mm')}</p>
+									</div>
+									<p style={{ fontWeight: 400 }}>{value}</p>
+								</VerticalTimelineElement>
+							</VerticalTimeline>
+						);
+					})}
 			</div>
 			<div className={styles.raport}>
 				{task.timeEnd !== '0000-00-00 00:00:00' || task.deffect_completed !== '0000-00-00 00:00:00' ? (

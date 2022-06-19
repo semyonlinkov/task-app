@@ -1,10 +1,19 @@
 .wrapper {
-	.path {
-		padding: 15px 15px 0 15px;
-	}
-	
-	.processTracker {
-		margin: 20px 20px;
+	.timeline_root {
+		padding: 8px 0;
+
+		p {
+			margin: 0;
+			font-size: 14px;
+		}
+
+		.timeline_info {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.timeline_date {
+			display: none;
+		}
 	}
 }
-

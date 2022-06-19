@@ -46,6 +46,7 @@ export const $taskStatus = combine(
 				];
 				return defectFirstData.filter(task => (task.customerID === user.ID || task.so_customerID === user.ID) && task.status !== 'Выполнено');
 			}
+			
 			if (toggle === 'takenTasks') {
 				if (dataFilter === 'Новая') {
 					return data.filter(task => task.status === 'Новая').filter(task => task.customerID !== user.ID && task.completed !== '1');
