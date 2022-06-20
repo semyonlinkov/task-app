@@ -43,12 +43,13 @@ const searchFilter = (data, searchArr) => {
 	}
 
 	return data.filter(el => {
-		const valuesArr = Object.values(el);
+		const valuesArr = Object.values(el).map(el => el.toLowerCase());
+
 		let include = false;
 
 		for (let r = 0; r < searchArr.length; r++) {
 			for (let i = 0; i < valuesArr.length; i++) {
-				if (valuesArr[i].includes(searchArr[r])) {
+				if (valuesArr[i].includes(searchArr[r].toLowerCase())) {
 					if (searchArr[r] === searchArr.at(-1)) {
 						include = true;
 						break;
