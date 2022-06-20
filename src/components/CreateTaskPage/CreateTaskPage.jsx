@@ -80,7 +80,7 @@ const CreateTaskPage = () => {
 	// console.log(getValues());
 	// console.log('render');
 	// console.log(workers);
-	console.log(user);
+	// console.log(user);
 
 	return (
 		<>

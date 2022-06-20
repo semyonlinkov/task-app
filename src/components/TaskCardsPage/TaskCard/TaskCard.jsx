@@ -37,8 +37,6 @@ export const TaskCard = ({ task }) => {
 				: [];
 		let type;
 
-		console.log(historyArr);
-
 		if (Array.isArray(historyArr[0])) {
 			const len = historyArr.length - 1;
 			const last = historyArr[len];

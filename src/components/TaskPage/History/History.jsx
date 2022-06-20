@@ -6,33 +6,66 @@ import 'react-vertical-timeline-component/style.min.css';
 import { $singleTask } from '../../../store/selectedTask';
 import Report from './Report/Report';
 import moment from 'moment';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const History = () => {
 	const task = useStore($singleTask);
+	const [historyArr, setHistoryArr] = useState([]);
 
-	console.log(task);
-	console.log(JSON.parse(task.historyJSON).flat());
+	useEffect(() => {
+		if (task.historyJSON) {
+			setHistoryArr(JSON.parse(task.historyJSON));
+		} else {
+			setHistoryArr([
+				{ type: 'view', date: '' },
+				{ type: 'start', date: '' },
+				{ type: 'finish', date: '' },
+			]);
+		}
+	}, []);
+
+	// console.log(task);
+	// console.log(historyArr);
+
+	// console.log(JSON.parse(task.historyJSON).flat());
 	// console.log(JSON.parse(task.historyJSON));
 
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.path}>
-				{JSON.parse(task.historyJSON)
-					.filter((arr) => Array.isArray(arr))
+				{historyArr
+					.filter((elArr, _, arr) => Array.isArray(elArr) || Array.isArray(arr))
 					.flat()
-					.filter((el, i, arr) => !(el.type === 'view' && arr[i + 1].type === 'view')) //* Удаляем дубли view
+					.filter((el, i, arr) => !(el?.type === 'view' && arr[i + 1]?.type === 'view')) //* Удаляем дубли view
 					.map(({ type, date, value }) => {
 						const setMarkColorAndTitle = () => {
 							if (type === 'deffect') {
 								return { title: 'Брак', color: 'Tomato' };
 							} else if (type === 'finish') {
-								return { title: 'Задача Завершена', color: 'LimeGreen' };
+								if (date) {
+									return { title: 'Задача Завершена', color: 'LimeGreen' };
+								} else {
+									return { title: 'Задача Завершена', color: 'gray' };
+								}
 							} else if (type === 'chat') {
 								return { title: 'Новое сообщение в чате', color: 'SkyBlue' };
 							} else if (type === 'start') {
-								return { title: 'Задача взята в работу', color: 'SkyBlue' };
+								if (date) {
+									return { title: 'Задача взята в работу', color: 'SkyBlue' };
+								} else {
+									return { title: 'Задача взята в работу', color: 'gray' };
+								}
 							} else if (type === 'view') {
-								return { title: 'Просмотрена', color: 'SkyBlue' };
+								if (date) {
+									return { title: 'Просмотрена', color: 'SkyBlue' };
+								} else {
+									return { title: 'Просмотрена', color: 'gray' };
+								}
+							} else if (type === 'comment') {
+								return { title: 'Добавлено примечание', color: 'SkyBlue' };
+							} else if (type === 'change') {
+								return { title: 'Передача задачи', color: 'SkyBlue' };
 							} else {
 								return { title: null, color: 'SkyBlue' };
 							}
@@ -62,7 +95,7 @@ const History = () => {
 								>
 									<div className={styles.timeline_info}>
 										<p>{setMarkColorAndTitle().title}</p>
-										<p>{moment(date).format('DD.MM.YYYY HH:mm')}</p>
+										{date ? <p>{moment(date).format('DD.MM.YYYY HH:mm')}</p> : null}
 									</div>
 									<p style={{ fontWeight: 400 }}>{value}</p>
 								</VerticalTimelineElement>
