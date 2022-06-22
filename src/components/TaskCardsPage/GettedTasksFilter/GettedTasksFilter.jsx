@@ -1,7 +1,11 @@
+import { useStore } from 'effector-react';
 import React from 'react';
+import { $gettedTasksType, setGettedTasksType } from '../../../store/tasks';
 import styles from './GettedTasksFilter.module.scss';
 
-const GettedTasksFilter = ({ setGettedTasksType, gettedTasksType }) => {
+const GettedTasksFilter = () => {
+	const gettedTasksType = useStore($gettedTasksType);
+
 	return (
 		<ul className={styles.wrapper}>
 			<li

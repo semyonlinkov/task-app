@@ -27,8 +27,6 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
-	// console.log(task.historyJSON);
-
 	const getHistory = () => {
 		const historyArr =
 			task.historyJSON &&
@@ -87,6 +85,8 @@ export const TaskCard = ({ task }) => {
 		}
 	};
 
+	// console.log(task);
+
 	return (
 		<div className={`${styles.wrapper} `} onClick={() => navigate(`/tasks/${task.id}`)}>
 			<div className={`${styles.indication_mark} ${putStatusMark()}`}></div>
@@ -100,14 +100,14 @@ export const TaskCard = ({ task }) => {
 
 				<div className={styles.flex_div}>
 					<div>
-						{task.object_address && (
-							<p>
-								<span>Адресс:</span> {task.object_address}
-							</p>
-						)}
 						{task.object_name && (
 							<p>
 								<span>Название:</span> {task.object_name}
+							</p>
+						)}
+						{task.object_address && (
+							<p>
+								<span>Адресс:</span> {task.object_address}
 							</p>
 						)}
 					</div>
@@ -118,6 +118,12 @@ export const TaskCard = ({ task }) => {
 						</div>
 					)}
 				</div>
+
+				{task.client_phone || task.clinet_name ? (
+					<p>
+						<span>Данные клиента:</span> {task.client_phone} - {task.clinet_name}
+					</p>
+				) : null}
 
 				{task.desc && (
 					<p className={styles.desc}>
@@ -145,6 +151,11 @@ export const TaskCard = ({ task }) => {
 					</p>
 				)}
 
+				<p>
+					<span>Исполнитель: </span>
+					{getNormalName(task?.customer)}
+				</p>
+
 				{task.so_customer && (
 					<p>
 						<span style={{ fontWeight: 500, color: '#c95368' }}>Задача передана от: </span>
@@ -154,11 +165,6 @@ export const TaskCard = ({ task }) => {
 					</p>
 				)}
 
-				{task.client_phone || task.clinet_name ? (
-					<p>
-						<span>Данные клиента:</span> {task.client_phone} - {task.clinet_name}
-					</p>
-				) : null}
 				{task.date_deadline !== '0000-00-00 00:00:00' && (
 					<p>
 						<span>Выполнить до:</span> {moment(task.date_deadline).format('DD.MM.YYYY')}

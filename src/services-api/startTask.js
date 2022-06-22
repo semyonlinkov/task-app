@@ -1,8 +1,8 @@
 import { $linkServer } from "../$config";
 import { mutateTask } from "../store/selectedTask";
 
-export const startTask = (id) => {
-	fetch(`${$linkServer}/startTask.php?id=${id}`)
+export const startTask = ({ taskID, userID, userName }) => {
+	fetch(`${$linkServer}/startTask.php?id=${taskID}&userID=${userID}&userName=${userName}`)
 		.then(res => res.json())
 		.then(res => {
 			if (res) {

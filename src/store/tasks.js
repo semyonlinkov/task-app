@@ -3,8 +3,8 @@ import { $toggleValue } from './taskToggleState';
 import { $user } from './user';
 
 
-export const getTasks = createEffect(async (id) => {
-	const url = `getTasks.php/?id=${id}`;
+export const getTasks = createEffect(async ({ id, department }) => {
+	const url = `getTasks.php/?id=${id}&department=${department}`;
 
 	const base = 'https://volga24bot.com/tasks';
 	const req = await fetch(`${base}/${url}`);
@@ -28,6 +28,13 @@ export const $dataFilter = createStore('Все').on(
 			return data;
 		}
 	}
+)
+
+export const setGettedTasksType = createEvent();
+
+export const $gettedTasksType = createStore('personal').on(
+	setGettedTasksType,
+	(_, data) => data
 )
 
 export const setTasksSearch = createEvent();
@@ -63,9 +70,10 @@ const searchFilter = (data, searchArr) => {
 }
 
 export const $taskStatus = combine(
-	$tasks, getTasks.pending, $toggleValue, $user, $dataFilter, $searchTasks,
-	(rawData, isLoading, toggle, user, dataFilter, searchTasks) => {
+	$tasks, getTasks.pending, $toggleValue, $user, $dataFilter, $searchTasks, $gettedTasksType,
+	(rawData, isLoading, toggle, user, dataFilter, searchTasks, taskType) => {
 		let data = searchFilter(rawData, searchTasks.split(' '));
+
 
 		if (isLoading) {
 			return []
@@ -76,8 +84,14 @@ export const $taskStatus = combine(
 					...[...data].filter(task => task.status === 'Брак'),
 					...[...data].filter(task => task.status !== 'Брак')
 				];
-				return defectFirstData.filter(task => (task.customerID === user.ID || task.so_customerID === user.ID) && task.status !== 'Выполнено');
+
+				if (taskType === 'personal') {
+					return defectFirstData.filter(task => (task.customerID === user.ID || task.so_customerID === user.ID) && task.status !== 'Выполнено');
+				} else if (taskType === 'common') {
+					return defectFirstData.filter(task => task.department === user.DEPARTMENT[0]);
+				}
 			}
+
 
 			if (toggle === 'takenTasks') {
 				if (dataFilter === 'Новая') {

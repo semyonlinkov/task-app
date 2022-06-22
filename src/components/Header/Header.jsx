@@ -37,7 +37,7 @@ const Header = () => {
 					<input
 						value={searchTasks}
 						type="text"
-						placeholder="Поиск.."
+						placeholder="Поиск по задачам.."
 						onChange={(e) => {
 							setTasksSearch(e.target.value);
 						}}

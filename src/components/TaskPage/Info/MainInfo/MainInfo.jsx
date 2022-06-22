@@ -45,6 +45,8 @@ const MainData = () => {
 	};
 
 	// console.log(task);
+	// console.log(user);
+	// console.log(task.customer);
 
 	return (
 		<div className={styles.wrapper}>
@@ -75,8 +77,18 @@ const MainData = () => {
 			)}
 
 			<p>
-				<span>Постановщик:</span> {task.creatorName}
+				<span>Постановщик:</span> {task?.creatorName}
 			</p>
+
+			<p>
+				<span>Исполнитель:</span> {task?.customer}
+			</p>
+
+			{task.so_customer && (
+				<p>
+					<span>Соисполнитель:</span> {task?.so_customer}
+				</p>
+			)}
 
 			{task.clinet_name && (
 				<div className={styles.info_blocks}>
@@ -107,12 +119,17 @@ const MainData = () => {
 			)}
 
 			<div className={styles.btns_group}>
-				{(user.ID === task.customerID || task.so_customerID === user.ID) && task.status === 'Новая' ? (
+				{/* {(user.ID === task.customerID || task.so_customerID === user.ID ) && task.status === 'Новая' ? ( */}
+				{user.DEPARTMENT[0] === task.department && task.status === 'Новая' ? (
 					<button
 						className={`${styles.start_btn} ${styles.btn}`}
 						onClick={() => {
 							setHistory(task.id, 'start', '', `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`);
-							startTask(task.id);
+							startTask({
+								taskID: task.id,
+								userID: user.ID,
+								userName: `${user.LAST_NAME} ${user.NAME} ${user.SECOND_NAME}`,
+							});
 						}}>
 						Взять в работу
 					</button>

@@ -17,13 +17,18 @@ const TaskPageFooter = () => {
 	const user = useStore($user);
 	const task = useStore($singleTask);
 
+	console.log(task);
+
 	return (
 		task.customerID !== user.ID &&
 		task.so_customerID !== user.ID && (
 			<ul className={styles.wrapper}>
-				<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
-					<img src={ImgDelete} alt="trash" />
-				</li>
+				{user.ID === task.creatorID && (
+					<li onClick={() => deleteTask(task.id, () => navigate('/'))}>
+						<img src={ImgDelete} alt="trash" />
+					</li>
+				)}
+
 				{task.status !== 'Брак' && task.creatorID === user.ID && (
 					<>
 						<li onClick={() => deffectTask(task, user)}>
