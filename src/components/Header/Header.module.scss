@@ -2,37 +2,47 @@
 	position: sticky;
 	display: flex;
 	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: space-between;
 	height: 50px;
 	padding: 0 10px 0 0;
-
 	background-color: white;
-	align-items: center;
 	border-bottom: 1px solid var(--border-color);
-	justify-content: space-between;
 
 	.toggle_switch {
 		display: flex;
-		justify-content: flex-start;
 		align-items: center;
 		text-align: center;
 		overflow: hidden;
-		input {
-			flex: 1;
-			margin: 0 0 0 10px;
-			padding: 6px 5px;
-			width: 100%;
-			border: 1px solid gray;
-		}
-		button {
-			text-align: center;
-			width: 30px;
-			height: 29px;
-			margin-right: 10px;
-			margin-left: -1px;
-			background: white;
-			border: 1px solid gray;
-			&:hover {
-				background: rgb(201, 201, 201);
+
+		.search {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			// .search_icon {
+			// 	width: 16px;
+			// 	height: 16px;
+			// 	margin-left: 5px;
+			// }
+
+			input {
+				height: 30px;
+				margin: 0 0 0 5px;
+				padding: 6px 5px 4px 5px;
+				border: 1px solid gray;
+				border-right: 0;
+				width: 70%;
+				min-width: 50px;
+			}
+
+			.close_icon {
+				width: 30px;
+				height: 30px;
+				padding: 8px;
+				border: 1px solid gray;
+				border-left: 0;
+				margin-right: 5px;
 			}
 		}
 	}

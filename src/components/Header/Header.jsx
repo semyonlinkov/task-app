@@ -5,6 +5,8 @@ import { $toggleValue } from '../../store/taskToggleState';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AddImg from '../../img/add64.png';
 import CloseImg from '../../img/closeRed64.png';
+import SearchIMG from '../../img/search16.png';
+import Close16IMG from '../../img/close16.png';
 import { $singleTask } from '../../store/selectedTask';
 import { $searchTasks, setTasksSearch } from '../../store/tasks';
 
@@ -34,20 +36,24 @@ const Header = () => {
 				<div className={styles.toggle_switch}>
 					<ToggleSwitch />
 					<p className={styles.title_weight}>{toggleValue === 'gettedTasks' ? 'Мне' : 'Мои'}</p>
-					<input
-						value={searchTasks}
-						type="text"
-						placeholder="Поиск по задачам.."
-						onChange={(e) => {
-							setTasksSearch(e.target.value);
-						}}
-					/>
-					<button
-						onClick={() => {
-							setTasksSearch('');
-						}}>
-						x
-					</button>
+					<div className={styles.search}>
+						{/* <img className={styles.search_icon} src={SearchIMG} alt="search" /> */}
+						<input
+							value={searchTasks}
+							type="text"
+							placeholder="Поиск по задачам.."
+							onChange={(e) => {
+								setTasksSearch(e.target.value);
+							}}
+						/>
+						<img
+							className={styles.close_icon}
+							src={Close16IMG}
+							onClick={() => {
+								setTasksSearch('');
+							}}
+						/>
+					</div>
 				</div>
 			) : null}
 		</div>

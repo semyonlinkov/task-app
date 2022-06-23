@@ -37,9 +37,9 @@ function App() {
 			)
 		} else {
 			// setUser({ ID: "3353", NAME: 'Семён', LAST_NAME: 'Линьков', SECOND_NAME: 'Эдуардович', DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
-			setUser({ ID: "3503", NAME: 'Наим', LAST_NAME: 'Шабутдинов', SECOND_NAME: '', DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
+			// setUser({ ID: "3503", NAME: 'Наим', LAST_NAME: 'Шабутдинов', SECOND_NAME: '', DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
 			// setUser({ ID: "211", NAME: 'Евгений', LAST_NAME: 'Страхов', SECOND_NAME: 'Александрович', DEPARTMENT: ['Инженерный'], UF_DEPARTMENT: [15] });
-			// setUser({ ID: "257", NAME: 'Ксения', LAST_NAME: 'Лукова', SECOND_NAME: 'Евгеньевна', DEPARTMENT: ['Маркетинг'], UF_DEPARTMENT: [7] });
+			setUser({ ID: "257", NAME: 'Ксения', LAST_NAME: 'Лукова', SECOND_NAME: 'Евгеньевна', DEPARTMENT: ['Маркетинг'], UF_DEPARTMENT: [7] });
 			// setUser({ ID: "1", NAME: 'Фёдор', LAST_NAME: 'Клочков', SECOND_NAME: 'Викторович' });
 			// setUser({ ID: "87", NAME: 'Кисилев', LAST_NAME: 'Кирилл', SECOND_NAME: 'Владимирович' });
 			// setUser({ ID: "59", NAME: 'Ратиева', LAST_NAME: 'Евгения', SECOND_NAME: 'Васильевна' });
