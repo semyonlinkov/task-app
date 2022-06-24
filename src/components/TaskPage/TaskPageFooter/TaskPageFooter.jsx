@@ -17,7 +17,7 @@ const TaskPageFooter = () => {
 	const user = useStore($user);
 	const task = useStore($singleTask);
 
-	console.log(task);
+	// console.log(task);
 
 	return (
 		task.customerID !== user.ID &&

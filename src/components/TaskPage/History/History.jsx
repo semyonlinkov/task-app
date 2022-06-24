@@ -14,8 +14,19 @@ const History = () => {
 	const [historyArr, setHistoryArr] = useState([]);
 
 	useEffect(() => {
+		const history = [];
+		Object.entries(task).forEach((el) => {
+			if (el[0] === 'readed' && el[1] !== '0000-00-00 00:00:00') {
+				history.push({ type: 'view', date: el[1] });
+			} else {
+				history.push({ type: 'view', date: '' });
+			}
+		});
+
 		if (task.historyJSON) {
-			setHistoryArr(JSON.parse(task.historyJSON));
+			setHistoryArr((prev) => {
+				return JSON.parse(task.historyJSON);
+			});
 		} else {
 			setHistoryArr([
 				{ type: 'view', date: '' },
@@ -25,7 +36,7 @@ const History = () => {
 		}
 	}, []);
 
-	// console.log(task);
+	console.log(task);
 	// console.log(historyArr);
 
 	// console.log(JSON.parse(task.historyJSON).flat());
