@@ -15,28 +15,41 @@ const History = () => {
 
 	useEffect(() => {
 		const history = [];
-		Object.entries(task).forEach((el) => {
-			if (el[0] === 'readed' && el[1] !== '0000-00-00 00:00:00') {
-				history.push({ type: 'view', date: el[1] });
-			} else {
-				history.push({ type: 'view', date: '' });
-			}
-		});
+
+		if (task?.readed && task?.readed !== '0000-00-00 00:00:00') {
+			// history.push({ type: 'view', date: task.readed });
+		} else {
+			history.push({ type: 'view', date: '' });
+		}
+
+		if (task?.timeStart && task?.timeStart !== '0000-00-00 00:00:00') {
+			// history.push({ type: 'start', date: task.timeStart });
+		} else {
+			history.push({ type: 'start', date: '' });
+		}
+
+		if (task?.historyJSON) {
+			history.push(JSON.parse(task.historyJSON).flat());
+		}
+
+		if (task?.timeEnd && task?.timeEnd !== '0000-00-00 00:00:00') {
+			// history.push({ type: 'finish', date: task.timeEnd });
+		} else {
+			history.push({ type: 'finish', date: '' });
+		}
 
 		if (task.historyJSON) {
 			setHistoryArr((prev) => {
-				return JSON.parse(task.historyJSON);
+				return history;
 			});
 		} else {
-			setHistoryArr([
-				{ type: 'view', date: '' },
-				{ type: 'start', date: '' },
-				{ type: 'finish', date: '' },
-			]);
+			setHistoryArr(history);
 		}
 	}, []);
 
-	console.log(task);
+	// console.log(historyArr);
+
+	// console.log(task);
 	// console.log(historyArr);
 
 	// console.log(JSON.parse(task.historyJSON).flat());

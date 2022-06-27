@@ -44,8 +44,8 @@ const MainData = () => {
 		}
 	};
 
-	console.log(task);
-	console.log(user);
+	// console.log(task);
+	// console.log(user);
 	// console.log(task.customer);
 
 	return (
